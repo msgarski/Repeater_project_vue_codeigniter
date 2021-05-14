@@ -23,7 +23,10 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'http://repeater.localhost/';
+	//public $baseURL = 'http://repeater.localhost/';
+	public $baseURL = 'http://localhost:8080';
+	
+
 
 	/**
 	 * --------------------------------------------------------------------------

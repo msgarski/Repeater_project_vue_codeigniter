@@ -5,7 +5,7 @@
 <?= $this->section("content") ?>
 
 
-<h1>Witaj w programie REPEATER</h1>
+<h1>Witaj w programie REPEATER II</h1>
 
 <?php if(current_user()): ?>
 

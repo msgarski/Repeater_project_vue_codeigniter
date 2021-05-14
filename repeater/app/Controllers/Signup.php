@@ -12,7 +12,7 @@ class Signup extends BaseController
     public function create()
     {
         $user = new \App\Entities\UserEntity($this->request->getPost());
-
+        dd($this->request->getPost());
         //dd($user);
 
         $model = service('userModel');

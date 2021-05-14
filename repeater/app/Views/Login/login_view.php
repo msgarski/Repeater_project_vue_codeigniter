@@ -4,7 +4,7 @@
 
 <?= $this->section('content') ?>
 
-<h1>Logowanie</h1>
+<h1>Logowanie II</h1>
 
 <?= form_open("/login/entering") ?>
 
