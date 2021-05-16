@@ -5,44 +5,59 @@ namespace App\Controllers\RestApi;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\ProductModel;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
+use function PHPUnit\Framework\isJson;
 
-class Signup extends \CodeIgniter\Controller
+class Signup extends ResourceController
 {
     use ResponseTrait;
 
 
     public function create()
     {
-        $data = $this->request->getPost();
-        return $this->respond($data, 200);
-        // albo:
-        //return$this->respondCreated('udalo', 201);
-
-        // musi  otrzymać 4 dane w tablicy asocjacyjnej:
-        //dd('funkcja wywołana prawidłowo!!!');
-        // $user = new \App\Entities\UserEntity($this->request->getPost());
-
-        // //dd($user);
-
-        // $model = service('userModel');
-
-        // $user->activationByCode();
-
-        // if ($model->insert($user)) {
-
-        //     $this->sendActivationEmail($user);
+        $http = $this->request->getJSON();
+        //$data = $this->request->getRawInput();
+        //return $this->respond($http->email, 200);
+            // $tt = json_decode($data);
+            // $check = json_last_error();
+         $data = [
+            'name' => $http->name,
+            'email' => $http->email,
+            'password' => $http->password,
+            'password_confirmation' => $http->password_confirmation
+         ];
+        //print_r($data);
+        //var_dump($data);
+        //d($data);
+        //echo($data);
+        return $this->respond(var_dump($data), 200);
+        //return$this->respond(var_dump($data), 201);
+        //return $this->respond($data->email, 200);
+        $user = new \App\Entities\UserEntity($data);
+        //return $this->respond($user, 200);
+        //echo $data;
+        //dd($user);
         
-        //     return redirect()->to("/signup/success");
-            
-        // } 
-        // else 
-        // {
-        //     return redirect()->back()
-        //                      ->with('errors', $model->errors())
-        //                      ->with('warning', 'Nieprawidłowe dane')
-        //                      ->withInput();
-        // }
+        $model = service('userModel');
+
+        $user->activationByCode();
+
+        if ($model->insert($user)) {
+
+            $this->sendActivationEmail($user);
+        
+            //return redirect()->to("/signup/success");
+            return $this->respond('udalo sieeeee', 200);
+        } 
+        else 
+        {
+            // return redirect()->back()
+            //                  ->with('errors', $model->errors())
+            //                  ->with('warning', 'Nieprawidłowe dane')
+            //                  ->withInput();
+            return $this->respond("ERRORRRRRRR", 400);
+        }
     }
 
     public function success()

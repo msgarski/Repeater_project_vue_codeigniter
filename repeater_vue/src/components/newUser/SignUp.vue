@@ -9,7 +9,7 @@
 
 <div>
     <label for="email">Adres e-mail</label>
-    <input type="text" name="email" id="email" v-model.trim="email">
+    <input type="email" name="email" id="email" v-model="email">
 </div>
 
 <div>
@@ -70,14 +70,14 @@ export default {
                 password_confirmation: this.passwordConfirmation
             }
 
-            
-            //axios.post("http://repeater.localhost/restapi/signup/create", pack)
             http.post("/signup/create", pack)
+            //.then(transformResponse: (r) => r)
             .then(response => { console.log(response.data )})
             .catch(error => {
                 this.errorMessage = error.message;
-                console.error("There was an error!", error);
+                console.error("coś poszło nie tak...", error);
             });
+           // console.log(r)
         }
 
         

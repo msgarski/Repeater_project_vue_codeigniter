@@ -13,7 +13,7 @@ export const http = axios.create({
 })
 
 
-//export default http
-//module.exports = ht
-//Vue.prototype.$ht = ht
+
+//Vue.prototype.$http = http
+//export { http }
 
