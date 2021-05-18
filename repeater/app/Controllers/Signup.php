@@ -15,6 +15,7 @@ class Signup extends BaseController
         dd($this->request->getPost());
         //dd($user);
 
+        
         $model = service('userModel');
 
         $user->activationByCode();

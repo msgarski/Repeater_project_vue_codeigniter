@@ -1,19 +1,13 @@
-
-
-
-//import Vue from "vue"
+//import * as Vue from 'vue'
 import axios from 'axios'
 
-export const http = axios.create({
+const http = axios.create({
     baseURL: "http://localhost:8080/restapi",
     headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "X-Requested-With": "XMLHttpRequest"
     }
 })
-
-
-
 //Vue.prototype.$http = http
-//export { http }
+export default http;
 

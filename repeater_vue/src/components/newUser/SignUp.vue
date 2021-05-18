@@ -38,7 +38,7 @@
 <script>
 
 //import axios from "axios"
-import { http } from '../../plugins/axios.js'
+import http from '../../plugins/axios.js'
 
 export default {
     name: 'SignUp',
@@ -69,15 +69,13 @@ export default {
                 password: this.password,
                 password_confirmation: this.passwordConfirmation
             }
-
+            console.log(pack)
             http.post("/signup/create", pack)
-            //.then(transformResponse: (r) => r)
-            .then(response => { console.log(response.data )})
-            .catch(error => {
-                this.errorMessage = error.message;
-                console.error("coś poszło nie tak...", error);
-            });
-           // console.log(r)
+                .then(response => { console.log(response.data )})
+                .catch(error => {
+                    this.errorMessage = error.message;
+                    console.error("coś poszło nie tak...", error);
+                });
         }
 
         

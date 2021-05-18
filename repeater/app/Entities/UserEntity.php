@@ -24,6 +24,7 @@ class UserEntity extends \CodeIgniter\Entity
         //$this->activation_hash = null;
     }
 
+    
     public function resetPassword()
     {
         $token = new Token;

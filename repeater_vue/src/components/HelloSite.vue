@@ -1,6 +1,5 @@
 <template>
     <h1>Witaj w programie REPEATER: {{info()}}</h1>
-    <!-- <router-view></router-view> -->
     <div>
         <router-link to="/signin">Logowanie</router-link>
     </div>

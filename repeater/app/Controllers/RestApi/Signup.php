@@ -6,38 +6,33 @@ use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\ProductModel;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
-
 use function PHPUnit\Framework\isJson;
 
 class Signup extends ResourceController
 {
     use ResponseTrait;
 
-
     public function create()
     {
+        /*
+        *   Method is ready for succesfully creating new user
+        *
+        */
         $http = $this->request->getJSON();
-        //$data = $this->request->getRawInput();
+
+        $data = [
+                    'name' => $http->name,
+                    'email' => $http->email,
+                    'password' => $http->password,
+                    'password_confirmation' => $http->password_confirmation
+                ];
         //return $this->respond($http->email, 200);
-            // $tt = json_decode($data);
-            // $check = json_last_error();
-         $data = [
-            'name' => $http->name,
-            'email' => $http->email,
-            'password' => $http->password,
-            'password_confirmation' => $http->password_confirmation
-         ];
-        //print_r($data);
-        //var_dump($data);
-        //d($data);
-        //echo($data);
-        return $this->respond(var_dump($data), 200);
-        //return$this->respond(var_dump($data), 201);
-        //return $this->respond($data->email, 200);
+            
+        //return $this->respond($data, 222);
+
+        
+        
         $user = new \App\Entities\UserEntity($data);
-        //return $this->respond($user, 200);
-        //echo $data;
-        //dd($user);
         
         $model = service('userModel');
 
@@ -56,12 +51,13 @@ class Signup extends ResourceController
             //                  ->with('errors', $model->errors())
             //                  ->with('warning', 'Nieprawidłowe dane')
             //                  ->withInput();
-            return $this->respond("ERRORRRRRRR", 400);
+            return $this->respond("ERRORRRRRRR tworzenia usera", 400);
         }
     }
 
     public function success()
     {
+        //todo ta funkcja niepotrzebna w vue...
 		return view('Signup/success_view');
     }
 
@@ -82,7 +78,7 @@ class Signup extends ResourceController
 
 		$email->setFrom('garski@wp.pl');
 
-		$email->setSubject('Aktywacja konta');
+		$email->setSubject('Aktywacja konta w programie Repeater');
 
         $message = view('Signup/activation_email_view', [
                     'token'     =>      $user->token

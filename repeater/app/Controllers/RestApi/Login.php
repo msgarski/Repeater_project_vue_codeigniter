@@ -2,26 +2,33 @@
 
 namespace App\Controllers\RestApi;
 
-class Login
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Models\ProductModel;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
+
+class Login extends ResourceController
 {
+    use ResponseTrait;
+
     public function entering()
     {
-        $email = $this->request->getPost('email');
+        $http = $this->request->getJSON();
 
-        $password = $this->request->getPost('password');
+        $email = $http->email;
+
+        $password = $http->password;
 
         $authentic = service('authentication');
         
         if($authentic->loginAuthentication($email, $password))
         {
-            return redirect()->to('/login/success')
-                            ->with('info', 'Logowanie udane');
+            return $this->respond('Logowanie udane', 200);
         }
         else
         {
-            return redirect()->back()
-                            ->withInput()
-                            ->with('warning', "Nieprawidłowy login lub hasło");
+            return $this->respond('Nieprawidlowe dane logowania', 200);
         }   
     }
 

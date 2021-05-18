@@ -32,11 +32,13 @@ class Login extends BaseController
 
     public function success()
     {
+        // todo ta funkcja niepotrzebna bo nie ma widoków w vue....
         return view('Porch/porch_view');
     }
 
     public function exiting()
     {
+        //todo ta funkcja będzie niepotrzebna bo wylogowanie będzie inne...
         $authentic = service('authentication');
 
         $authentic->logout();

@@ -22,7 +22,7 @@ class Authentication
             {
                 return false;
             }
-
+//todo sesja do usunięcia:
             // ustanowienie sesji:
             $session = session();
             $session->regenerate();

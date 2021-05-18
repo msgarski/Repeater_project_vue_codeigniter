@@ -70,6 +70,24 @@ class UsersTableModel extends \CodeIgniter\Model
 
         $token_hash = $token->getHashValue();
 
+        // var_dump($token_hash);
+        // exit;
+
+        $user = $this->where('activation_hash', $token_hash)
+                    ->first();
+        
+        return $user;
+    }
+
+    public function findUserByTokenForReset($token)
+    {
+        $token = new Token($token);
+
+        $token_hash = $token->getHashValue();
+
+        // var_dump($token_hash);
+        // exit;
+
         $user = $this->where('reset_hash', $token_hash)
                     ->first();
         
@@ -80,7 +98,8 @@ class UsersTableModel extends \CodeIgniter\Model
     {
         // todo: poniższa konsolidacja do sprawdzenia:
         $user = $this->findUserByToken($token);
-
+        var_dump($user);
+        exit;
         if($user !== null)
         {
             $user->activateUser();
