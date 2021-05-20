@@ -1,7 +1,7 @@
 <template>
     <h1>Logowanie</h1>
 
-    <form @click.prevent="authorization">
+    <form @submit.prevent="authorization">
         <div>
             <label for="email" >email</label>
             <input type="email" name="email" id="email" v-model="email">
@@ -56,19 +56,21 @@ export default {
             console.log('pack:', pack)
             http.post("/login/entering", pack)
             .then(response => {
-                this.email = ""
+                
+                console.log('Pierwsze wywołanie: ',  this.$store.getters.logInState)
+                this.email = "garski@wp.pl"
                 this.password = ""
-                this.token = response.data.access_taken
-                this.expires_in = response.data.expires_token * 1000
-                const now = new Date()
-                const expireDate = new Date(now.getTime() + this.expires_in)
+                this.token = response.data.token
+                //this.expires_in = response.data.expires_in * 1000
+                //const now = new Date()
+                //const expireDate = new Date(now.getTime() + this.expires_in)
                 localStorage.setItem('token', this.token)
-                localStorage.setItem('expires', expireDate)
-
-                //Store dispatch:
-                this.$store.dispatch('login', this.expires_in);
+                this.$store.dispatch('setUserId', response.data.userId);
+                this.$store.dispatch('login');
+                console.log('drugie wywołanie: ', this.$store.getters.logInState)
+                console.log('userId: ', this.$store.getters.getUserId)
+                this.$router.push('/porch')
             })
-                //.then(response => { console.log(response.data )})
                 .catch(error => {
                     this.errorMessage = error.message;
                     console.error("coś poszło nie tak...", error);

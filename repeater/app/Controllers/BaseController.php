@@ -8,6 +8,9 @@ use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\IncomingRequest;
 use Psr\Log\LoggerInterface;
 
+use CodeIgniter\Validation\Exceptions\ValidationException;
+use Config\Services;
+
 /**
  * Class BaseController
  *
@@ -28,6 +31,7 @@ class BaseController extends Controller
 	 *
 	 * @var array
 	 */
+	//todo może tu dodać helper JWT???
 	protected $helpers = ["form", "curruser"];
 
 	/**
@@ -47,22 +51,69 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
 	}
+	//------------------------------------------------------------------------
+	//method for prepparing http response for frontend
+	//------------------------------------------------------------------------
+	// public function getResponse(array $responseBody,
+    //                         int $code = ResponseInterface::HTTP_OK)
+	// {
+	// 	return $this
+	// 		->response
+	// 		->setStatusCode($code)
+	// 		->setJSON($responseBody);
+	// }
 
-	public function getResponse(array $responseBody,
-                            int $code = ResponseInterface::HTTP_OK)
+	// public function prepareResponse(array $responseBody,
+    //                         int $code = ResponseInterface::HTTP_OK)
+	// {
+	// 	// var_dump('w bazie:');
+    //     // exit;
+	// 	return $this
+	// 		->response
+	// 		->setStatusCode($code)
+	// 		->setJSON($responseBody);
+	// }
+
+	//------------------------------------------------------------------------
+	//method for receiving http request from frontend
+	//------------------------------------------------------------------------
+	public function getRequestInput(IncomingRequest $request)
 	{
-		return $this
-			->response
-			->setStatusCode($code)
-			->setJSON($responseBody);
-	}
+		//! może lepiej getJSON()???
+		// Działają obie metody
+		//$input = $request->getPost();
+		$input = $request->getJSON();
 
-	public function getRequestInput(IncomingRequest $request){
-		$input = $request->getPost();
 		if (empty($input)) {
-			//convert request body to associative array
+			//convert request body to an associative array
 			$input = json_decode($request->getBody(), true);
 		}
 		return $input;
 	}
+
+	// public function validateRequest($input, array $rules, array $messages =[]){
+	// 	//!
+	// 	$this->validator = Services::Validation()->setRules($rules);
+	// 	// If you replace the $rules array with the name of the group
+	// 	if (is_string($rules))
+	// 	{
+	// 		$validation = config('Validation');
+	
+	// 		// If the rule wasn't found in the \Config\Validation, we
+	// 		// should throw an exception so the developer can find it.
+	// 		if (!isset($validation->$rules))
+	// 		{
+	// 			throw ValidationException::forRuleNotFound($rules);
+	// 		}
+	
+	// 		// If no error message is defined, use the error message in the Config\Validation file
+	// 		if (!$messages) {
+	// 			$errorName = $rules . '_errors';
+	// 			$messages = $validation->$errorName ?? [];
+	// 		}
+	
+	// 		$rules = $validation->$rules;
+	// 	}
+	// 	return $this->validator->setRules($rules, $messages)->run($input);
+	// }
 }

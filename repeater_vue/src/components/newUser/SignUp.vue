@@ -37,7 +37,6 @@
 
 <script>
 
-//import axios from "axios"
 import http from '../../plugins/axios.js'
 
 export default {

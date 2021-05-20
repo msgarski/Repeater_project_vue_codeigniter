@@ -3,9 +3,9 @@
 namespace App\Filters;
 
 use CodeIgniter\API\ResponseTrait;
-use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Filters\FilterInterface;
 use Config\Services;
 use Exception;
 
@@ -15,10 +15,12 @@ class JWTAuthenticationFilter implements FilterInterface
 
     public function before(RequestInterface $request, $arguments = null)
     {
-        $authenticationHeader = $request->getServer('HTTP_AUTHORIZATION');
+        
+        $authenticationHeader = $request->getServer('HTTP_AUTHORIZATION');//! a moje to mają???
+        var_dump('nagłówek wiadomości:', $authenticationHeader);
+        exit;
 
         try {
-
             helper('jwt');
             $encodedToken = getJWTFromRequest($authenticationHeader);
             validateJWTFromRequest($encodedToken);

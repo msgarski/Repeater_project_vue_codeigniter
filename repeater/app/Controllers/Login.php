@@ -1,44 +1,66 @@
 <?php
-
+//namespace App\Controllers\RestApi;
 namespace App\Controllers;
 
-class Login extends BaseController
+use App\Controllers\BaseController;
+
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Models\ProductModel;
+use Faker\Provider\Base;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
+
+class Login extends ResourceController
 {
-    public function index()
-    {
-        return view("Login/login_view");
-    }
+    use ResponseTrait;
 
     public function entering()
     {
-        $email = $this->request->getPost('email');
 
-        $password = $this->request->getPost('password');
+        helper('jwt_helper');
 
-        $authentic = service('authentication');
+        $http = $this->request->getJSON();
+
+        $email = $http->email;
+
+        $password = $http->password;
         
-        if($authentic->loginAuthentication($email, $password))
-        {
-            return redirect()->to('/login/success')
-                            ->with('info', 'Logowanie udane');
+        
+        $authentic = service('authentication');
+
+        $userData = $authentic->loginAuthentication($email, $password);
+
+        $userId = $userData[0];
+        $userEmail = $userData[1];
+        
+        
+        if($userId)
+        {   
+            $jwt = getSignedJWTForUser($userEmail);
+
+            $response = [
+                'token'    =>  $jwt,
+                'userId'    =>  $userId
+            ];
+            
+            return $this->respond($response, 200);
         }
         else
         {
-            return redirect()->back()
-                            ->withInput()
-                            ->with('warning', "Nieprawidłowy login lub hasło");
+            var_dump('NIE udalo sie zalogować');
+            exit;
+            return $this->respond('Nieprawidlowe dane logowania', 200);
         }   
     }
 
     public function success()
     {
-        // todo ta funkcja niepotrzebna bo nie ma widoków w vue....
         return view('Porch/porch_view');
     }
 
     public function exiting()
     {
-        //todo ta funkcja będzie niepotrzebna bo wylogowanie będzie inne...
         $authentic = service('authentication');
 
         $authentic->logout();

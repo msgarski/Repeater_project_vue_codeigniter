@@ -1,20 +1,46 @@
 <?php
 
+//namespace App\Controllers\RestApi;
 namespace App\Controllers;
 
-class Signup extends BaseController
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Controllers\BaseController;
+use App\Models\ProductModel;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
+
+class Signup extends ResourceController
 {
-    public function newUser()
-    {
-        return view("Signup/new_user_view");
-    }
+    use ResponseTrait;
 
     public function create()
     {
-        $user = new \App\Entities\UserEntity($this->request->getPost());
-        dd($this->request->getPost());
-        //dd($user);
 
+        var_dump('w tworzeniu usera');
+        exit;
+        /*
+        *   Method is ready for succesfully creating new user
+        *
+        */
+        // $probaKlasy = new BaseController();
+        // $probaKlasy->getResponse();
+        
+        $http = $this->request->getJSON();
+
+        $data = [
+                    'name' => $http->name,
+                    'email' => $http->email,
+                    'password' => $http->password,
+                    'password_confirmation' => $http->password_confirmation
+                ];
+        //return $this->respond($http->email, 200);
+            
+        //return $this->respond($data, 222);
+
+        
+        
+        $user = new \App\Entities\UserEntity($data);
         
         $model = service('userModel');
 
@@ -24,20 +50,22 @@ class Signup extends BaseController
 
             $this->sendActivationEmail($user);
         
-            return redirect()->to("/signup/success");
-            
+            //return redirect()->to("/signup/success");
+            return $this->respond('udalo sieeeee', 200);
         } 
         else 
         {
-            return redirect()->back()
-                             ->with('errors', $model->errors())
-                             ->with('warning', 'Nieprawidłowe dane')
-                             ->withInput();
+            // return redirect()->back()
+            //                  ->with('errors', $model->errors())
+            //                  ->with('warning', 'Nieprawidłowe dane')
+            //                  ->withInput();
+            return $this->respond("ERRORRRRRRR tworzenia usera", 400);
         }
     }
 
     public function success()
     {
+        //todo ta funkcja niepotrzebna w vue...
 		return view('Signup/success_view');
     }
 
@@ -58,7 +86,7 @@ class Signup extends BaseController
 
 		$email->setFrom('garski@wp.pl');
 
-		$email->setSubject('Aktywacja konta');
+		$email->setSubject('Aktywacja konta w programie Repeater');
 
         $message = view('Signup/activation_email_view', [
                     'token'     =>      $user->token

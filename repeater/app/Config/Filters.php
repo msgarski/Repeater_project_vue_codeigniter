@@ -6,6 +6,8 @@ use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
+use App\Filters\JWTAuthenticationFilter;
+
 
 class Filters extends BaseConfig
 {
@@ -16,11 +18,11 @@ class Filters extends BaseConfig
 	 * @var array
 	 */
 	public $aliases = [
-		'csrf'     => CSRF::class,
-		'toolbar'  => DebugToolbar::class,
-		'honeypot' => Honeypot::class,
-		'cors'     => \App\Filters\Cors::class,
-		'auth' => JWTAuthenticationFilter::class,
+		'csrf'     	=> CSRF::class,
+		'toolbar'  	=> DebugToolbar::class,
+		'honeypot' 	=> Honeypot::class,
+		'cors'     	=> \App\Filters\Cors::class,
+		'auth'		=> JWTAuthenticationFilter::class,
 	];
 
 	/**
@@ -31,12 +33,13 @@ class Filters extends BaseConfig
 	 */
 	public $globals = [
 		'before' => [
-			'cors'
+			'cors',
+			//'auth'
 			// 'honeypot',
 			// 'csrf',
 		],
 		'after'  => [
-			'toolbar',
+			//'toolbar',
 			// 'honeypot',
 		],
 	];
@@ -50,7 +53,9 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $methods = [];
+	public $methods = [
+		
+	];
 
 	/**
 	 * List of filter aliases that should run on any
@@ -67,8 +72,8 @@ class Filters extends BaseConfig
 		],
 		'auth' => [
 			'before' => [
-				'client/*',
-				'client'
+				'signup/*',
+				'signup'
 			],
 		]
 	];

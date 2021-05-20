@@ -29,8 +29,13 @@ class Authentication
             // ustawienie zmiennej sesyjnej 'user_id', żeby było łatwiej później do niej sięgać
             $session->set('user_id', $user->id);
         }
-
-        return true;
+        
+        $userData = [$user->id,
+                    $user->email
+                ];
+        //  var_dump($userData);
+        // exit;      
+        return $userData;
     }
 
     public function getCurrentUser()

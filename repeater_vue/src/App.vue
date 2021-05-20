@@ -1,14 +1,17 @@
 <template>
+    <hello-site></hello-site>
+
     <router-view></router-view>
 </template>
 
 <script>
-// import HelloSite from './components/HelloSite.vue'
-// export default {
-//   components: { HelloSite },
-//   name: 'App'
 
-// }
+import HelloSite from './components/HelloSite.vue'
+export default {
+  components: { HelloSite },
+  name: 'App'
+
+}
 </script>
 
 <style>

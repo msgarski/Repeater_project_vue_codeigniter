@@ -1,13 +1,24 @@
 <template>
-    <h1>Witaj w programie REPEATER: {{info()}}</h1>
+<div v-if="isLoggedIn">
     <div>
-        <router-link to="/signin">Logowanie</router-link>
+        <button @click="logout">Wyjście</button>
     </div>
-
+</div>
+<div v-else>
+    <h1>Witaj w programie REPEATER:</h1>
     <div>
-        <router-link to="/signup">Nie mam jeszcze konta</router-link>
+        <button>
+            <router-link to="/signin">Logowanie</router-link>
+        </button>
     </div>
-            <router-view></router-view>
+    <div>
+        <button>
+            <router-link to="/signup">Nie mam jeszcze konta</router-link>
+        </button>
+        
+    </div>
+</div>
+    
 </template>
 
 
@@ -16,18 +27,17 @@
 
 export default {
     name: 'HelloSite',
-    setup() {
-        
-    },
-    props: {
-
-    },
-    methods: {
-        info(){
-            //console.log(this.$http)
-        }
-
+    computed:{
+        isLoggedIn(){
+            return this.$store.getters.logInState;
     }
+    },
+    methods:{
+        logout(){
+            this.$store.dispatch('logout');
+        }
+    }
+    
 }
 </script>
 
