@@ -66,15 +66,44 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $filters = [
-		'guest'		=>	[
-			'password/*'
+	 public $filters = [
+		'before' => [
+			'auth' => [
+				'except' => [
+					'signup/*',
+					'signup',
+					'password/*',
+					'password',
+					'login/*',
+					'login'
+				]
+			]
 		],
-		'auth' => [
-			'before' => [
-				'signup/*',
-				'signup'
-			],
-		]
+		'after'  => [],	
 	];
 }
+
+
+// 	public $filters = [
+// 		'guest'		=>	[
+// 			'password/*'
+// 		],
+// 		'auth' => [
+// 			'before'=>	[
+// 				'except' => [
+// 					'signup/*',
+// 					'signup',
+// 					'password/*',
+// 					'password',
+// 					'login/*',
+// 					'login'
+// 				]
+// 			],
+// 		]
+// 	];
+// }
+
+// 'before' => [
+// 	'signup/*',
+// 	'signup'
+// ],

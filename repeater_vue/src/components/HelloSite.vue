@@ -5,7 +5,6 @@
     </div>
 </div>
 <div v-else>
-    <h1>Witaj w programie REPEATER:</h1>
     <div>
         <button>
             <router-link to="/signin">Logowanie</router-link>

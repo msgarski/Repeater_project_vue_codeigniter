@@ -48,8 +48,7 @@ class Password extends BaseController
                 $this->sendEmailWithResetToken($user);
                 var_dump(' dotąd oki: ', $http->email);
                 exit;
-                //return redirect()->to('/password/afterResetIsSent');
-
+                return redirect()->to('/password/afterResetIsSent');
             }
             else
             {
@@ -93,7 +92,6 @@ class Password extends BaseController
 
     public function reseting($token)
     {
-        
         $user = $this->model->checkTokenForResetPass($token);
 
         if($user)
@@ -102,7 +100,7 @@ class Password extends BaseController
         }
         else
         {
-            return redirect()->to('http://localhost:8081/signin');
+            return redirect()->to('http://localhost:8081/');
         }
 
         
@@ -110,43 +108,29 @@ class Password extends BaseController
 
     public function newPassword($token)
     {
-        // var_dump(' dotąd ok: ', $token);
-        //         exit;
         $model = service('userModel');
 
-        $user = $model->findUserByTokenForReset($token);
-        
+        $user = $model->findUserByToken($token);
 
         if($user)
         {
-            
-                $req = $this->request->getJSON();
-            $newData = [
-                'password'  =>  $req->password,
-                'password_confirmation' =>  $req->password_confirmation
-            ];
-            
-            $user->fill($newData);
-            
+            $user->fill($this->request->getPost());
+
             if($model->save($user))
             {
-                var_dump(' hasło zapisane: ', $token);
-                exit;
-                $response = 'Możesz się zalogować teraz nowym hasłem';
-                return $this->respond($response, 200);
 
-                // return redirect()->to('/login/index')
-                //                     ->with('info', 'Możesz zalogować się teraz nowym hasłem');
+                return redirect()->to('/login/index')
+                                    ->with('info', 'Możesz zalogować się teraz nowym hasłem');
             }
             else
             {
-                $response = 'Nie znaleziono takiego użytkownika';
-                return $this->respond($response, 401);
-                // return redirect()->back()
-                //                     ->with('errors', $model->error)
-                //                     ->with('warning', 'Nieprawidłowe dane nowego hasła');
+                return redirect()->back()
+                                    ->with('errors', $model->error)
+                                    ->with('warning', 'Nieprawidłowe dane nowego hasła');
             }
 
         }
+        // to na górze, albo to poniżej:
+        //return view('Password/acomplished_view');
     }
 }

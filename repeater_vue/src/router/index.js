@@ -7,12 +7,14 @@ import Home       from '../components/authentication/Home.vue'
 import PorchSite  from '../components/PorchSite.vue'
 import MainScreen from '../components/MainScreen.vue'
 import NewCourse  from '../components/course/NewCourse'
+import ResetPassForm from '../components/authentication/ResetPassForm'
 
 
 const routes = [
   { path: '/signin', component: SignIn },
   { path: '/signup', component: SignUp },
-  { path: '/forgot', component: ForgotPass },
+  { path: '/resetform/:token', component: ResetPassForm },
+  { path: '/forgot/', component: ForgotPass },  
   { path: '/',       component: Home },
   { path: '/porch',  component: PorchSite },
   { path: '/mainscreen', component: MainScreen },

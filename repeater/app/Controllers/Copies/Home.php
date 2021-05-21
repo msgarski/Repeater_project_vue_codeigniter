@@ -7,16 +7,6 @@ class Home extends BaseController
 	public function index($a=null, $b='home')
 	{
 		return view('home/index');
-
-		//return $this->response->setStatusCode(200)->setBody('Witaj żwiecie');
-
-		// helper('text');
-
-		// return $this->response->setJSON(array(
-		// 	'a' => $a,
-		// 	'b' => $b,
-		// 	'c' => random_string('crypto', 8)
-		// ));
 	}
 
 	public function testEmail()

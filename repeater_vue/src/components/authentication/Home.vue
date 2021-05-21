@@ -1,5 +1,5 @@
 <template>
-    <h1>Strona domowa </h1>
+    <h1>Witaj w programie REPEATER</h1>
     
 </template>
 
@@ -13,16 +13,6 @@ export default {
 
         };
     },
-    // mounted: {
-    //     isUserAuth(){
-    //         if(!this.$store.getters('logInState'))
-    //         {
-    //             //this.$router.push('/')
-    //             // i okienko z wiadomością o niezalogowaniu
-    //             alert('Nie jesteś w tej chwili zalogowany')
-    //         }
-    //     },
-    // },
     setup() {
         
     },

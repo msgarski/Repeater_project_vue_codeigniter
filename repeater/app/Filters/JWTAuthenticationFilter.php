@@ -17,7 +17,7 @@ class JWTAuthenticationFilter implements FilterInterface
     {
         
         $authenticationHeader = $request->getServer('HTTP_AUTHORIZATION');//! a moje to mają???
-        var_dump('nagłówek wiadomości:', $authenticationHeader);
+        var_dump('nagłówek wiadomości z filtra helpera:', $authenticationHeader);
         exit;
 
         try {
