@@ -2,43 +2,45 @@
 
 namespace App\Controllers;
 
+
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Controllers\BaseController;
+use App\Models\ProductModel;
+use CodeIgniter\Controller;
+use Faker\Provider\Base;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
 use App\Controllers\Porch;
-class Course extends BaseController
+
+class Course extends ResourceController
 {
-    private $courseModel;
+    use ResponseTrait;
+
+    protected $courseModel;
 
     public function __construct()
     {
         $this->courseModel = service('courseModel');
     }
 
-    public function newCourse()
-    {
-        return view('Course/new_view');
-    }
-
     public function createCourse()
     {
-        $user_id = session()->get('user_id');
+        $http = $this->request->getJSON();
 
-        $course = $this->request->getPost();
-
-        $course += ['user_id' => $user_id];
-
+        $course = [
+            'user_id'   =>  $http->user_id,
+            'description'   =>  $http->description,
+            'genre_id'  =>  $http->genre_id,
+        ];
+       
         if ($this->courseModel->insert($course)) 
-        {          
-            // tu trzeba wywołać metodę z innego kontrolera
-            // bo muszę wrócić do widoku okna głównego z kursami      
-            $porch = new Porch();
-
-            return $porch->getInto();
+        {         
+            return $this->respond('kurs zapisany', 200);;
         } 
         else 
         {
-            return redirect()->back()
-                             ->with('errors', $this->courseModel->errors())
-                             ->with('warning', 'Nieprawidłowe dane')
-                             ->withInput();
+            return $this->respond('błąd danych', 401);
         }
     }
 
@@ -59,10 +61,23 @@ class Course extends BaseController
         ]);
     }
 
-
-    public function proba()
+    public function getAllCoursesForUser($user_id = null)
     {
-        $wyn = ['score' => 'robert'];
-        return $this->response->setJSON($wyn);
+        /*
+        *   This method conveys info about user's courses to main view
+        *   
+        */
+        // var_dump($user_id);
+        // exit;
+        if($user_id)
+        {
+            $data = $this->courseModel->getAllCoursesByUserId($user_id);
+            
+            return $this->respond($data);
+        }
+        else
+        {
+            return $this->respond("Brak użytkownika", 404);
+        }
     }
 }

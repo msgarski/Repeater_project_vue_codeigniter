@@ -2,12 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Entities\UserEntity;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use App\Controllers\BaseController;
 
-class Password extends BaseController
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Models\ProductModel;
+use CodeIgniter\Controller;
+use Faker\Provider\Base;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
+
+class Password extends ResourceController
 {
-    private $model;
+    use ResponseTrait;
+
+    protected $model;
 
 
     public function __construct()
@@ -30,7 +39,8 @@ class Password extends BaseController
         // var_dump('wszystko oki');
         // exit;
         $http = $this->request->getJSON();
-        // var_dump(' moj email: ', $http->email);
+
+        // var_dump(' moj email z jsona: ', $http->email);
         // exit;
         $email = $http->email;
         if($email)
@@ -53,10 +63,11 @@ class Password extends BaseController
             }
             else
             {
-                //todo czy to się wyświetla userowi w vue?
-                return redirect()->back()
-                            ->withInput()
-                            ->with('warning', "Podano nieprawidłowy adres email");
+                //var_dump(' brak usera : ', $http->email);
+                //exit;
+                return $this->respond('brak', 404);
+                //return $this->fail(404);
+                
             }
         }
         else
@@ -119,7 +130,7 @@ class Password extends BaseController
 
         if($user)
         {
-            
+                //! undefined method:
                 $req = $this->request->getJSON();
             $newData = [
                 'password'  =>  $req->password,

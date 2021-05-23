@@ -1,31 +1,38 @@
 <template>
     <div v-if="isLoggedIn">
         <div>Użytkownik jast zalogowany? {{ isLoggedIn }}</div>
-        <div><h3>Tworzenie nowego kursu</h3></div>
+        <div>
+            <h3>Tworzenie nowego kursu</h3>
+        </div>
         
         <form @submit.prevent="addCourse">
 
-    <div>
-        <label for="name">Nazwa</label>
-        <input type="text" name="name" v-model="name" id="name">
-    </div>
+            <div>
+                <label for="name">Nazwa</label>
+                <input type="text" name="name" v-model.trim="name" id="name">
+            </div>
 
-    <div>
-        <label for="description">Opis</label>
-        <textarea rows="5" cols="50" v-model="textarea" id="description" name="description" placeholder="Tematyka kursu..."></textarea>
-    </div>
+            <div>
+                <label for="description">Opis</label>
+                <textarea 
+                    rows="5" 
+                    cols="50" 
+                    v-model.trim="description" 
+                    id="description" 
+                    name="description" 
+                    placeholder="Tematyka kursu...">
+                </textarea>
+            </div>
 
-    <div>
-        <label for="genre">Rodzaj</label>
-        <select name="genre" v-model="genre" id="genre">
-            <option default>Prywatny</option>
-            <option>Publiczny</option>
-        </select>
-    </div>
-
-    <button>Dodaj kurs</button>
-    
-    </form>
+            <div>
+                <label for="genre" >Rodzaj</label>
+                <select name="genre" v-model="genre" id="genre">
+                    <option selected value="private">Prywatny</option>
+                    <option value="public">Publiczny</option>
+                </select>
+            </div>
+            <button>Dodaj kurs</button>      
+        </form>
     </div>
     
 </template>
@@ -38,8 +45,9 @@ export default {
     data(){
         return {
             'name': '',
-            'textarea': '',
-            'genre': ''
+            'description': '',
+            'genre': '',
+            'options': ['prywatny', 'publiczny'],
             //todo tu będą jeszcze rozdzielacze tekstu
         };
     },
@@ -55,14 +63,21 @@ export default {
         addCourse(){
             const pack = {
                 name: this.name,
-                textarea: this.textarea,
+                description: this.description,
                 expires_in: null,
+                genre_id: this.genre,
+                user_id: this.$store.getters.getUserId,
                 token: localStorage.getItem('token')
             }
+            console.log('user id:', pack.user_id)
 
             http.post('/course/createCourse', pack)
-                .then(Response=>{
-
+                .then(response=>{
+                    console.log('odpowiedź serwera: ', response);
+                })
+                .then(()=>{
+                    this.$router.push('/mainscreen')
+    
                 })
                 .catch(error => {
                     this.errorMessage = error.message;

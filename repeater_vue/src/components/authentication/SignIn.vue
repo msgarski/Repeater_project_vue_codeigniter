@@ -4,12 +4,12 @@
     <form @submit.prevent="authorization">
         <div>
             <label for="email" >email</label>
-            <input type="email" name="email" id="email" v-model="email">
+            <input type="email" name="email" id="email" v-model.trim="email">
             </div>
 
             <div>
             <label for="password">Password</label>
-            <input type="password" name="password" v-model="password">
+            <input type="password" name="password" v-model.trim="password">
         </div>
 
                 <button>Zatwierdź</button>

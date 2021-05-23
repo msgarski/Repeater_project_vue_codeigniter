@@ -9,7 +9,7 @@
 
 <div>
     <label for="email">Adres e-mail</label>
-    <input type="email" name="email" id="email" v-model="email">
+    <input type="email" name="email" id="email" v-model.trim="email">
 </div>
 
 <div>
