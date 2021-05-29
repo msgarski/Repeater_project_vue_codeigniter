@@ -11,6 +11,8 @@ import ResetPassForm from '../components/authentication/ResetPassForm'
 import InnerCourse from '../components/course/InnerCourse'
 import NewLesson from '../components/lesson/NewLesson'
 import InnerLesson from '../components/lesson/InnerLesson'
+import SingleImport from '../components/cards/SingleImport'
+import MassImport from '../components/cards/MassImport'
 
 
 const routes = [
@@ -24,7 +26,9 @@ const routes = [
   { path: '/newcourse' , component: NewCourse },
   { path: '/innercourse/:courseId', component: InnerCourse },
   { path: '/newlesson/:courseId', component: NewLesson },
-  { path: '/innerlesson/:lessonId', component: InnerLesson }
+  { path: '/innerlesson/:lessonId', component: InnerLesson },
+  { path: '/singleimport/:lessonId', component: SingleImport },
+  { path: '/massimport/:lessonId', component: MassImport }
   
 
 

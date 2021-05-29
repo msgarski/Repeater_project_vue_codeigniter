@@ -11,6 +11,7 @@ class CardTableModel extends \CodeIgniter\Model
 
     protected $allowedFields = ['question',
                                 'answer',
+                                'pronounciation',
                                 'sentence',
                                 'image',
                                 'answer_sound',
@@ -27,8 +28,6 @@ class CardTableModel extends \CodeIgniter\Model
     protected $returnType = 'App\Entities\CardEntity';
 
     protected $useTimestamps = true;
-
-    //protected $validationRules = [];
 
     protected $validationMessages = [];
 

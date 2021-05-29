@@ -36,7 +36,7 @@ class Course extends ResourceController
        
         if ($this->courseModel->insert($course)) 
         {         
-            return $this->respond('kurs zapisany', 200);;
+            return $this->respond('kurs zapisany', 200);
         } 
         else 
         {

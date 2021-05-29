@@ -53,28 +53,14 @@ class MassCardInput
         {
             
             $card['lesson_id'] = $lesson_id;
-            //d($card);
         }
 
-        //dd($score);
-
         if ($model->insertBatch($score)) {
-        
-            //return redirect()->to("/masscardinput/success");
-            $this->success();
-            
+            return true;
         } 
         else 
         {
-            return redirect()->back()
-                             ->with('errors', $model->errors())
-                             ->with('warning', 'Nieprawidłowe dane')
-                             ->withInput();
+            return false;
         }
-    }
-
-    public function success()
-    {
-        return " udało się zapisać do tabeli";
     }
 }

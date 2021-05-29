@@ -5,9 +5,9 @@
 
 
 
-<button><a href="">Dodaj wiele kart</a></button>
+<button><router-link :to="'/massimport/' + lessonId">Dodaj wiele kart</router-link></button>
 
-<button><a href="">Dodaj karty pojedynczo</a></button>
+<button><router-link :to="'/singleimport/' + lessonId">Dodaj karty pojedynczo</router-link></button>
 
 
 <div>

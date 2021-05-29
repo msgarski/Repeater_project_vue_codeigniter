@@ -3,12 +3,26 @@
 namespace App\Controllers;
 
 use App\Libraries\MassCardInput;
-
 use App\Libraries\Queries;
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Controllers\BaseController;
+use App\Models\ProductModel;
+use CodeIgniter\Controller;
+use Faker\Provider\Base;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
+use App\Controllers\Porch;
+
+//class Course extends ResourceController
+
+    
 
 
 class Cards extends BaseController
 {
+    use ResponseTrait;
+
     private $model;
 
     public function __construct()
@@ -20,36 +34,26 @@ class Cards extends BaseController
     {
         if(session()->has('user_id'))
         {
-            $placeholder = "pytanie odpowiedź [wymowa] [zdanie przykładowe] \n";
+            //$placeholder = "pytanie odpowiedź [wymowa] [zdanie przykładowe] \n";
+            //$userId = session()->get('user_id');
+            // $data = [
+            //     'user_id' => $userId,
+            //     'lesson_id' => $lessonId,
+            //     'before' => 0,
+            //     'recent' => $qrs->amountOfUserCards($userId)
+            // ];
 
-            $userId = session()->get('user_id');
-
-            //! próbne zapytania:
-            $qrs = new Queries;
-            // d($qrs->amountOfUserCards($userId));
-            // dd($qrs->userCardsEntireInfo($userId));
-            // dd($qrs->checkFunction($userId));
-            
-            //! koniec próbnych zapytań
-            
-
-
-            $data = [
-                'user_id' => $userId,
-                'lesson_id' => $lessonId,
-                'before' => 0,
-                'recent' => $qrs->amountOfUserCards($userId)
-            ];
-
+            //! ilość kart usera się przyda, ale user_id trzebaa brać inaczej niż z sesji
+            //$qrs->amountOfUserCards($userId)
             if($amount == 1)                                     // single input option
             {
-                return view('Input/singleInput_view', $data);
+                return view('Input/singleInput_view');
             }
             else                                                // mass input option
             {
-                $data['placeholder'] = $placeholder.$placeholder.$placeholder;
+                //$data['placeholder'] = $placeholder.$placeholder.$placeholder;
 
-                return view('Input/massInput_view', $data);
+                return view('Input/massInput_view');
             }
         
         }
@@ -62,26 +66,28 @@ class Cards extends BaseController
         *   this method gets new card data from form and
         *   save them as new record in cardTable
         */
-                                                                // array $card zawiera lesson_id 
-        $card = $this->request->getPost();                      // z ukrytego pola formularza:
-
-        $data = [
-            'before' => $this->model->amountOfCards(),
-            'lesson_id' => $card['lesson_id']
-            ];
-
+        
+        $http = $this->request->getJSON();
+        
+        $card = [
+            'question'          =>  $http->question,
+            'answer'            =>  $http->answer,
+            'pronounciation'    =>  $http->pronounciation,
+            'sentence'          =>  $http->sentence,
+            'image'             =>  $http->image,
+            'lesson_id'         =>  $http->lessonId
+        ];
+        
         if ($this->model->insert($card)) 
         {
-            $data['recent'] = $this->model->amountOfCards();
+        
+            //$data['recent'] = $this->model->amountOfCards();
             
-            return view('Input/singleInput_view', $data);            
+            return $this->respond('słowo zapisane', 200);            
         } 
         else 
         {
-            return redirect()->back()
-                             ->with('errors', $this->model->errors())
-                             ->with('warning', 'Nieprawidłowe dane')
-                             ->withInput();
+            return $this->respond('zapis nieudany', 401);
         }
     }
 
@@ -94,12 +100,25 @@ class Cards extends BaseController
 
         $mass = new MassCardInput;                              // create instance of massCardsInput class
 
-        $lesson_id = $this->request->getVar('lesson_id');
-
-        $cardsAsString = $this->request->getVar('cardsInput'); // pobranie zawartości pola textarea formularza
+        $http = $this->request->getJSON();
+       
+        // może array()?
+        $lesson_id = $http->lessId;
+        // var_dump('na serwerze', $http);
+        // exit;
+        $cardsAsString = $http->cardsInput; // pobranie zawartości pola textarea formularza
         
         $score = $mass->cardsInputFormatting($cardsAsString);
 
-        $mass->createCards($score, $lesson_id);
+        $result = $mass->createCards($score, $lesson_id);
+
+        if($result)
+        {
+            return $this->respond('zapis wielu słów udany', 200);
+        }
+        else
+        {
+            return $this->respond('nie udało się zapisać słów', 401);
+        }
     }
 }
