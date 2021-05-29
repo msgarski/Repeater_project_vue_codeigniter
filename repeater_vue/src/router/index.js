@@ -9,6 +9,8 @@ import MainScreen from '../components/MainScreen.vue'
 import NewCourse  from '../components/course/NewCourse'
 import ResetPassForm from '../components/authentication/ResetPassForm'
 import InnerCourse from '../components/course/InnerCourse'
+import NewLesson from '../components/lesson/NewLesson'
+import InnerLesson from '../components/lesson/InnerLesson'
 
 
 const routes = [
@@ -20,7 +22,10 @@ const routes = [
   { path: '/porch',  component: PorchSite },
   { path: '/mainscreen', component: MainScreen },
   { path: '/newcourse' , component: NewCourse },
-  { path: '/innercourse/:courseid', component: InnerCourse }
+  { path: '/innercourse/:courseId', component: InnerCourse },
+  { path: '/newlesson/:courseId', component: NewLesson },
+  { path: '/innerlesson/:lessonId', component: InnerLesson }
+  
 
 
 ]

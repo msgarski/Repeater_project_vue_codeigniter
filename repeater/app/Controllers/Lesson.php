@@ -2,11 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Controllers\Course;
-use App\Models\CourseTableModel;
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
+use App\Controllers\BaseController;
+use App\Models\ProductModel;
+use CodeIgniter\Controller;
+use Faker\Provider\Base;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use function PHPUnit\Framework\isJson;
+use App\Controllers\Porch;
 
-class Lesson extends BaseController
+
+class Lesson extends ResourceController
 {
+    use ResponseTrait;
+
     private $lessonModel;
 
     public function __construct()
@@ -14,45 +24,42 @@ class Lesson extends BaseController
         $this->lessonModel = service('lessonModel');
     }
 
-    public function toNewLessonForm($courseId)
-    {
-        return view('Lessons/newLesson_view', ['courseId' => $courseId]);
-    }
 
     public function create()
     {
-        // $lesson posiada też course_id dla tabeli lesson
-        // jako ukryte pole formularza tworzenia nowej lekcji
-        $lesson = $this->request->getPost();
+        // var_dump('w kontrolerze ');
+        // exit;
+        $http = $this->request->getJSON();
+        // var_dump('w kontrolerze ', $http);
+        // exit;
 
-        $courseId = $lesson['course_id'];
-
+        // var_dump('w kontrolerze ', $courseId);
+        // exit;
+        $lesson = [
+            'name'  =>  $http->name,
+            'description'   =>  $http->description,
+            'course_id' =>  $http->courseId,
+        ];
+        // var_dump('w kontrolerze ', $lesson);
+        // exit;
         if ($this->lessonModel->insert($lesson)) 
         {          
-            // po sukcesie insertu, wracamy do widoku kursu
-            // dla którego dodaliśmy lekcję: 
-            // trzeba jednak przekazać course_info, a nie samo course_id 
-            // więc najłatwiej wywołać znaną metodę z klasy Course:
-            $course = new Course(); 
 
-            return $course->getInsideCourse($courseId);
+            return $this->respond('udalo sie', 200);
         } 
         else 
         {
-            return redirect()->back()
-                             ->with('errors', $this->lessonModel->errors())
-                             ->with('warning', 'Nieprawidłowe dane')
-                             ->withInput();
+            return $this->respond('error jakiś', 401);
         }
         
     }
 
-    public function getInsideLesson($lessonId)
-    {
-        $lesson = $this->lessonModel->getLessonByLessonId($lessonId);
+    // public function getInsideLesson($lessonId)
+    // {
+    //     $lesson = $this->lessonModel->getLessonByLessonId($lessonId);
 
-        return view('Lessons/lesson_view', ['lessonInfo' => $lesson]);
-    }
+    //     return view('Lessons/lesson_view', ['lessonInfo' => $lesson]);
+    // }
 
     
 }

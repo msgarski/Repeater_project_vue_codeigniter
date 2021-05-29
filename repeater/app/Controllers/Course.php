@@ -50,15 +50,17 @@ class Course extends ResourceController
         *   method for conveying specific course data (found by courseId), 
         *   to this course view
         */
+        // var_dump('w kontrolerze lekcjow');
+        // exit;
         $lessonModel = service('lessonModel');
 
-        $courseInfo = $this->courseModel->getCourseByCourseId($courseId);
+        //$courseInfo = $this->courseModel->getCourseByCourseId($courseId);
 
-        $allLessons = $lessonModel->getAllLessonsByCourseId($courseId);
+        $data = $lessonModel->getAllLessonsByCourseId($courseId);
+        // var_dump('w kontrolerze lekcjow', $data);
+        // exit;
 
-        return view('Course/course_view', ['courseInfo' => $courseInfo,
-                                            'lessons'   => $allLessons
-        ]);
+        return $this->respond($data);
     }
 
     public function getAllCoursesForUser($user_id = null)

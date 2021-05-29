@@ -18,10 +18,11 @@
     </div>
     <div v-else>
         <ul>
+            
             <user-course 
                 v-for="course in courses" 
                     :key="course.id"
-                    :id="course.id"
+                    :courseId="course.id"
                     :name="course.name" 
                     :description="course.description">
             </user-course>
@@ -44,7 +45,8 @@ export default {
     data(){
         return{
             courses: null,
-            userId: this.$store.getters.getUserId
+            userId: this.$store.getters.getUserId,
+            toCourse: null
         };
     },
     created(){
@@ -53,13 +55,16 @@ export default {
 
         http.get(url)
         .then(response => {
-            console.log(response.data)
+            console.log('dane', response.data)
             this.courses = response.data
         })
             .catch(error => {
                 this.errorMessage = error.message;
                 console.error("coś poszło nie tak...", error);
             });
+        
+    },
+    methods: {
         
     }
 }

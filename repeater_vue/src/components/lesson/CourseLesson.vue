@@ -1,12 +1,24 @@
 <template>
-    <div>
-        <h1>Lekcje tego kursu</h1>
-    </div>
+    <li>
+        <router-link :to="'/innerlesson/' + id">
+            <div>
+                <hr>
+                <p>Numer lekcji: {{ id }}</p>
+                <p> Kurs {{ name }}</p>
+                <p>Opis: {{ description }}</p>
+            </div>   
+        </router-link>
+    </li>
 </template>
 
 <script>
 export default {
-    name: 'coutse-lesson',
+    name: 'course-lesson',
+    props: [
+        'id',
+        'name',
+        'description'
+    ],
     data(){
         return{
 
