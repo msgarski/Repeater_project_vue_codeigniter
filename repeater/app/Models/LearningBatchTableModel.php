@@ -4,7 +4,7 @@ namespace App\Models;
 
 class LearningBatchTableModel extends \CodeIgniter\Model
 {
-    protected $table = 'course';
+    protected $table = 'learning_batch';
 
     protected $allowedFields = [
                             'tries_median',
@@ -22,16 +22,4 @@ class LearningBatchTableModel extends \CodeIgniter\Model
 
     protected $validationMessages = [
     ];
-
-    public function getAllCoursesByUserId($userId)
-    {
-        return $this->where('user_id', $userId)
-                        ->findAll();
-    }
-
-    public function getCourseByCourseId($courseId)
-    {
-        return $this->where('id', $courseId)
-                    ->first();
-    }
 }

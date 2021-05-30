@@ -67,4 +67,8 @@ class Services extends BaseService
 	{
 		return new \App\Models\LessonTableModel;
 	}
+	public static function optionsModel()
+	{
+		return new \App\Models\OptionsTableModel;
+	}
 }

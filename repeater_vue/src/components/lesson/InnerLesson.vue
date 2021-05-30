@@ -21,13 +21,9 @@
 <p>Twoje karty w tej lekcji:</p>
 
 <div>
-    <a href="">Powrót do kursu</a>
+    <!-- <a href="">Powrót do kursu</a> -->
+    <button @click="backToPrevious">Powrót do widoku kursu</button>
 </div>
-
-
-
-
-
 
 </template>
 
@@ -42,6 +38,12 @@ export default {
     setup() {
         
     },
+    methods: {
+        backToPrevious: function(event){
+            this.$router.go(-1);
+           // alert('nic się nie stało')
+        }
+    }
 }
 </script>
 

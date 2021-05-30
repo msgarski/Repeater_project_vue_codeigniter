@@ -13,6 +13,7 @@ import NewLesson from '../components/lesson/NewLesson'
 import InnerLesson from '../components/lesson/InnerLesson'
 import SingleImport from '../components/cards/SingleImport'
 import MassImport from '../components/cards/MassImport'
+import MainOptions from '../components/settings/MainOptions'
 
 
 const routes = [
@@ -28,7 +29,8 @@ const routes = [
   { path: '/newlesson/:courseId', component: NewLesson },
   { path: '/innerlesson/:lessonId', component: InnerLesson },
   { path: '/singleimport/:lessonId', component: SingleImport },
-  { path: '/massimport/:lessonId', component: MassImport }
+  { path: '/massimport/:lessonId', component: MassImport },
+  { path: '/settings', component: MainOptions }
   
 
 

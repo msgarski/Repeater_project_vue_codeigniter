@@ -4,7 +4,7 @@ namespace App\Models;
 
 class CardAndLearningBatchTableModel extends \CodeIgniter\Model
 {
-    protected $table = 'course';
+    protected $table = 'card_learning_batch';
 
     protected $allowedFields = [
                         'learning_batch_id',
@@ -22,16 +22,4 @@ class CardAndLearningBatchTableModel extends \CodeIgniter\Model
 
     protected $validationMessages = [
     ];
-
-    public function getAllCoursesByUserId($userId)
-    {
-        return $this->where('user_id', $userId)
-                        ->findAll();
-    }
-
-    public function getCourseByCourseId($courseId)
-    {
-        return $this->where('id', $courseId)
-                    ->first();
-    }
 }

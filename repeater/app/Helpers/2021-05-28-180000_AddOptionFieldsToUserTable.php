@@ -29,7 +29,7 @@ class AddOptionFieldsToUserTable extends Migration
                             'default'       =>  0
                     ],
                     'day_repeat_limit'        =>  [
-                            'type'          =>  'TINYINT',
+                            'type'          =>  'INT',
                             'constraint'    =>  3,
                             'null'          =>  false,
                             'unsigned'      =>  true,
@@ -46,6 +46,4 @@ class AddOptionFieldsToUserTable extends Migration
                                         day_repeat_limit'
                                     );
     }
-
-
 }

@@ -38,6 +38,9 @@
 
 <button>Zapisz</button>
     </form>
+    <div>
+    <button @click="backToPrevious">Anuluj</button>
+</div>
 </template>
 
 <script>
@@ -59,6 +62,9 @@ export default {
         
     },
     methods: {
+        backToPrevious: function(event){
+            this.$router.go(-1);
+        },
         addCard(){
             const pack = {
                 lessonId    :   this.lessonId,

@@ -2,7 +2,7 @@
     
     <div>
         <router-link to="/newcourse"><button>Dodaj kurs</button></router-link>
-        
+        <router-link to="/settings"><button>Opcje główne</button></router-link>
     </div>
     <div>Ekran główny</div>
 
@@ -18,7 +18,6 @@
     </div>
     <div v-else>
         <ul>
-            
             <user-course 
                 v-for="course in courses" 
                     :key="course.id"
