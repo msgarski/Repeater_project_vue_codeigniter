@@ -29,7 +29,8 @@ export default {
     data(){
         return{
             lessonId: this.$route.params.lessonId,
-            cardsImport: ''
+            cardsImport: '',
+            cardsPriority: ''
         };
     },
     setup() {
@@ -49,6 +50,7 @@ export default {
             // }
             const pack = {
                 cardsInput  :   this.cardsImport,
+                priority    :   this.cardsPriority,
                 lessId      :   this.lessonId,
                 userId      :   this.$store.getters.getUserId,
                 token       :   localStorage.getItem('token')

@@ -9,6 +9,7 @@ class CourseTableModel extends \CodeIgniter\Model
     protected $allowedFields = [
                             'name',
                             'description',
+                            'direction',
                             'genre_id',
                             'user_id',
                             'code'

@@ -4,6 +4,12 @@
     </p>
 </div>
     <form @submit.prevent="addCard">
+        <div>
+            <div>
+                <label for="cardpriority">Nauka priorytetowa</label>
+                <input type="checkbox" v-model="cardPriority" id="cardpriority" name="cardpriority">
+            </div>
+        </div>
 <div>
     <label for="question" >Pytanie</label>
     <input type="text" name="question" v-model="question" id="question">
@@ -45,7 +51,8 @@ export default {
             answer      :'',
             pronounciation:'',
             sentence    :'',
-            image       :null
+            image       :null,
+            cardPriority    :''
         };
     },
     setup() {
@@ -60,6 +67,7 @@ export default {
                 pronounciation: this.pronounciation,
                 sentence    :   this.sentence,
                 image       :   this.image,
+                priority    :   this.cardPriority,
                 userId      :   this.$store.getters.getUserId,
                 token       :   localStorage.getItem('token')
             }

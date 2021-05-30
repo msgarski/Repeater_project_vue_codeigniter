@@ -75,7 +75,8 @@ class Cards extends BaseController
             'pronounciation'    =>  $http->pronounciation,
             'sentence'          =>  $http->sentence,
             'image'             =>  $http->image,
-            'lesson_id'         =>  $http->lessonId
+            'lesson_id'         =>  $http->lessonId,
+            'priority'          =>  $http->priority
         ];
         
         if ($this->model->insert($card)) 

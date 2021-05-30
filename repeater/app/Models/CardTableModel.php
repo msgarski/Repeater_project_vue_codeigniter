@@ -21,7 +21,17 @@ class CardTableModel extends \CodeIgniter\Model
                                 'summary',
                                 'fast_repeat',
                                 'awkward',
-                                'overlearning'
+                                'overlearning',
+                                'last_repeat', 
+                                'next_repeat', 
+                                'card_awareness',
+                                'total_repetitions',
+                                'success_repeatitions',
+                                'priority',
+                                'longest_period',
+                                'multiplier',
+                                'reverse_ready',
+                                'oneday_repeat'
                             ];
 
     // tutaj okreslam klasę odpowiedzialną za tworzenie obiektu card:

@@ -38,11 +38,20 @@ class ForeignKeyForCardTable extends Migration
                             'default'       =>  null
                     ],
                     'priority'                  =>  [
-                            'type'          =>  'TINYINT',
-                            'constraint'    =>  1,
-                            'unsigned'      =>  true,
-                            'default'       =>  1
+                            'type'          =>  'BOOLEAN',
+                            'null'          =>  false,
+                            'default'       =>  false
                     ],
+                    'oneday_repeat'              =>      [
+                                'type'          =>      'BOOLEAN',
+                                'null'          =>      false,
+                                'default'       =>      false
+                    ],
+                    'reverse_ready'              =>      [
+                        'type'          =>      'BOOLEAN',
+                        'null'          =>      false,
+                        'default'       =>      false
+                ],
                     'longest_period'       =>  [
                             'type'          =>  'INT',
                             'constraint'    =>  4,
@@ -66,6 +75,8 @@ class ForeignKeyForCardTable extends Migration
                                         success_repeatitions,
                                         priority,
                                         longest_period,
+                                        oneday_repeat,
+                                        reverse_ready,
                                         multiplier');
     }
 
