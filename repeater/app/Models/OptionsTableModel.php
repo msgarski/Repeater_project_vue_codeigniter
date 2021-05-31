@@ -17,7 +17,7 @@ class OptionsTableModel extends \CodeIgniter\Model
     // tutaj okreslam klasę odpowiedzialną za tworzenie obiektu user:
     protected $returnType = 'App\Entities\OptionsEntity';
 
-    protected $useTimestamps = true;
+    //protected $useTimestamps = true;
 
     protected $validationRules = [
     ];

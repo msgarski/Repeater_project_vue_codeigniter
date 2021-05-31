@@ -1,49 +1,21 @@
 import { createStore } from 'vuex'
-import router from '../router';
+//import router from '../router';
+import rootMutations from './mutations.js';
+import rootActions from './actions.js';
+import rootGetters from './getters.js';
+
+import optionsModule from './options/index.js'
 
 export default createStore({
   modules: {
-
+    option    :   optionsModule
   },
   state: {
     isLoggedIn: false,
     userId: null,
     cos: 'proba stora'
   },
-  mutations: {
-    login(state){
-      state.isLoggedIn = true;
-      router.push("/porch")
-    },
-    logout(state){
-      state.isLoggedIn = false;
-      localStorage.removeItem("token");
-      localStorage.removeItem("expires");
-      router.push('/');
-    },
-    setUserId(state, id){
-      state.userId = id;
-    },
-  },
-  actions: {
-    login({commit}, expires_in){
-      commit('login');
-    },
-    logout({commit}){
-      commit('logout');
-    },
-    setUserId({commit}, id){
-      localStorage.setItem('userId', id)
-      commit('setUserId', id)
-    }
-  },
-  getters: {
-    logInState(state){
-      return state.isLoggedIn
-    },
-    getUserId(state){
-      return state.userId;
-    }
-  },
-
+  mutations :   rootMutations,
+  actions   :   rootActions,
+  getters   :   rootGetters
 })

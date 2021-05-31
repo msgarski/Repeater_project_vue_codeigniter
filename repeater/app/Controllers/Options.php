@@ -30,26 +30,61 @@ class Options extends BaseController
 
     public function insertOptions()
     {
-        $http = $this->response->getJSON();
-
+        $http = $this->request->getJSON();
+        
         $data = [
-            'question'          =>  $http->question,
-            'answer'            =>  $http->answer,
-            'pronounciation'    =>  $http->pronounciation,
-            'sentence'          =>  $http->sentence,
-            'image'             =>  $http->image,
+            'user_id'               =>  $http->user_id,
+            'day_learning_limit'    =>  $http->learningLim,
+            'batch_learning_limit'  =>  $http->learningBatch,
+            'day_repeat_limit'      =>  $http->repeatLim,
+            'overlearning'          =>  $http->overlearn
         ];
-        
-        if ($this->model->insert($data)) 
+        // var_dump('moje dane', $this->optionsModel);
+        // exit;
+        if ($this->optionsModel->insert($data)) 
         {
-        
             //$data['recent'] = $this->model->amountOfCards();
             
-            return $this->respond('słowo zapisane', 200);            
+            return $this->respond('opcje zapisane', 200);            
         } 
         else 
         {
-            return $this->respond('zapis nieudany', 401);
+            var_dump('nieudane zapisanie', $data['user_id']);
+        exit;
+            return $this->respond('zapis opcji nieudany', 401);
+        }
+    }
+    public function updateOptions()
+    {
+        $db = \Config\Database::connect();
+
+        $http = $this->request->getJSON();
+
+        $user_id = $http->user_id;
+
+        $data = [
+            'day_learning_limit'    =>  $http->learningLim,
+            'batch_learning_limit'  =>  $http->learningBatch,
+            'day_repeat_limit'      =>  $http->repeatLim,
+            'overlearning'          =>  $http->overlearn
+        ];
+        // var_dump('moje dane', $this->optionsModel);
+        // exit;
+        if ($db && $user_id) 
+        {
+            $builder = $db->table('options');
+
+            $builder->where('user_id', $user_id);
+
+            $builder->update($data);
+            
+            return $this->respond('opcje uaktualnione', 200);            
+        } 
+        else 
+        {
+            var_dump('nieudane zapisanie', $data['user_id']);
+        exit;
+            return $this->respond('update opcji nieudany', 401);
         }
     }
 }
