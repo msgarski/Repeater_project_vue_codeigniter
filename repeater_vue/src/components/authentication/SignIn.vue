@@ -56,7 +56,6 @@ export default {
             console.log('pack:', pack)
             http.post("/login/entering", pack)
             .then(response => {
-                
                 console.log('Pierwsze wywołanie: ',  this.$store.getters.logInState)
                 this.email = "garski@wp.pl"
                 this.password = ""

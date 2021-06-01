@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\QueriesCardsModel;
 use App\Libraries\MassCardInput;
 use App\Libraries\Queries;
 use CodeIgniter\RESTful\ResourceController;
@@ -17,43 +18,27 @@ use App\Controllers\Porch;
 //class User extends ResourceController - może tak?
 
     
-class Options extends BaseController
+class TestQueries extends BaseController
 {
     use ResponseTrait;
 
-    protected $optionsModel;
+    protected $model;
 
-    public function __construct()
-    {
-        $this->optionsModel = service('optionsModel');
-    }
+    // public function __construct()
+    // {
+    //     $this->model = service('optionsModel');
+    // }
 
-    public function insertOptions()
+
+    public function testPytania()
     {
-        $http = $this->request->getJSON();
+        $db = \Config\Database::connect();
+
+        $model = new QueriesCardsModel($db);
         
-        $data = [
-            'user_id'               =>  $http->userId,
-            'day_learning_limit'    =>  $http->learningLim,
-            'batch_learning_limit'  =>  $http->learningBatch,
-            'day_repeat_limit'      =>  $http->repeatLim,
-            'overlearning'          =>  $http->overlearn
-        ];
-        // var_dump('moje dane', $this->optionsModel);
-        // exit;
-        if ($this->optionsModel->insert($data)) 
-        {
-            //$data['recent'] = $this->model->amountOfCards();
-            
-            return $this->respond('opcje zapisane', 200);            
-        } 
-        else 
-        {
-            var_dump('nieudane zapisanie', $data['user_id']);
-        exit;
-            return $this->respond('zapis opcji nieudany', 401);
-        }
     }
+
+
     public function updateOptions()
     {
         $db = \Config\Database::connect();

@@ -37,7 +37,7 @@ export default {
         return{
             lessonId: this.$route.params.lessonId,
             cardsImport: '',
-            cardsPriority: ''
+            cardsPriority: false
         };
     },
     setup() {

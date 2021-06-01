@@ -30,10 +30,10 @@ class Course extends ResourceController
 
         $course = [
             'user_id'   =>  $http->user_id,
-            'description'   =>  $http->description,
-            'genre_id'  =>  $http->genre_id,
+            'name'      =>  $http->name,
+            'description'   =>  $http->description
         ];
-       
+       // 'genre_id'  =>  $http->genre_id,
         if ($this->courseModel->insert($course)) 
         {         
             return $this->respond('kurs zapisany', 200);

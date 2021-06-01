@@ -118,7 +118,6 @@ class Password extends ResourceController
 
         
     }
-
     public function newPassword($token)
     {
         // var_dump(' dotąd ok: ', $token);

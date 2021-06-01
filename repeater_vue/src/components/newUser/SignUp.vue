@@ -43,6 +43,7 @@ export default {
     name: 'SignUp',
     data(){
         return {
+            userId: '',
             name: '',
             email: '',
             password: '',
@@ -54,8 +55,10 @@ export default {
         };
         
     },
-    setup() {
-        
+    watch: {
+        userId(){
+                    this.fillOptionsTable();
+        }
     },
     created(){
     
@@ -63,21 +66,47 @@ export default {
     methods:{
         register(){
             const pack = {
-                name: this.name,
-                email: this.email,
-                password: this.password,
-                password_confirmation: this.passwordConfirmation
+                name                    : this.name,
+                email                   : this.email,
+                password                : this.password,
+                password_confirmation   : this.passwordConfirmation
             }
+            // First Request - signup new user:
             console.log(pack)
             http.post("/signup/create", pack)
-                .then(response => { console.log(response.data )})
+                .then(response => { console.log(response.data );
+                    this.userId = response.data;
+                    console.log('nowy user ma id: ', this.userId);
+                    })
                 .catch(error => {
                     this.errorMessage = error.message;
                     console.error("coś poszło nie tak...", error);
-                });
-        }
+                });   
+        },
+        fillOptionsTable(){
+            /*
+            *   Method for filling table of user main options
+            *   with default data
+            */
+            // Object with data for filling options table in db:
+            const pack2 = {
+                learningBatch   :   this.$store.getters['option/getLearningBatchLimit'],
+                learningLim     :   this.$store.getters['option/getLearningDayLimit'],
+                repeatLim       :   this.$store.getters['option/getRepeatDayLimit'],
+                overlearn       :   this.$store.getters['option/getOverlearning'],
+                userId          :   this.userId
+            };
 
-        
+            // Http request to options table in db:
+            http.post('/options/insertOptions', pack2)
+                .then(response=>{
+                    console.log('odpowiedź serwera na żądanie nr 2: ', response);
+                })
+                .catch(error => {
+                    this.errorMessage = error.message;
+                    console.error("coś poszło nie tak...", error);
+                }); 
+        }
     }
 };
 </script>

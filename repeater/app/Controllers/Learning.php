@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\QueriesCardsModel;
 use App\Libraries\MassCardInput;
 use App\Libraries\Queries;
 use CodeIgniter\RESTful\ResourceController;
@@ -17,43 +18,28 @@ use App\Controllers\Porch;
 //class User extends ResourceController - może tak?
 
     
-class Options extends BaseController
+class Learning extends BaseController
 {
     use ResponseTrait;
 
-    protected $optionsModel;
-
-    public function __construct()
+    public function CardsForLearningBatch($course_id, $batchLimit)
     {
-        $this->optionsModel = service('optionsModel');
-    }
+        $db = \Config\Database::connect();
 
-    public function insertOptions()
-    {
-        $http = $this->request->getJSON();
+        $model = new QueriesCardsModel($db);
+
+        $result = $model->CardsForLearnFromCourse($course_id, $batchLimit);
         
-        $data = [
-            'user_id'               =>  $http->userId,
-            'day_learning_limit'    =>  $http->learningLim,
-            'batch_learning_limit'  =>  $http->learningBatch,
-            'day_repeat_limit'      =>  $http->repeatLim,
-            'overlearning'          =>  $http->overlearn
-        ];
-        // var_dump('moje dane', $this->optionsModel);
-        // exit;
-        if ($this->optionsModel->insert($data)) 
-        {
-            //$data['recent'] = $this->model->amountOfCards();
-            
-            return $this->respond('opcje zapisane', 200);            
-        } 
-        else 
-        {
-            var_dump('nieudane zapisanie', $data['user_id']);
-        exit;
-            return $this->respond('zapis opcji nieudany', 401);
-        }
+        return $this->respond($result, 200);
     }
+
+
+
+
+
+
+
+    // przykłady :
     public function updateOptions()
     {
         $db = \Config\Database::connect();

@@ -84,10 +84,10 @@ export default {
                 repeatLim       :   this.repeatLimit, 
                 overlearn       :   this.overlearning,
                 expires_in      :   null,
-                user_id         :   this.$store.getters.getUserId,
+                userId         :   this.$store.getters.getUserId,
                 token           :   localStorage.getItem('token')
             }
-            console.log('user id:', pack.user_id)
+            console.log('user id:', pack.userId)
             http.post('/options/updateOptions', pack)
                 .then(response=>{
                     console.log('odpowiedź serwera: ', response);
@@ -98,7 +98,7 @@ export default {
                     this.$store.dispatch('option/setLearningDayLimit', pack.learningLim);
                     this.$store.dispatch('option/setOverlearning', pack.overlearn);
                     this.$store.dispatch('option/setRepeatDayLimit', pack.repeatLim);
-                    console.log('sklepik: ', this.$store);
+                    //console.log('sklepik: ', this.$store);
                     this.$router.push('/mainscreen');
                 })
                 .catch(error => {

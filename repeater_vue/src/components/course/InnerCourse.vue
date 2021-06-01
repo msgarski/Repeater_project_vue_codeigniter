@@ -7,7 +7,7 @@
     <div>
         <p>Twoje lekcje:</p>
     </div>
-    <div v-if="!lessons">
+    <div v-if="!lessons||lessons.length == 0">
         <p>Nie stworzyłeś jeszcze lekcji... na razie do nowego kursu...
             <router-link :to="'/newlesson/' + courseId" >
                 Dodaj jakąś lekcję
@@ -36,9 +36,6 @@ export default {
     components: {
         'course-lesson': CourseLesson
     },
-//    components: {
-//        'course-lesson': CourseLesson
-//    },
     data(){
         return{
             courseId: this.$route.params.courseId,

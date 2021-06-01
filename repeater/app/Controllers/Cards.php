@@ -105,13 +105,15 @@ class Cards extends BaseController
        
         // może array()?
         $lesson_id = $http->lessId;
-        // var_dump('na serwerze', $http);
+
+        $priority = $http->priority;
+        // var_dump('na serwerze', $http->priority);
         // exit;
         $cardsAsString = $http->cardsInput; // pobranie zawartości pola textarea formularza
         
         $score = $mass->cardsInputFormatting($cardsAsString);
 
-        $result = $mass->createCards($score, $lesson_id);
+        $result = $mass->createCards($score, $lesson_id, $priority);
 
         if($result)
         {

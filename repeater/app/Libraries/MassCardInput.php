@@ -43,7 +43,7 @@ class MassCardInput
         return $score;
     }
 
-    public function createCards($score, $lesson_id)
+    public function createCards($score, $lesson_id, $priority = 0)
     {
         $model = service('cardModel');
 
@@ -53,6 +53,7 @@ class MassCardInput
         {
             
             $card['lesson_id'] = $lesson_id;
+            $card['priority'] = $priority;
         }
 
         if ($model->insertBatch($score)) {

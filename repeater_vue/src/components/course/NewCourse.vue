@@ -47,8 +47,7 @@ export default {
             'name': '',
             'description': '',
             'genre': '',
-            'options': ['prywatny', 'publiczny'],
-            //todo tu będą jeszcze rozdzielacze tekstu
+            'options': ['prywatny', 'publiczny']
         };
     },
     setup() {

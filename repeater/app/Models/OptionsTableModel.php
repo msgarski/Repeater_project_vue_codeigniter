@@ -24,4 +24,17 @@ class OptionsTableModel extends \CodeIgniter\Model
 
     protected $validationMessages = [
     ];
+
+    public function getOptionsByUserId($userId)
+    {
+        // var_dump('wew modelu: ', $userId);
+        // exit;
+        return $this->select('overlearning,
+                                batch_learning_limit,
+                                day_learning_limit,
+                                day_repeat_limit')
+                    ->where('user_id', $userId)
+                    ->get()
+                    ->getRow();
+    }
 }

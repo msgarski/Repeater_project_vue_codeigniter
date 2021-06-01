@@ -5,10 +5,12 @@ import rootActions from './actions.js';
 import rootGetters from './getters.js';
 
 import optionsModule from './options/index.js'
+import learningModule from './learning/index.js'
 
 export default createStore({
   modules: {
-    option    :   optionsModule
+    option    :   optionsModule,
+    learning  :   learningModule
   },
   state: {
     isLoggedIn: false,

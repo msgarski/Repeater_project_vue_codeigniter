@@ -17,15 +17,12 @@ class Signup extends ResourceController
     public function create()
     {
 
-        var_dump('w tworzeniu usera');
-        exit;
+        // var_dump('w tworzeniu usera');
+        // exit;
         /*
         *   Method is ready for succesfully creating new user
         *
         */
-        // $probaKlasy = new BaseController();
-        // $probaKlasy->getResponse();
-        
         $http = $this->request->getJSON();
 
         $data = [
@@ -38,8 +35,6 @@ class Signup extends ResourceController
             
         //return $this->respond($data, 222);
 
-        
-        
         $user = new \App\Entities\UserEntity($data);
         
         $model = service('userModel');
@@ -49,10 +44,14 @@ class Signup extends ResourceController
         if ($model->insert($user)) {
 
             $this->sendActivationEmail($user);
-        
-            //return redirect()->to("/signup/success");
-            return $this->respond('udalo sieeeee', 200);
-        } 
+            
+            $user_id = $model->getUserByEmail($http->email);
+
+            // var_dump('oto nowy user: ', $user_id->id);
+            // exit;
+            
+            return $this->respond($user_id->id, 200);
+        }
         else 
         {
             // return redirect()->back()

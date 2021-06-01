@@ -33,7 +33,7 @@ class CreateOptionsTable extends Migration
                                 'default'       =>  0
                         ],
                         'day_learning_limit'      =>  [
-                                'type'          =>  'TINYINT',
+                                'type'          =>  'INT',
                                 'constraint'    =>  3,
                                 'null'          =>  false,
                                 'unsigend'      =>  true,
