@@ -8,6 +8,9 @@ export default {
     setUserId({commit}, id){
         localStorage.setItem('userId', id)
         commit('setUserId', id)
+    },
+    setTodayDate({commit}){
+        commit('setTodayDate');
     }
 
 

@@ -4,6 +4,12 @@ export default {
     },
     getUserId(state){
         return state.userId;
+    },
+    getTodayDate(state){
+        return state.todayDate;
+    },
+    getPeriodForEasyWord(state){
+        return state.periodForEasyWord;
     }
 
 

@@ -7,10 +7,8 @@ export default {
     state(){
         return {
             learningBatchLimit  :   10,
-            
-
-
-
+            batchForLearning    :   null,
+            loopNumber          :   1
         };
     },
     mutations   :   learningMutations,

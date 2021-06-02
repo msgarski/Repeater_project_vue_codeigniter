@@ -15,7 +15,9 @@ export default createStore({
   state: {
     isLoggedIn: false,
     userId: null,
-    cos: 'proba stora'
+    cos: 'proba stora',
+    periodForEasyWord   :   5,
+    todayDate           :   null
   },
   mutations :   rootMutations,
   actions   :   rootActions,

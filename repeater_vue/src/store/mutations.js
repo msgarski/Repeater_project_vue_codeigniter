@@ -15,6 +15,11 @@ export default {
     setUserId(state, id){
         state.userId = id;
     },
+    setTodayDate(state){
+        //state.todayDate = new Date().toJSON().slice(0, 19).replace('T', ' ');
+        state.todayDate = new Date();
+
+    }
 
 
 

@@ -70,10 +70,13 @@ export default {
                 console.log('userId: ', this.$store.getters.getUserId)
                 this.$router.push('/porch')
             })
-                .catch(error => {
-                    this.errorMessage = error.message;
-                    console.error("coś poszło nie tak...", error);
-                });
+            .then(()=>{
+                this.$store.dispatch('setTodayDate');
+            })
+            .catch(error => {
+                this.errorMessage = error.message;
+                console.error("coś poszło nie tak...", error);
+            });
         },
     }
 }

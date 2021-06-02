@@ -1,38 +1,63 @@
 <template>
     <h1>Nauka nowych słów z kursu: {{courseId}}</h1>
     <h3>Limit dnia: {{dayLimit}}, limit tury: {{batchLimit}}</h3>
+    
+    
+    <div v-if="readiness">
+        <learn-present></learn-present>
+
+
+    
+        <button @click.prevent="next">kolejne słowo</button>
+        <button @click.prevent="previous">poprzednie słowo</button>
+    </div>
+
+
+    
 </template>
 
 <script>
-import http from '../../plugins/axios.js'
-
+import http from '../../plugins/axios.js';
+import LearnPresent from './LearnPresent';
 
 export default {
     name: 'learning-new',
+    components: {
+        'learn-present'   :   LearnPresent
+    },
     data() {
         return {
+            wordId      :   0,
             courseId    :   this.$route.params.courseId,
             dayLimit    :   this.$store.getters['option/getLearningDayLimit'],
-            batchLimit  :   this.$store.getters['option/getLearningBatchLimit']
+            batchLimit  :   this.$store.getters['option/getLearningBatchLimit'],
+            listLength  :   null,
+            readiness   :   false,
+            learningEnd :   false
         };
     },
     setup() {
         
     },
+    methods: {
+        previous(){
+            this.wordId -= 1;
+        }
+    },
     created(){
-        console.log('przed wysłaniem: ', this.batchLimit);
         // pobranie potrzebnej ilości słów:
         http.get('learning/CardsForLearningBatch/' + this.courseId + '/' + this.batchLimit)
             .then((result) => {
-                console.log('oto same data json: ', result.data)
-
-                // this.$store.dispatch('option/setLearningBatchLimit', result.data.batch_learning_limit);
-                // this.$store.dispatch('option/setLearningDayLimit', result.data.day_learning_limit);
-                // this.$store.dispatch('option/setOverlearning', result.data.overlearning);
-                // this.$store.dispatch('option/setRepeatDayLimit', result.data.day_repeat_limit);
-
-
-            }).catch((error) => {
+                this.$store.dispatch('learning/setBatchForLearning', result.data);
+                
+                //console.log('widok sklepu z http: ', this.$store);
+            })
+            .then(()=>{
+                this.readiness = true;
+                this.listLength = this.$store.getters['learning/getBatchForLearning'].length;
+                this.$store.dispatch('learning/resetLoopNumber');
+            })
+            .catch((error) => {
                 this.errorMessage = error.message;
                     console.error("coś poszło nie tak...", error);
             });
