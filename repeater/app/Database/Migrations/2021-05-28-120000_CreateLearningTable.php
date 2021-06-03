@@ -9,9 +9,9 @@ class CreateLearningTable extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          	=> [
+			'learning_batch_id'          	=> [
 				'type'          => 'INT',
-				'constraint'    => 9,
+				'constraint'    => 7,
 				'unsigned'      => true,
 				'auto_increment'=> true
 			],
@@ -41,7 +41,7 @@ class CreateLearningTable extends Migration
 
         $this->forge->addField($fields);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('learning_batch_id', true);
 
         $this->forge->createTable('learning_batch');
 	}

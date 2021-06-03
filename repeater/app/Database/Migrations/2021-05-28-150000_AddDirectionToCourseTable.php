@@ -12,7 +12,7 @@ class AddDirectionToCourseTable extends Migration
                     'direction'                  =>  [
                             'type'          =>  'BOOLEAN',
                             'null'          =>  false, 
-                            'default'       =>  true // dla normalnego kierunku uczenia
+                            'default'       =>  true // for default direction of learning
                     ],
         ]);
 

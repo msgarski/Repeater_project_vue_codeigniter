@@ -9,7 +9,7 @@ class CreateLessonTable extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          => [
+			'lesson_id'          => [
 					'type'           => 'INT',
 					'constraint'     => 7,
 					'unsigned'       => true,
@@ -43,8 +43,8 @@ class CreateLessonTable extends Migration
 	];
 
 	$this->forge->addField($fields);
-	$this->forge->addKey('id', true);
-    $this->forge->addForeignKey('course_id', 'course', 'id', 'CASCADE', 'CASCADE');
+	$this->forge->addKey('lesson_id', true);
+    $this->forge->addForeignKey('course_id', 'course', 'course_id', 'CASCADE', 'CASCADE');
 	$this->forge->createTable('lesson', true);
 	}
 

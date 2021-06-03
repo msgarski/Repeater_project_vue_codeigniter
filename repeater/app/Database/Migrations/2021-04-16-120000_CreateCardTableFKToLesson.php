@@ -19,7 +19,7 @@ class ForeignKeyForCardTable extends Migration
 
         $sql = "ALTER TABLE card
                 ADD CONSTRAINT card_lesson_id_fk
-                FOREIGN KEY (lesson_id) REFERENCES lesson(id)
+                FOREIGN KEY (lesson_id) REFERENCES lesson(lesson_id)
                 ON DELETE CASCADE ON  UPDATE CASCADE";
 
         $this->db->simpleQuery($sql);

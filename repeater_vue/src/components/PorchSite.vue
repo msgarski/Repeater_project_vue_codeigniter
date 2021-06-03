@@ -48,12 +48,11 @@ export default {
         //console.log('tylko userId: ', this.userId)
         http.get('options/getOptionsForUser/' + this.userId)
             .then((result) => {
-                //console.log('oto same data json: ', result.data.batch_learning_limit)
+                if(result.data.batch_learning_limit){this.$store.dispatch('option/setLearningBatchLimit', result.data.batch_learning_limit);}
+                if(result.data.day_learning_limit){this.$store.dispatch('option/setLearningDayLimit', result.data.day_learning_limit);}
+                if(result.data.overlearning){this.$store.dispatch('option/setOverlearning', result.data.overlearning);}
+                if(result.data.day_repeat_limit){this.$store.dispatch('option/setRepeatDayLimit', result.data.day_repeat_limit);}
 
-                this.$store.dispatch('option/setLearningBatchLimit', result.data.batch_learning_limit);
-                this.$store.dispatch('option/setLearningDayLimit', result.data.day_learning_limit);
-                this.$store.dispatch('option/setOverlearning', result.data.overlearning);
-                this.$store.dispatch('option/setRepeatDayLimit', result.data.day_repeat_limit);
 
                 // console.log('oto same data : ', this.$store.getters['option/getLearningDayLimit']);
                 // console.log('oto same data : ', this.$store.getters['option/getLearningBatchLimit']);

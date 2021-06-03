@@ -10,9 +10,9 @@ class CreateCardTable extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          	=> [
+			'card_id'          	=> [
 				'type'          => 'INT',
-				'constraint'    => 9,
+				'constraint'    => 7,
 				'unsigned'      => true,
 				'auto_increment'=> true
 			],
@@ -53,7 +53,6 @@ class CreateCardTable extends Migration
 			],
 			'tries'			=>	[
 				'type'          => 'TINYINT',
-				'constraint'    => 2,
 				'unsigned'      => true,
 				'default'		=>	null
 			],
@@ -91,7 +90,7 @@ class CreateCardTable extends Migration
 
         $this->forge->addField($fields);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('card_id', true);
 
         $this->forge->createTable('card');
 	}

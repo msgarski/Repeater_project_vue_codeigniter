@@ -29,6 +29,8 @@ class Learning extends BaseController
         $model = new QueriesCardsModel($db);
 
         $result = $model->CardsForLearnFromCourse($course_id, $batchLimit);
+        var_dump('dane z zapytanie w kontrolerze: ', $result);
+        exit;
         
         return $this->respond($result, 200);
     }

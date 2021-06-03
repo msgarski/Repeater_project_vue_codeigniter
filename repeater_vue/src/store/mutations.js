@@ -1,4 +1,5 @@
 import router from '../router';
+import date from "../functions/time/dates.js";
 
 
 export default {
@@ -17,8 +18,8 @@ export default {
     },
     setTodayDate(state){
         //state.todayDate = new Date().toJSON().slice(0, 19).replace('T', ' ');
-        state.todayDate = new Date();
-
+        //state.todayDate = new Date();
+        state.todayDate = date.getToday;
     }
 
 

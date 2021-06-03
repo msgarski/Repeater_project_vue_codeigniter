@@ -9,7 +9,7 @@ class CreateUsersTable extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          => [
+			'user_id'          => [
 					'type'           => 'INT',
 					'constraint'     => 7,
 					'unsigned'       => true,
@@ -56,7 +56,7 @@ class CreateUsersTable extends Migration
 	];
 
 	$this->forge->addField($fields);
-	$this->forge->addKey('id', true);
+	$this->forge->addKey('user_id', true);
 
 	$this->forge->createTable('user');
 	}

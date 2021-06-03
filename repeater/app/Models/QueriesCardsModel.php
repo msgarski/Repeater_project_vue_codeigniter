@@ -15,16 +15,21 @@ class QueriesCardsModel
     
     public function CardsForLearnFromCourse($course_id, $batchLimit)
     {
+       
         $builder = $this->db->table('card');
         
-        $builder->limit($batchLimit)
-                ->join('lesson', 'lesson.id = lesson_id')
-                ->join('course', 'course.id = lesson.course_id')
+        $builder->select('card.id')
+                ->limit($batchLimit)
+                ->join('lesson', 'card.lesson_id=lesson.id')
+                ->join('course', 'lesson.course_id=course.id')
                 ->where('course.id', $course_id)
                 ->orderBy('priority', 'DESC');
-                
-        $score = $builder->get();
+
         
+    
+        $score = $builder->get();
+        var_dump('w pytaniuuuuuu', $score->getResult());
+        exit;
         return $score->getResult();
     }
 

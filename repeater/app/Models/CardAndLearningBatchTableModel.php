@@ -7,7 +7,7 @@ class CardAndLearningBatchTableModel extends \CodeIgniter\Model
     protected $table = 'card_learning_batch';
 
     protected $allowedFields = [
-                        'learning_batch_id',
+                        'batch_id',
                         'card_id',
                         'created_at'
                             ];

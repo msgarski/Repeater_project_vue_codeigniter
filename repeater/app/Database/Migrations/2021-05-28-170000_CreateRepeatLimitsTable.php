@@ -9,7 +9,7 @@ class CreateRepeatLimitsTable extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          	=> [
+			'repeat_limit_id'          	=> [
 				'type'          => 'TINYINT',
 				'constraint'    => 2,
 				'unsigned'      => true,
@@ -26,7 +26,7 @@ class CreateRepeatLimitsTable extends Migration
 
         $this->forge->addField($fields);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('repeat_limit_id', true);
 
         $this->forge->createTable('repeat_limit');
 	}

@@ -11,7 +11,7 @@ class CreateCourseTable extends Migration
 
         //todo dodatkowe pola, związane z opcjami, dodam póżniej
 		$fields = [
-			'id'          => [
+			'course_id'          => [
 					'type'           => 'INT',
 					'constraint'     => 7,
 					'unsigned'       => true,
@@ -57,8 +57,8 @@ class CreateCourseTable extends Migration
 	];
 
 	$this->forge->addField($fields);
-	$this->forge->addKey('id', true);
-    $this->forge->addForeignKey('user_id', 'user', 'id', 'CASCADE', 'CASCADE');
+	$this->forge->addKey('course_id', true);
+    $this->forge->addForeignKey('user_id', 'user', 'user_id', 'CASCADE', 'CASCADE');
 	$this->forge->createTable('course', true);
 	}
 

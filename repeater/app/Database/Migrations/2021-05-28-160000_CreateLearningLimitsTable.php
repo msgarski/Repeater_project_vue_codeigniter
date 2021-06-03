@@ -9,7 +9,7 @@ class CreateLearningLimitsTable extends Migration
 	public function up()
 	{
 		$fields = [
-			'id'          	=> [
+			'learning_limit_id'          	=> [
 				'type'          => 'TINYINT',
 				'constraint'    => 2,
 				'unsigned'      => true,
@@ -26,7 +26,7 @@ class CreateLearningLimitsTable extends Migration
 
         $this->forge->addField($fields);
 
-        $this->forge->addKey('id', true);
+        $this->forge->addKey('learning_limit_id', true);
 
         $this->forge->createTable('learning_limit');
 	}

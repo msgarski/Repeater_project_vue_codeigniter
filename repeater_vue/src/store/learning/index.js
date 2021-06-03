@@ -7,7 +7,7 @@ export default {
     state(){
         return {
             learningBatchLimit  :   10,
-            batchForLearning    :   null,
+            batchForLearning    :   null, // array of words for learning from db
             loopNumber          :   1
         };
     },

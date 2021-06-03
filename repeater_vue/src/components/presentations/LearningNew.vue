@@ -3,13 +3,8 @@
     <h3>Limit dnia: {{dayLimit}}, limit tury: {{batchLimit}}</h3>
     
     
-    <div v-if="readiness">
+    <div>
         <learn-present></learn-present>
-
-
-    
-        <button @click.prevent="next">kolejne słowo</button>
-        <button @click.prevent="previous">poprzednie słowo</button>
     </div>
 
 
@@ -17,7 +12,7 @@
 </template>
 
 <script>
-import http from '../../plugins/axios.js';
+//import http from '../../plugins/axios.js';
 import LearnPresent from './LearnPresent';
 
 export default {
@@ -31,7 +26,7 @@ export default {
             courseId    :   this.$route.params.courseId,
             dayLimit    :   this.$store.getters['option/getLearningDayLimit'],
             batchLimit  :   this.$store.getters['option/getLearningBatchLimit'],
-            listLength  :   null,
+            listLength  :   null, // todo na nowo obliczyć
             readiness   :   false,
             learningEnd :   false
         };
@@ -45,22 +40,23 @@ export default {
         }
     },
     created(){
-        // pobranie potrzebnej ilości słów:
-        http.get('learning/CardsForLearningBatch/' + this.courseId + '/' + this.batchLimit)
-            .then((result) => {
-                this.$store.dispatch('learning/setBatchForLearning', result.data);
+        // // pobranie potrzebnej ilości słów:
+        // console.log('Pobieranie nowej partii kart z bazy danych...');
+        // http.get('learning/CardsForLearningBatch/' + this.courseId + '/' + this.batchLimit)
+        //     .then((result) => {
+        //         this.$store.dispatch('learning/setBatchForLearning', result.data);
                 
-                //console.log('widok sklepu z http: ', this.$store);
-            })
-            .then(()=>{
-                this.readiness = true;
-                this.listLength = this.$store.getters['learning/getBatchForLearning'].length;
-                this.$store.dispatch('learning/resetLoopNumber');
-            })
-            .catch((error) => {
-                this.errorMessage = error.message;
-                    console.error("coś poszło nie tak...", error);
-            });
+        //         //console.log('widok sklepu z http: ', this.$store);
+        //     })
+        //     .then(()=>{
+        //         this.readiness = true;
+        //         this.listLength = this.$store.getters['learning/getBatchForLearning'].length;
+        //         this.$store.dispatch('learning/resetLoopNumber');
+        //     })
+        //     .catch((error) => {
+        //         this.errorMessage = error.message;
+        //             console.error("coś poszło nie tak...", error);
+        //     });
     }
 }
 </script>

@@ -49,6 +49,8 @@ export default {
         };
     },
     created(){
+        // todo jescze zapytanie o ilości słów do nauki z każdego kursu i 
+        // todo usaleznić wyświetlenie przycisku nauki od tej ilości...
         const url = "/course/getallcoursesforuser/" + this.userId;
         console.log('pack:', url)
 

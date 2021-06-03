@@ -9,7 +9,7 @@ class CreateOptionsTable extends Migration
 	public function up()
 	{
 		$fields = [
-                        'id'                    => [
+                        'options_id'                    => [
                                 'type'          =>'INT',
                                 'constraint'    => 7,
                                 'unsinged'      => true,
@@ -48,20 +48,20 @@ class CreateOptionsTable extends Migration
                         ]
 	        ];
 
-        $this->forge->addField($fields);
+                $this->forge->addField($fields);
 
-        $this->forge->addKey('id', true); //????
+                $this->forge->addKey('options_id', true); //????
 
-        //$this->forge->addForeignKey('user_id','user','id');
+                $this->forge->addForeignKey('user_id','user','user_id');
 
-        $this->forge->createTable('options');
+                $this->forge->createTable('options');
 	}
 
 	public function down()
 	{
-        //$this->forge->dropForeignKey('options','user_id');
+                $this->forge->dropForeignKey('options','options_user_id_foreign');
 
-		$this->forge->dropTable('options');
+	        $this->forge->dropTable('options');
 		
 	}
 }
