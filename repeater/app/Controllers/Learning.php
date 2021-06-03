@@ -29,8 +29,8 @@ class Learning extends BaseController
         $model = new QueriesCardsModel($db);
 
         $result = $model->CardsForLearnFromCourse($course_id, $batchLimit);
-        var_dump('dane z zapytanie w kontrolerze: ', $result);
-        exit;
+        // var_dump('dane z zapytanie w kontrolerze: ', $result);
+        // exit;
         
         return $this->respond($result, 200);
     }
@@ -56,8 +56,7 @@ class Learning extends BaseController
             'day_repeat_limit'      =>  $http->repeatLim,
             'overlearning'          =>  $http->overlearn
         ];
-        // var_dump('moje dane', $this->optionsModel);
-        // exit;
+        
         if ($db && $user_id) 
         {
             $builder = $db->table('options');//! to pytanie można przenieść do modelu
@@ -81,8 +80,6 @@ class Learning extends BaseController
 
         $result = $this->optionsModel->getOptionsByUserId($user_id);
 
-//         var_dump('wygląd tablicy', $result);
-// exit;
         return $this->respond($result, 200);
     }
 }

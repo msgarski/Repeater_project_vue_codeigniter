@@ -10,6 +10,9 @@ export default {
     },
     getPeriodForEasyWord(state){
         return state.periodForEasyWord;
+    },
+    getMaxNumTries(state){
+        return state.maxNumTries;
     }
 
 

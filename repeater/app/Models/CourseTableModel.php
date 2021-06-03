@@ -34,7 +34,7 @@ class CourseTableModel extends \CodeIgniter\Model
 
     public function getCourseByCourseId($courseId)
     {
-        return $this->where('id', $courseId)
+        return $this->where('course_id', $courseId)
                     ->first();
     }
 

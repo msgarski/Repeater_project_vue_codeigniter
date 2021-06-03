@@ -72,11 +72,12 @@ export default {
                 password_confirmation   : this.passwordConfirmation
             }
             // First Request - signup new user:
-            console.log(pack)
+            
             http.post("/signup/create", pack)
                 .then(response => { console.log(response.data );
                     this.userId = response.data;
                     console.log('nowy user ma id: ', this.userId);
+                    console.log('cała odpowiedź ', response.data)
                     })
                 .catch(error => {
                     this.errorMessage = error.message;

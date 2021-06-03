@@ -31,9 +31,6 @@ class Signup extends ResourceController
                     'password' => $http->password,
                     'password_confirmation' => $http->password_confirmation
                 ];
-        //return $this->respond($http->email, 200);
-            
-        //return $this->respond($data, 222);
 
         $user = new \App\Entities\UserEntity($data);
         
@@ -45,12 +42,9 @@ class Signup extends ResourceController
 
             $this->sendActivationEmail($user);
             
-            $user_id = $model->getUserByEmail($http->email);
+            $user = $model->getUserByEmail($http->email);
 
-            // var_dump('oto nowy user: ', $user_id->id);
-            // exit;
-            
-            return $this->respond($user_id->id, 200);
+            return $this->respond($user->user_id, 200);
         }
         else 
         {

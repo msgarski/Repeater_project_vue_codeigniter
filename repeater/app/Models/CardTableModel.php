@@ -62,10 +62,10 @@ class CardTableModel extends \CodeIgniter\Model
     // {
     //     return $this->select('card.question')
     //                 ->from('user')
-    //                 ->join('course', 'course.user_id = user.id')
-    //                 ->join('lesson', 'course.id = lesson.course_id')
-    //                 ->join('card', 'lesson.id = card.lesson_id')
-    //                 ->where('user.id', $userId);
+    //                 ->join('course', 'course.user_id = user.user_id')
+    //                 ->join('lesson', 'course.course_id = lesson.course_id')
+    //                 ->join('card', 'lesson.lesson_id = card.lesson_id')
+    //                 ->where('user.user_id', $userId);
                     
     // }
 

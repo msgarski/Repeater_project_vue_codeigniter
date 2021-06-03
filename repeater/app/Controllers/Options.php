@@ -61,15 +61,14 @@ class Options extends BaseController
         $http = $this->request->getJSON();
 
         $user_id = $http->userId;
-
+        
         $data = [
             'day_learning_limit'    =>  $http->learningLim,
             'batch_learning_limit'  =>  $http->learningBatch,
             'day_repeat_limit'      =>  $http->repeatLim,
             'overlearning'          =>  $http->overlearn
         ];
-        // var_dump('moje dane', $this->optionsModel);
-        // exit;
+        
         if ($db && $user_id) 
         {
             $builder = $db->table('options');//! to pytanie można przenieść do modelu

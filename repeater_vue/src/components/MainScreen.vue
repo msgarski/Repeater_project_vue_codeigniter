@@ -20,8 +20,8 @@
         <ul>
             <user-course 
                 v-for="course in courses" 
-                    :key="course.id"
-                    :courseId="course.id"
+                    :key="course.course_id"
+                    :courseId="course.course_id"
                     :name="course.name" 
                     :description="course.description">
             </user-course>

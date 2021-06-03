@@ -90,7 +90,7 @@ export default {
             console.log('user id:', pack.userId)
             http.post('/options/updateOptions', pack)
                 .then(response=>{
-                    console.log('odpowiedź serwera: ', response);
+                    console.log('odpowiedź serwera: ', response.data);
                 })
                 .then(()=>{
                     // ustawienie nowych wartości w storze:

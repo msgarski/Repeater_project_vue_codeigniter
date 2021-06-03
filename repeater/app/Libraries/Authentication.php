@@ -27,10 +27,10 @@ class Authentication
             $session = session();
             $session->regenerate();
             // ustawienie zmiennej sesyjnej 'user_id', żeby było łatwiej później do niej sięgać
-            $session->set('user_id', $user->id);
+            $session->set('user_id', $user->user_id);
         }
         
-        $userData = [$user->id,
+        $userData = [$user->user_id,
                     $user->email
                 ];
         //  var_dump($userData);

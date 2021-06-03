@@ -17,8 +17,8 @@
         <ul>
             <course-lesson
                 v-for="lesson in lessons" 
-                    :key="lesson.id"
-                    :id="lesson.id"
+                    :key="lesson.lesson_id"
+                    :id="lesson.lesson_id"
                     :name="lesson.name" 
                     :description="lesson.description">
             </course-lesson>

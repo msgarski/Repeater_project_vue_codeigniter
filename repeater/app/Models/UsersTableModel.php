@@ -89,7 +89,7 @@ class UsersTableModel extends \CodeIgniter\Model
 
         $user = $this->where('reset_hash', $token_hash)
                     ->first();
-                    // var_dump('moj hash tokena: ', $user->id);
+                    // var_dump('moj hash tokena: ', $user->user_id);
                     // exit;
         return $user;
     }
@@ -118,7 +118,7 @@ class UsersTableModel extends \CodeIgniter\Model
         {
             // $data = ['password_hashed'   =>  '1234'];
             // $this->protect(false)
-            //         ->update($user->id, $data);
+            //         ->update($user->user_id, $data);
             return $user;
         }
         else

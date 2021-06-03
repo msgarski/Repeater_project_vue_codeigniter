@@ -18,18 +18,14 @@ class QueriesCardsModel
        
         $builder = $this->db->table('card');
         
-        $builder->select('card.id')
-                ->limit($batchLimit)
-                ->join('lesson', 'card.lesson_id=lesson.id')
-                ->join('course', 'lesson.course_id=course.id')
-                ->where('course.id', $course_id)
+        $builder->limit($batchLimit)
+                ->join('lesson', 'card.lesson_id = lesson.lesson_id')
+                ->join('course', 'lesson.course_id = course.course_id')
+                ->where('course.course_id', $course_id)
                 ->orderBy('priority', 'DESC');
 
-        
-    
         $score = $builder->get();
-        var_dump('w pytaniuuuuuu', $score->getResult());
-        exit;
+        
         return $score->getResult();
     }
 

@@ -64,32 +64,50 @@ export default {
         whatNote(nota){
             switch(nota)
             {
-                case 1:
-                    console.log(1);
+                case 1: // Easy card
                     this.easyNoting();
                     this.afterEasyCard();
                     break;
-                case 2:
+                case 2: // Unknown card
                     console.log(2);
+                    this.unknownNoting();
                     break;
-                case 3:
+                case 3: // Well known card
                     console.log(3);
                     break;
             }
         },
-        normalNoting(){
-            if(this.wordsList[this.index]['tries'] >= this.$store.getters['learning/getBatchForLearning'][this.index]['tries'])
-            {
+        unknownNoting(){
+            if(this.wordsList[this.index]['tries'] >= this.$store.getters['getMaxNumTries'])
+            {// we have difficult card!!!
+                    // set difficulty flag:
+                this.wordsList[this.index]['awkward'] = true;
 
+                    //todo save card in db:
+
+                    // update store state:
+                this.$store.dispatch('learning/setBatchForLearning', this.wordsList);
+
+                    // card is awkward and should be removed from the list:
+                this.wordsList.splice(this.index,1);
                 this.listLength -= 1;
+
+                this.wordPresent();
+                this.confirmation = false;
             }
         },
         afterEasyCard(){
             if(this.index < this.listLength)// todo czy ten warunek jest potrzebny???
             {
                 // todo zapisać słowo do db
+
                 this.wordsList.splice(this.index,1);
                 this.listLength -= 1;
+                // remains to update source table in store, 
+                // to avoid reseting table after accidentally back&forwading page:
+                this.$store.dispatch('learning/setBatchForLearning', this.wordsList);
+
+                console.log('widok sklepu z presentacji: ', this.$store);
             }
             this.wordPresent();
             this.confirmation = false;
@@ -106,21 +124,8 @@ export default {
                 console.log('this.wordsList[this.index][next_repeat]', this.wordsList[this.index]['next_repeat'])
 
             // todo zapisać dane karty z tabeli do bazy danych
-            //this.wordsList[this.index]['tries'] += 1; // próba zapisu prób, bo są wartością null
-            console.log('co w środku: ', this.wordsList[this.index])
-
-
-                // delete easy word from wordsList: 
-            this.wordsList.splice(this.index,1);
-                // remains to update source table in store, 
-                // to avoid reseting table after accidentally back&forwading page:
-            this.$store.dispatch('learning/setBatchForLearning', this.wordsList);
-
-            console.log('widok sklepu z presentacji: ', this.$store);
 
             this.successes += 1;
-
-                console.log('sukces')
         },
         confirm(){
             this.confirmation = true;
@@ -128,6 +133,7 @@ export default {
             // todo do sprawdzenia:
             if(this.wordsList[this.index]['learned_at'] == null)
             {
+                // Increasing number of tries:
                 this.wordsList[this.index]['tries'] += 1;
             }
         },

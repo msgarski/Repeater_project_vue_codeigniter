@@ -17,6 +17,7 @@ export default createStore({
     userId: null,
     cos: 'proba stora',
     periodForEasyWord   :   5,
+    maxNumTries         :   8,
     todayDate           :   null
   },
   mutations :   rootMutations,

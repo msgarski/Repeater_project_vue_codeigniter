@@ -42,7 +42,7 @@ export default {
         console.log('Pobieranie nowej partii kart z bazy danych...', this.courseId);
         http.get('learning/CardsForLearningBatch/' + this.courseId + '/' + this.batchLimit)
             .then((result) => {
-                //this.$store.dispatch('learning/setBatchForLearning', result.data);
+                this.$store.dispatch('learning/setBatchForLearning', result.data);
                 
                 console.log('widok danych z http: ', result.data);
             })

@@ -10,10 +10,10 @@ class Queries
         $builder = $db->table('card');
 
         $builder->select('*')
-                ->join('lesson', 'lesson.id = lesson_id')
-                ->join('course', 'course.id = lesson.course_id')
-                ->join('user', 'user.id = course.user_id')
-                ->where('user.id', $userId);
+                ->join('lesson', 'lesson.lesson_id = lesson_id')
+                ->join('course', 'course.course_id = lesson.course_id')
+                ->join('user', 'user.user_id = course.user_id')
+                ->where('user.user_id', $userId);
 
         $query = $builder->get();
         return $query->getResult();
@@ -25,10 +25,10 @@ class Queries
         $builder = $db->table('card');
 
         $builder->select('question')
-                ->join('lesson', 'lesson.id = lesson_id')
-                ->join('course', 'course.id = lesson.course_id')
-                ->join('user', 'user.id = course.user_id')
-                ->where('user.id', $userId);
+                ->join('lesson', 'lesson.lesson_id = lesson_id')
+                ->join('course', 'course.course_id = lesson.course_id')
+                ->join('user', 'user.user_id = course.user_id')
+                ->where('user.user_id', $userId);
 
         //$query = $builder->get();
         return $builder->countAllResults();
