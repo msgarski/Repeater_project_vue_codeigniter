@@ -14,6 +14,11 @@
             </router-link></p>
     </div>
     <div v-else>
+        <div>
+            <router-link :to="'/newlesson/' + courseId" >
+                <button>Dodaj nową lekcję</button>
+            </router-link>
+        </div>
         <ul>
             <course-lesson
                 v-for="lesson in lessons" 

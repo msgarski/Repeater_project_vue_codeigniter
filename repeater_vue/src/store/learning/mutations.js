@@ -13,6 +13,10 @@ export default {
     resetLoopNumber(state)
     {
         state.loopNumber = 1;
+    },
+    setIndex(state, payload)
+    {
+        state.index = payload;
     }
     
 };

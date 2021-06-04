@@ -8,7 +8,8 @@ export default {
         return {
             learningBatchLimit  :   10,
             batchForLearning    :   null, // array of words for learning from db
-            loopNumber          :   1
+            loopNumber          :   1,
+            index              :   0
         };
     },
     mutations   :   learningMutations,

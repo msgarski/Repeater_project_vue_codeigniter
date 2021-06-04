@@ -22,7 +22,23 @@ class QueriesCardsModel
                 ->join('lesson', 'card.lesson_id = lesson.lesson_id')
                 ->join('course', 'lesson.course_id = course.course_id')
                 ->where('course.course_id', $course_id)
-                ->orderBy('priority', 'DESC');
+                ->where('card.learned_at', null)
+                ->where('card.awkward', false)
+                ->orderBy('card.priority', 'DESC');
+
+        $score = $builder->get();
+        
+        return $score->getResult();
+    }
+    public function updateCard($card_id)
+    {
+        
+
+
+        $builder = $this->db->table('card');
+        
+        // if card exists:
+        
 
         $score = $builder->get();
         

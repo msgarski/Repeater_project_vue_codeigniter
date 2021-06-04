@@ -10,7 +10,7 @@ export default {
             learningBatchLimit  :   10,
             learningDayLimit    :   20,
             repeatDayLimit      :   30, 
-            overlearning        :   true,
+            overlearning        :   true
 
         };
     },

@@ -4,7 +4,7 @@
             <div>
                 <hr>
                 <p>Numer lekcji: {{ id }}</p>
-                <p> Kurs {{ name }}</p>
+                <p> Temat lekcji: {{ name }}</p>
                 <p>Opis: {{ description }}</p>
             </div>   
         </router-link>

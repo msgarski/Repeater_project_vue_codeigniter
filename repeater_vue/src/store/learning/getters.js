@@ -16,5 +16,9 @@ export default {
     getLoopNumber(state)
     {
         return state.loopNumber;
+    },
+    getIndex(state)
+    {
+        return state.index;
     }
 };

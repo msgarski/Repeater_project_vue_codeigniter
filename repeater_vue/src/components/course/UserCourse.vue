@@ -39,7 +39,10 @@ export default {
     methods: {
         getBatchLearningOfCourse(){
             // pobranie potrzebnej ilości słów:
-        console.log('Pobieranie nowej partii kart z bazy danych...', this.courseId);
+        console.log('Pobieranie nowej partii kart z bazy danych...', this.courseId, this.batchLimit);
+        this.$store.dispatch('learning/setIndex', 0);
+        console.log('jaki index? ', this.$store)
+
         http.get('learning/CardsForLearningBatch/' + this.courseId + '/' + this.batchLimit)
             .then((result) => {
                 this.$store.dispatch('learning/setBatchForLearning', result.data);
@@ -49,9 +52,7 @@ export default {
             .then(()=>{
                 this.readiness = true;
                 this.$store.dispatch('learning/resetLoopNumber');
-                this.$router.push('/learning/' + this.courseId)
-                //this.listLength = this.$store.getters['learning/getBatchForLearning'].length;
-               
+                this.$router.push('/learning/' + this.courseId)               
             })
             .catch((error) => {
                 this.errorMessage = error.message;

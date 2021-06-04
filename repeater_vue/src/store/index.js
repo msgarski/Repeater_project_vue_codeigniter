@@ -1,5 +1,4 @@
 import { createStore } from 'vuex'
-//import router from '../router';
 import rootMutations from './mutations.js';
 import rootActions from './actions.js';
 import rootGetters from './getters.js';
@@ -17,7 +16,7 @@ export default createStore({
     userId: null,
     cos: 'proba stora',
     periodForEasyWord   :   5,
-    maxNumTries         :   8,
+    maxNumTries         :   3,
     todayDate           :   null
   },
   mutations :   rootMutations,

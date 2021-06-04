@@ -13,5 +13,9 @@ export default {
     resetLoopNumber({commit})
     {
         commit('resetLoopNumber')
+    },
+    setIndex({commit}, payload)
+    {
+        commit('setIndex', payload);
     }
 };

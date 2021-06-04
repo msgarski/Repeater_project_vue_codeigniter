@@ -40,23 +40,7 @@ export default {
         }
     },
     created(){
-        // // pobranie potrzebnej ilości słów:
-        // console.log('Pobieranie nowej partii kart z bazy danych...');
-        // http.get('learning/CardsForLearningBatch/' + this.courseId + '/' + this.batchLimit)
-        //     .then((result) => {
-        //         this.$store.dispatch('learning/setBatchForLearning', result.data);
-                
-        //         //console.log('widok sklepu z http: ', this.$store);
-        //     })
-        //     .then(()=>{
-        //         this.readiness = true;
-        //         this.listLength = this.$store.getters['learning/getBatchForLearning'].length;
-        //         this.$store.dispatch('learning/resetLoopNumber');
-        //     })
-        //     .catch((error) => {
-        //         this.errorMessage = error.message;
-        //             console.error("coś poszło nie tak...", error);
-        //     });
+        
     }
 }
 </script>

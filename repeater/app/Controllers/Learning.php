@@ -34,6 +34,28 @@ class Learning extends BaseController
         
         return $this->respond($result, 200);
     }
+    public function updateCard($card_id)
+    {
+        $http = $this->request->getJSON();
+            
+        $model = service('cardModel');
+        
+        if($model->findCardById($card_id))
+        {
+            $result = $model->updateCard($card_id, $http);
+        }
+        else
+        {
+            $result = false;
+        }
+        return $this->respond($result, 200);
+    }
+
+
+
+
+
+
 
 
 

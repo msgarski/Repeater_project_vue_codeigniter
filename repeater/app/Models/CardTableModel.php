@@ -53,6 +53,44 @@ class CardTableModel extends \CodeIgniter\Model
                     ->countAllResults();
 
     }
+    public function findCardById($card_id)
+    {
+        return $this->where('card_id', $card_id)
+                    ->first();
+    }
+    public function updateCard($card_id, $http)
+    {
+        $data = [
+            'question'              =>  $http->question,
+            'answer'                =>  $http->answer,
+            'pronounciation'        =>  $http->pronounciation,
+            'sentence'              =>  $http->sentence,
+            'image'                 =>  $http->image,
+            'answer_sound'          =>  $http->answer_sound,
+            'lesson_id'             =>  $http->lesson_id,
+            'learned_at'            =>  $http->learned_at,
+            'tries'                 =>  $http->tries,
+            'summary'               =>  $http->summary,
+            'fast_repeat'           =>  $http->fast_repeat,
+            'awkward'               =>  $http->awkward,
+            'overlearning'          =>  $http->overlearning,
+            'last_repeat'           =>  $http->last_repeat, 
+            'next_repeat'           =>  $http->next_repeat, 
+            'card_awareness'        =>  $http->card_awareness,
+            'total_repetitions'     =>  $http->total_repetitions,
+            'success_repeatitions'  =>  $http->success_repeatitions,
+            'priority'              =>  $http->priority,
+            'longest_period'        =>  $http->longest_period,
+            'multiplier'            =>  $http->multiplier,
+            'reverse_ready'         =>  $http->reverse_ready,
+            'oneday_repeat'         =>  $http->oneday_repeat
+        ];
+        
+        $this->where('card_id', $card_id)
+                ->set($data)
+                ->update();
+        return true;
+    }
 
 
 
