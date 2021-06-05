@@ -4,6 +4,9 @@
             <div>
                 <hr>
                 <p>Numer lekcji: {{ id }}</p>
+                <!-- <div>Liczba kart w lekcji: {{ courseInfo.card_amount }}</div>
+                <div>Do nauki: {{ courseInfo.for_learning }}</div>
+                <div>Do powtórek:  {{ courseInfo.for_repeating }} </div> -->
                 <p> Temat lekcji: {{ name }}</p>
                 <p>Opis: {{ description }}</p>
             </div>   

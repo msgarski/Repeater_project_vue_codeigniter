@@ -17,6 +17,7 @@
         <p>Nie stworzyłeś jeszcze żadnego kursu...<router-link to="/newcourse">Dodaj jakiś kurs</router-link></p>
     </div>
     <div v-else>
+        
         <ul>
             <user-course 
                 v-for="course in courses" 
@@ -43,26 +44,28 @@ export default {
     },
     data(){
         return{
-            courses: null,
-            userId: this.$store.getters.getUserId,
-            toCourse: null
+            courses     : null,
+            coursesInfo : null,
+            userId      : this.$store.getters.getUserId,
+            toCourse    : null
         };
     },
     created(){
-        // todo jescze zapytanie o ilości słów do nauki z każdego kursu i 
-        // todo usaleznić wyświetlenie przycisku nauki od tej ilości...
+        
         const url = "/course/getallcoursesforuser/" + this.userId;
-        console.log('pack:', url)
 
         http.get(url)
         .then(response => {
-            console.log('dane', response.data)
             this.courses = response.data
+            console.log('dane po odebraniu w mainscreenie: ', response.data)
         })
-            .catch(error => {
-                this.errorMessage = error.message;
-                console.error("coś poszło nie tak...", error);
-            });
+        .then(()=>{
+
+        })
+        .catch(error => {
+            this.errorMessage = error.message;
+            console.error("coś poszło nie tak...", error);
+        });
         
     },
     methods: {

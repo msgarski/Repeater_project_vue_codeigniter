@@ -1,6 +1,5 @@
 <?php
 
-//namespace App\Controllers\RestApi;
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
@@ -48,10 +47,6 @@ class Signup extends ResourceController
         }
         else 
         {
-            // return redirect()->back()
-            //                  ->with('errors', $model->errors())
-            //                  ->with('warning', 'Nieprawidłowe dane')
-            //                  ->withInput();
             return $this->respond("ERRORRRRRRR tworzenia usera", 400);
         }
     }

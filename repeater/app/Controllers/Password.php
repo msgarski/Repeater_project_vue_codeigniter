@@ -58,16 +58,12 @@ class Password extends ResourceController
                 $this->sendEmailWithResetToken($user);
                 var_dump(' dotąd oki: ', $http->email);
                 exit;
-                //return redirect()->to('/password/afterResetIsSent');
-
             }
             else
             {
                 //var_dump(' brak usera : ', $http->email);
                 //exit;
-                return $this->respond('brak', 404);
-                //return $this->fail(404);
-                
+                return $this->respond('brak', 404);                
             }
         }
         else
@@ -120,8 +116,6 @@ class Password extends ResourceController
     }
     public function newPassword($token)
     {
-        // var_dump(' dotąd ok: ', $token);
-        //         exit;
         $model = service('userModel');
 
         $user = $model->findUserByTokenForReset($token);
@@ -144,19 +138,12 @@ class Password extends ResourceController
                 exit;
                 $response = 'Możesz się zalogować teraz nowym hasłem';
                 return $this->respond($response, 200);
-
-                // return redirect()->to('/login/index')
-                //                     ->with('info', 'Możesz zalogować się teraz nowym hasłem');
             }
             else
             {
                 $response = 'Nie znaleziono takiego użytkownika';
-                return $this->respond($response, 401);
-                // return redirect()->back()
-                //                     ->with('errors', $model->error)
-                //                     ->with('warning', 'Nieprawidłowe dane nowego hasła');
+                return $this->respond($response, 401);   
             }
-
         }
     }
 }

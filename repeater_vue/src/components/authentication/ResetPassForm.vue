@@ -1,26 +1,30 @@
 <template>
-<div v-show="formSent">
-    <p>Dziękujemy za przesłanie formularza</p><br>
-        <p>Twoje hasło zostało zmienione</p>
+    <div v-if="formSent">
+        <p>Dziękujemy za przesłanie formularza</p><br>
+            <p>Twoje hasło zostało zmienione</p>
+            <div>
+                <router-link to="/signin"><buton>Zaloguj się nowymi danym</buton></router-link>
+            </div>
 
-</div>
-    <div>formularz resetowania hasła</div>
+    </div>
+    <div v-else>
+        <div>formularz resetowania hasła</div>
 
-    <p>Wprowadź nowe hasło:</p>
-<form @submit.prevent="resetPassword">
-<div>
-    <label for="password">Podaj hasło</label>
-    <input type="password" name="password" v-model.trim="password">
-</div>
+        <p>Wprowadź nowe hasło:</p>
+        <form @submit.prevent="resetPassword">
+            <div>
+                <label for="password">Podaj hasło</label>
+                <input type="password" name="password" v-model.trim="password">
+            </div>
 
-<div>
-    <label for="password_confirmation">Powtórz hasło</label>
-    <input type="password" name="password_confirmation" v-model.trim="password_confirmation">
-</div>
-
-<button>Wyślij</button>
-
-</form>
+            <div>
+                <label for="password_confirmation">Powtórz hasło</label>
+                <input type="password" name="password_confirmation" v-model.trim="password_confirmation">
+            </div>
+            <button>Wyślij</button>
+        </form>
+    </div>
+        
 </template>
 
 <script>
@@ -57,7 +61,9 @@ export default {
             http.post("/password/newpassword/" + this.token, pack)
             .then(response => {
                 console.log(response)
+                // todo potwierdzić userowi dopiero po odebraniu, że hasło jest zmienione
                 //this.$router.push('/signin')
+                this.formSent;
             })
                 .catch(error => {
                     this.errorMessage = error.message;

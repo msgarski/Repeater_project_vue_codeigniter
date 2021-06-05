@@ -11,11 +11,7 @@
         <div>
             <router-link to="/mainscreen"><button>Przejdź do programu</button></router-link>
         </div>
-        <div>
-            <form @submit.prevent="test">
-                <button>próba zapytania z Id usera</button>
-            </form>
-        </div>
+        
     </div>
     <div v-else>
         <p>No i sie zmyło...</p>
@@ -52,41 +48,35 @@ export default {
                 if(result.data.day_learning_limit){this.$store.dispatch('option/setLearningDayLimit', result.data.day_learning_limit);}
                 if(result.data.overlearning){this.$store.dispatch('option/setOverlearning', result.data.overlearning);}
                 if(result.data.day_repeat_limit){this.$store.dispatch('option/setRepeatDayLimit', result.data.day_repeat_limit);}
-
-
                 // console.log('oto same data : ', this.$store.getters['option/getLearningDayLimit']);
-                // console.log('oto same data : ', this.$store.getters['option/getLearningBatchLimit']);
-                // console.log('oto same data : ', this.$store.getters['option/getRepeatDayLimit']);
-                // console.log('oto same data : ', this.$store.getters['option/getOverlearning']);
 
-            }).catch((error) => {
+            })
+            .then(()=>{
+                this.getCoursesFullInfo();
+            })
+            .catch((error) => {
                 this.errorMessage = error.message;
                     console.error("coś poszło nie tak...", error);
             });
 
     },
     methods: {
-        test(){
-            console.log('tylko userId: ', this.userId)
-        http.get('options/getOptionsForUser/' + this.userId)
-            .then((result) => {
-                console.log('oto same data json: ', result.data.batch_learning_limit)
+       getCoursesFullInfo(){
+            const url = "/courseQueries/getFullInfoOfUserCourses/" + this.userId;
 
-                this.$store.dispatch('option/setLearningBatchLimit', result.data.batch_learning_limit);
-                this.$store.dispatch('option/setLearningDayLimit', result.data.day_learning_limit);
-                this.$store.dispatch('option/setOverlearning', result.data.overlearning);
-                this.$store.dispatch('option/setRepeatDayLimit', result.data.day_repeat_limit);
+            http.get(url)
+            .then(response => {
+                this.$store.dispatch('course/setAllCourses', response.data);
+                console.log('dane z requesta:', response.data)
+                let sto = this.$store.getters['course/getCourseInfoById']
 
-                console.log('oto same data : ', this.$store.getters['option/getLearningDayLimit']);
-                console.log('oto same data : ', this.$store.getters['option/getLearningBatchLimit']);
-                console.log('oto same data : ', this.$store.getters['option/getRepeatDayLimit']);
-                console.log('oto same data : ', this.$store.getters['option/getOverlearning']);
-
-            }).catch((error) => {
+                console.log('ze sklepu na koniec:', sto.find(el=>el.course_id == 1))
+            })
+            .catch(error => {
                 this.errorMessage = error.message;
-                    console.error("coś poszło nie tak...", error);
+                console.error("coś poszło nie tak...", error);
             });
-        }
+        },
     }
     
     

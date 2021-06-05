@@ -17,5 +17,9 @@ export default {
     setIndex({commit}, payload)
     {
         commit('setIndex', payload);
+    },
+    setEndLearning({commit}, payload)
+    {
+        commit('setEndLearning', payload);
     }
 };

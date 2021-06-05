@@ -5,11 +5,15 @@ import rootGetters from './getters.js';
 
 import optionsModule from './options/index.js'
 import learningModule from './learning/index.js'
+import courseModule from './courses/index.js'
+import lessonModule from './lessons/index.js'
 
 export default createStore({
   modules: {
     option    :   optionsModule,
-    learning  :   learningModule
+    learning  :   learningModule,
+    course    :   courseModule,
+    lesson    :   lessonModule
   },
   state: {
     isLoggedIn: false,

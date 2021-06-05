@@ -17,7 +17,7 @@
         <button @click.prevent="confirm">Pokaż</button>
     </div>
     <div >
-        <normal-scale v-if="confirmation" @note-level="whatNote" ></normal-scale>
+        <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
     </div>
 </template>
 
@@ -34,10 +34,10 @@ export default {
     },
     data() {
         return {
-            ocena                :   null,
+            ocena               :   null,
             wordsList           :   '',
             index               :   0,
-            wordIdInDataBase    :   this.$store.getters['learning/getBatchForLearning'][0]['card_id'],
+            wordIdInDataBase    :   '', //this.$store.getters['learning/getBatchForLearning'][0]['card_id'],
             question            :   '',
             answer              :   '',
             listLength          :   this.$store.getters['learning/getBatchForLearning'].length,
@@ -82,8 +82,8 @@ export default {
         this.wordsList = this.$store.getters['learning/getBatchForLearning'];
         this.listLength = this.$store.getters['learning/getBatchForLearning'].length;
 
-
-        this.index = this.$store.getters['learning/getIndex']
+        this.index = this.$store.getters['learning/getIndex'];
+        //this.endLearning = this.$store.getters['learning/getEndLearning'];
 
         this.newWordPresentation(); // ta funkcja, albo to poniżej:
         // this.question = this.$store.getters['learning/getBatchForLearning'][this.index]['question']
@@ -100,15 +100,12 @@ export default {
                     this.afterEndCard();
                     break;
                 case 2: // Unknown card
-                this.ocena = 2
-                console.log('Ocena: Nie wiem')
+                    this.ocena = 2
                     this.unknownNoting();
                     break;
                 case 3: // Well known card
                     this.ocena = 3;
-                    console.log('ocena:', 3);
-                                    console.log('czy jest overlearning? ', this.$store.getters['option/getLearningDayLimit'])
-
+                    console.log('czy jest overlearning? ', this.$store.getters['option/getLearningDayLimit'])
                     this.knownNoting();
                     break;
             }
@@ -145,7 +142,7 @@ export default {
 
                 if(this.$store.getters['option/getOverlearning'])
                 {
-                    // Overlearning is On...
+                        // Overlearning is On...
                         // computing amount of demanded overlearning:
                     console.log('Obliczanie ocerlearningu wszystkie próby:', this.wordsList[this.index]['tries'])
 
@@ -241,7 +238,14 @@ export default {
                 {
                     //todo przejście do fazy podsumowania
                     console.log('wygląd stora po nauce: ', this.$store)
+                    this.endLearning = true;
+                    this.$store.dispatch('learning/setEndLearning', true);
+                    this.$store.dispatch('learning/setIndex', 0);
+
                     alert('przechodź do podsumowania');
+                    //this.$router.push('')
+                    // todo mixowanie tablicy
+                    
                     return true;
                 }
                 else
@@ -261,11 +265,14 @@ export default {
                 }
                 else
                 {
-                    this.question = this.wordsList[this.index]['question'];
-                    this.answer = this.wordsList[this.index]['answer'];
-                    this.wordIdInDataBase = this.wordsList[this.index]['card_id'];
+                    this.synchronization();
                 } 
             }
+        },
+        synchronization(){
+            this.question = this.wordsList[this.index]['question'];
+            this.answer = this.wordsList[this.index]['answer'];
+            this.wordIdInDataBase = this.wordsList[this.index]['card_id'];
         },
         updateDataCardInDb(row){
         http.post('learning/updateCard/' + this.wordIdInDataBase, row)

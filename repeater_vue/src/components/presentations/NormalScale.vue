@@ -11,6 +11,9 @@
 <script>
 export default {
     name: 'normal-scale',
+    props: [
+        'summary'
+    ],
     date() {
         return {
 
@@ -18,13 +21,10 @@ export default {
     },
     methods: {
         firstLoop(){
-            if(this.$store.getters['learning/getLoopNumber'] == 1)
+            if((this.$store.getters['learning/getLoopNumber'] == 1)&&(!this.summary))
             {
-            console.log('mniejsze niż 1')
-
                 return true;
             }
-            console.log('większe niż 1')
             return false;
         },
     },

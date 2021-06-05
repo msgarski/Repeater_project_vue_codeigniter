@@ -54,8 +54,6 @@ class Course extends ResourceController
         // exit;
         $lessonModel = service('lessonModel');
 
-        //$courseInfo = $this->courseModel->getCourseByCourseId($courseId);
-
         $data = $lessonModel->getAllLessonsByCourseId($courseId);
         // var_dump('w kontrolerze lekcjow', $data);
         // exit;
@@ -74,6 +72,21 @@ class Course extends ResourceController
         if($user_id)
         {
             $data = $this->courseModel->getAllCoursesByUserId($user_id);
+            //$data = $this->courseModel->
+            
+            return $this->respond($data);
+        }
+        else
+        {
+            return $this->respond("Brak użytkownika", 404);
+        }
+    }
+    public function getFullInfoOfUserCourses($user_id)
+    {
+        if($user_id)
+        {
+            $data = $this->courseModel->getAllCoursesByUserId($user_id);
+            //$data = $this->courseModel->
             
             return $this->respond($data);
         }

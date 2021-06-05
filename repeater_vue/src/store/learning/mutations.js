@@ -17,6 +17,10 @@ export default {
     setIndex(state, payload)
     {
         state.index = payload;
+    },
+    setEndLearning(state, payload)
+    {
+        state.endLearning = payload;
     }
     
 };
