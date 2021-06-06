@@ -7,13 +7,15 @@ import optionsModule from './options/index.js'
 import learningModule from './learning/index.js'
 import courseModule from './courses/index.js'
 import lessonModule from './lessons/index.js'
+import repeatModule from './repeat/index.js'
 
 export default createStore({
   modules: {
     option    :   optionsModule,
     learning  :   learningModule,
     course    :   courseModule,
-    lesson    :   lessonModule
+    lesson    :   lessonModule,
+    repeat    :   repeatModule
   },
   state: {
     isLoggedIn: false,

@@ -23,7 +23,7 @@
             <course-lesson
                 v-for="lesson in lessons" 
                     :key="lesson.lesson_id"
-                    :id="lesson.lesson_id"
+                    :lessonId="lesson.lesson_id"
                     :name="lesson.name" 
                     :description="lesson.description">
             </course-lesson>
@@ -44,31 +44,60 @@ export default {
     data(){
         return{
             courseId: this.$route.params.courseId,
-            lessons: null
+            lessons: null,
+            userId      :   this.$store.getters.getUserId
+
         };
     },
     provide() {
         return {courseId: this.courseId}
     },
     created(){
-        const url = "/course/getInsideCourse/" + this.courseId;
-        console.log('pack:', url)
-
-        http.get(url)
-        .then(response => {
-            console.log(response.data)
-            this.lessons = response.data
-        })
-            .catch(error => {
-                this.errorMessage = error.message;
-                console.error("coś poszło nie tak...", error);
-            });
+        this.insideCourse();
+        this.getLessonsFullInfo();
     },
     setup() {
         
     },
     methods:{
-        
+        getLessonsFullInfo(){
+            let userId = this.$store.getters.getUserId;
+            const url = "/courseQueries/getFullInfoOfUserLessons/" + userId;
+
+            http.get(url)
+            .then(response => {
+                this.$store.dispatch('lesson/setAllLessons', response.data);
+
+                console.log('dane z requesta lessonInfo:', response.data)
+                //let sto = this.$store.getters['lesson/getLessonInfoById']
+
+                //console.log('ze sklepu na koniec szukania lekcji:', sto.find(el=>el.lesson_id == 2))
+            })
+            .then(()=>{
+                //this.fillLessonInfo();
+            })
+            .catch(error => {
+                this.errorMessage = error.message;
+                console.error("coś poszło nie tak...", error);
+            });
+        },
+        insideCourse(){
+            const url = "/course/getInsideCourse/" + this.courseId;
+            console.log('pack:', url)
+
+            http.get(url)
+            .then(response => {
+                console.log('dane z requesta o getInsideCourse ', response.data)
+                this.lessons = response.data
+            })
+            .then(()=>{
+                this.getLessonsFullInfo();
+            })
+            .catch(error => {
+                this.errorMessage = error.message;
+                console.error("coś poszło nie tak...", error);
+            });
+        }
 
     }
 }

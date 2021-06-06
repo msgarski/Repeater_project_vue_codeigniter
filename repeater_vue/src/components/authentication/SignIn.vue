@@ -53,10 +53,10 @@ export default {
                 token: null,
                 expires_in: null
             }
-            console.log('pack:', pack)
+            //console.log('pack:', pack)
             http.post("/login/entering", pack)
             .then(response => {
-                console.log('Pierwsze wywołanie: ',  this.$store.getters.logInState)
+               // console.log('Pierwsze wywołanie: ',  this.$store.getters.logInState)
                 this.email = "garski@wp.pl"
                 this.password = ""
                 this.token = response.data.token
@@ -66,18 +66,42 @@ export default {
                 localStorage.setItem('token', this.token)
                 this.$store.dispatch('setUserId', response.data.userId);
                 this.$store.dispatch('login');
-                console.log('drugie wywołanie: ', this.$store.getters.logInState)
-                console.log('userId: ', this.$store.getters.getUserId)
-                this.$router.push('/porch')
+                //console.log('drugie wywołanie: ', this.$store.getters.logInState)
+                //console.log('userId: ', this.$store.getters.getUserId)
+                this.$store.dispatch('setTodayDate');
+                
             })
             .then(()=>{
-                this.$store.dispatch('setTodayDate');
+                this.getNumOfRepeatCards()
+            })
+            .then(()=>{
+                this.$router.push('/porch')
             })
             .catch(error => {
                 this.errorMessage = error.message;
-                console.error("coś poszło nie tak...", error);
+                console.error("coś poszło nie tak w authorization...", error);
             });
         },
+        getNumOfRepeatCards(){
+            let userId = this.$store.getters.getUserId
+            const url = "/repeatQueries/getRepeatsNumsForCourses/" + userId;
+            //console.log('url z pytania', url)
+            http.get(url)
+            .then((response) => {
+                //console.log('dane z requesta pobrania powtórek dla kursu:', response.data)
+
+                this.$store.dispatch('repeat/setRepeatsForCourses', response.data);
+
+                console.log('ze stora po pytaniu o liczbe powtórek: ', this.$store.getters['repeat/getRepeatsForCourses'])
+            })
+            .then(()=>{
+                //this.getCoursesFullInfo();
+            })
+            .catch((error) => {
+                this.errorMessage = error.message;
+                    console.error("coś poszło nie tak w getNumOfRepeatCards...", error);
+            });
+        }
     }
 }
 </script>

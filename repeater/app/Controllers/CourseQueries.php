@@ -25,29 +25,33 @@ class CourseQueries extends BaseController
     protected $model;
 
 
-    public function testPytania()
-    {
+    public function getFullInfoOfUserLessons($user_id){
         $db = \Config\Database::connect();
 
         $model = new QueriesCardsModel($db);
-        
+        // var_dump('w pytaniu o lessons');
+        // exit;
+        if ($db && $user_id) 
+        {
+            $result = $model->getFullInfoOfUserLessons($user_id);
+            
+            return $this->respond($result, 200);            
+        } 
+        else 
+        {
+            // var_dump('nieudane zapisanie', $data['user_id']);
+            // exit;
+            return $this->respond('pobranie danych nieudane!!!', 401);
+        }
     }
     public function getFullInfoOfUserCourses($user_id = null)
     {
-        
         $db = \Config\Database::connect();
 
         $model = new QueriesCardsModel($db);
         
         if ($db && $user_id) 
         {
-            // $builder = $db->table('course');//! to pytanie można przenieść do modelu
-
-            // $builder->where('user_id', $user_id);
-
-            // $builder->update($data);
-        //     var_dump('w kontrolorze: ', $user_id);
-        // exit;
             $result = $model->getFullInfoOfUserCourses($user_id);
             
             return $this->respond($result, 200);            

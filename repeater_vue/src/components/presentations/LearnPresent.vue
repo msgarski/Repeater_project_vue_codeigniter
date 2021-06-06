@@ -61,6 +61,7 @@ export default {
             }
             else
             {
+
                 console.log('przekroczenie indeksu!!!', this.index, this.listLength)
                 this.$store.dispatch('learning/increaseLoopNumber');
                 console.log('loop number: ', this.$store.getters['learning/getLoopNumber'])
@@ -200,7 +201,7 @@ export default {
                 // to avoid reseting table after accidentally back&forwading page:
                 this.$store.dispatch('learning/setBatchForLearning', this.wordsList);
 
-                console.log('widok sklepu z prezentacji: ', this.$store);
+                // console.log('widok sklepu z prezentacji: ', this.$store);
             }
             this.newWordPresentation();
             this.confirmation = false;

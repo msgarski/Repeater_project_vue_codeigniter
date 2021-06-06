@@ -72,7 +72,6 @@ export default {
                     this.$store.dispatch('learning/setBatchForLearning', result.data);
                 }
                 
-                
                 console.log('widok danych z http: ', result.data);
             })
             .then(()=>{

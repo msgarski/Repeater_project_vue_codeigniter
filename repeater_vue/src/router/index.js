@@ -15,6 +15,7 @@ import SingleImport from '../components/cards/SingleImport'
 import MassImport from '../components/cards/MassImport'
 import MainOptions from '../components/settings/MainOptions'
 import LearningNew from '../components/presentations/LearningNew'
+import RepeatPhase from '../components/presentations/RepeatPhase'
 
 
 const routes = [
@@ -32,7 +33,8 @@ const routes = [
   { path: '/singleimport/:lessonId', component: SingleImport },
   { path: '/massimport/:lessonId', component: MassImport },
   { path: '/settings', component: MainOptions },
-  { path: '/learning/:courseId', component: LearningNew}
+  { path: '/learning/:courseId', component: LearningNew },
+  { path: '/repeating/:courseId', component: RepeatPhase }
   
 
 
