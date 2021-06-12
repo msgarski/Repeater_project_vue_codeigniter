@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\QueriesCardsModel;
-use App\Libraries\MassCardInput;
 use App\Libraries\Queries;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -12,7 +11,6 @@ use App\Models\ProductModel;
 use CodeIgniter\Controller;
 use Faker\Provider\Base;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
-use function PHPUnit\Framework\isJson;
 use App\Controllers\Porch;
 
 //class User extends ResourceController - może tak?

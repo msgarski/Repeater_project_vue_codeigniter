@@ -19,6 +19,7 @@
 </div>
 
 <p>Twoje karty w tej lekcji:</p>
+<lesson-table :lessonId="lessonId"></lesson-table>
 
 <div>
     <!-- <a href="">Powrót do kursu</a> -->
@@ -28,21 +29,45 @@
 </template>
 
 <script>
+import http from '../../plugins/axios.js'
+import LessonTable from './LessonTable.vue'
+
 export default {
     name: 'inner-lesson',
+    components: {
+        'lesson-table'  :   LessonTable,
+    },
     data(){
         return{
             lessonId: this.$route.params.lessonId,
+            cards   :   null,
         };
     },
-    setup() {
-        
+    created() {
+        //his.getCardsForLesson();
     },
     methods: {
         backToPrevious: function(event){
             this.$router.go(-1);
            // alert('nic się nie stało')
-        }
+        },
+        getCardsForLesson(){
+            http.get('cards/fillLessonTable/' + this.lessonId)
+            .then((result) => {
+                this.cards = result.data;
+
+                
+                console.log('widok słów do lekcji z http: ', this.cards[0].answer);
+            })
+            .then(()=>{
+                
+                this.$store.dispatch('learning/resetLoopNumber');
+            })
+            .catch((error) => {
+                this.errorMessage = error.message;
+                    console.error("coś poszło nie tak...", error);
+            });
+        },
     }
 }
 </script>

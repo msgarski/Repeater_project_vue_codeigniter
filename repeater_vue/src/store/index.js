@@ -8,6 +8,7 @@ import learningModule from './learning/index.js'
 import courseModule from './courses/index.js'
 import lessonModule from './lessons/index.js'
 import repeatModule from './repeat/index.js'
+import cardModule from './cards/index.js'
 
 export default createStore({
   modules: {
@@ -15,7 +16,8 @@ export default createStore({
     learning  :   learningModule,
     course    :   courseModule,
     lesson    :   lessonModule,
-    repeat    :   repeatModule
+    repeat    :   repeatModule,
+    card      :   cardModule
   },
   state: {
     isLoggedIn: false,

@@ -27,32 +27,46 @@ class Lesson extends ResourceController
 
     public function create()
     {
-        // var_dump('w kontrolerze ');
-        // exit;
+        /*
+        *   methods for creating new lesson inside specific course
+        *
+        */
+        
         $http = $this->request->getJSON();
-        // var_dump('w kontrolerze ', $http);
-        // exit;
 
-        // var_dump('w kontrolerze ', $courseId);
-        // exit;
         $lesson = [
             'name'  =>  $http->name,
             'description'   =>  $http->description,
             'course_id' =>  $http->courseId,
         ];
+
         // var_dump('w kontrolerze ', $lesson);
         // exit;
+
         if ($this->lessonModel->insert($lesson)) 
         {          
-
             return $this->respond('udalo sie', 200);
         } 
         else 
         {
             return $this->respond('error jakiś', 401);
         }
-        
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // public function getInsideLesson($lessonId)
     // {

@@ -91,7 +91,6 @@ class Cards extends BaseController
             return $this->respond('zapis nieudany', 401);
         }
     }
-
     public function createManyCards()
     {
         /*
@@ -123,5 +122,58 @@ class Cards extends BaseController
         {
             return $this->respond('nie udało się zapisać słów', 401);
         }
+    }
+    public function fillLessonTable($lesson_id)
+    {
+        $result = $this->model->getCardsforLesson($lesson_id);
+        // var_dump($result);
+        // exit;
+
+        if($result)
+        {
+            return $this->respond($result, 200);
+        }
+        else
+        {
+            return $this->respond('nie udało się pobrać słów do lekcji...', 404);
+        } 
+    }
+    public function deleteCard($card_id)
+    {
+        // var_dump('id karty', $card_id);
+        // exit;
+        //$http = $this->request->getJSON();
+
+        $result = $this->model->deleteCard($card_id);
+
+        if($result)
+        {
+            return $this->respond($result, 200);
+        }
+        else
+        {
+            return $this->respond('nie udało się usunąć karty...', 404);
+        } 
+    }
+    public function updateCard($card_id)
+    {
+        // var_dump('karta do updatu', $card_id);
+        // exit; 
+
+        $http = $this->request->getJSON();
+
+        $data = [
+            'priority'      =>  $http->priority,
+            'question'      =>  $http->question,
+            'anser'         =>  $http->answer,
+            'pronounciation'    =>  $http->pronounciation,
+            'sentence'          =>  $http->sentence,
+            'image'             =>  $http->image
+        ];
+
+        $this->model->updateCard($card_id, $http);
+
+        return $this->respond('udało się updatować kartę ', 200);
+
     }
 }

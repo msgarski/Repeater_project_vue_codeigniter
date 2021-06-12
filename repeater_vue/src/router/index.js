@@ -16,6 +16,7 @@ import MassImport from '../components/cards/MassImport'
 import MainOptions from '../components/settings/MainOptions'
 import LearningNew from '../components/presentations/LearningNew'
 import RepeatPhase from '../components/presentations/RepeatPhase'
+import EditCard from '../components/cards/EditCard'
 
 
 const routes = [
@@ -34,7 +35,8 @@ const routes = [
   { path: '/massimport/:lessonId', component: MassImport },
   { path: '/settings', component: MainOptions },
   { path: '/learning/:courseId', component: LearningNew },
-  { path: '/repeating/:courseId', component: RepeatPhase }
+  { path: '/repeating/:courseId', component: RepeatPhase },
+  { path: '/editcard/:cardId', component: EditCard }
   
 
 

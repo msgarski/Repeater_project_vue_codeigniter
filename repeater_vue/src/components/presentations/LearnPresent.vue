@@ -19,6 +19,12 @@
     <div >
         <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
     </div>
+    <div>
+        <button @click="editCard(card.card_id)">Edytuj</button>
+    </div>
+    <div>
+        <button @click="deleteCard(card.card_id)">Usuń</button>
+    </div>
 </template>
 
 <script>
@@ -91,6 +97,33 @@ export default {
         // this.answer = this.$store.getters['learning/getBatchForLearning'][this.index]['answer']
     },
     methods: {
+        deleteCard(){
+            console.log('usuń kartę', this.wordIdInDataBase)
+           this.eraseCardFromDatabase(this.wordIdInDataBase)
+
+        },
+        editCard(){
+            // let currCard = this.cards.find(card=>card.card_id==cardId)
+            // //console.log('bieżąca karta', currCard)
+            // this.$store.dispatch('card/setCurrCard', currCard)
+            // console.log('bież karta  ze stora: ', this.$store.getters['card/getCurrCard'])
+            // this.$router.push('/editcard/' + cardId)
+
+        },
+        eraseCardFromDatabase(cardId){
+            http.get('cards/deleteCard/' + cardId)
+            .then((result) => {
+    
+                console.log('widok słów do lekcji z http: ', result.data);
+            })
+            .then(()=>{
+                this.getCardsForLesson()
+            })
+            .catch((error) => {
+                this.errorMessage = error.message;
+                    console.error("coś poszło nie tak...", error);
+            });
+        },
         whatNote(nota){
             switch(nota)
             {

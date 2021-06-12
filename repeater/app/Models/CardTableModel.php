@@ -58,6 +58,21 @@ class CardTableModel extends \CodeIgniter\Model
         return $this->where('card_id', $card_id)
                     ->first();
     }
+    public function getCardsForLesson($lesson_id)
+    {
+        // var_dump('w pytaniu ');
+        // exit;
+        return $this->select('*')  //! czy to dobrze zapisane
+                    ->where('lesson_id', $lesson_id)
+                    ->findAll();
+    }
+    public function deleteCard($card_id)
+    {
+        return $this->where('card_id', $card_id)
+                    ->delete();
+    }
+    //public function updateCard
+
     public function updateCard($card_id, $http)
     {
         $data = [
