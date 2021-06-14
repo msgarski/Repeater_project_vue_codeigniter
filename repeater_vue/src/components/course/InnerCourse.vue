@@ -1,35 +1,43 @@
 <template>
-    <div>Powtórki na dziś</div>
-    <div>
-        <h1>Wnętrze kursu nr: {{ courseId }}</h1>
-    </div>
-
-    <div>
-        <p>Twoje lekcje:</p>
-    </div>
-    <div v-if="!lessons||lessons.length == 0">
-        <p>Nie stworzyłeś jeszcze lekcji... na razie do nowego kursu...
-            <router-link :to="'/newlesson/' + courseId" >
-                Dodaj jakąś lekcję
-            </router-link></p>
-    </div>
-    <div v-else>
+    <!-- <div>Powtórki na dziś</div> -->
+    <div class="container">
         <div>
-            <router-link :to="'/newlesson/' + courseId" >
-                <button>Dodaj nową lekcję</button>
-            </router-link>
+            <!-- <h1>Wnętrze kursu nr: {{ courseId }}</h1> -->
+            <!-- <h1>Nazwa kursu: angielski</h1> -->
         </div>
-        <ul>
-            <course-lesson
-                v-for="lesson in lessons" 
-                    :key="lesson.lesson_id"
-                    :lessonId="lesson.lesson_id"
-                    :name="lesson.name" 
-                    :description="lesson.description">
-            </course-lesson>
-            <hr>
-        </ul>
+        <div v-if="!lessons||lessons.length == 0">
+            <p>Nie stworzyłeś jeszcze lekcji... na razie do nowego kursu...
+                <router-link :to="'/newlesson/' + courseId" >
+                    Dodaj jakąś lekcję
+                </router-link></p>
+        </div>
+        <div v-else>
+            <div class="title">
+                <p>Twoje lekcje w kursie: angielski</p>
+            </div>
+            <div class="button-tab">
+                <div class="btn">
+                    <router-link :to="'/newlesson/' + courseId" >
+                        <button class="button-1">Dodaj nową lekcję</button>
+                    </router-link>
+                </div>
+                <div class="btn">
+                    <router-link to="/settings"><button class="button">Opcje kursu</button></router-link>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="list-container">
+            <ul>
+                <course-lesson
+                    v-for="lesson in lessons" 
+                        :key="lesson.lesson_id"
+                        :lessonId="lesson.lesson_id"
+                        :name="lesson.name" 
+                        :description="lesson.description">
+                </course-lesson>
+            </ul>
+        </div>
 </template>
 
 <script>
@@ -102,3 +110,89 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .container {
+    position: absolute;
+    width: 80%;
+    height: 60px;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 2px 2px 2px 2px grey;
+    margin-top: 80px;
+    margin-left: 10%;
+    margin-right: auto;
+    padding-bottom: 5px;
+    padding-top: auto;
+}
+.list-container {
+    position: absolute;
+    width: 80%;
+    border-radius: 12px;
+    margin-top: 160px;
+    margin-left: 10%;
+    margin-right: 100px;
+}
+.title {
+    margin-top: 0px;
+    position: relative;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    float: left;
+    margin-top: 20px;
+    }
+.button-tab {
+    display: flex;
+    justify-content:space-between;
+    padding-right: 7%;
+    padding-left: 10%;
+}
+.form {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40%;
+    }
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+position: relative;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+margin-top: 12px;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+position: relative;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 200px;
+margin-top: 12px;
+}
+#btn {
+    width: 100%;
+    padding: 10px;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+    color: white;
+}
+</style>

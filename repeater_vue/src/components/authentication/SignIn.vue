@@ -1,27 +1,28 @@
 <template>
-    <h1>Logowanie</h1>
-
-    <form @submit.prevent="authorization">
-        <div>
-            <label for="email" >email</label>
-            <input type="email" name="email" id="email" v-model.trim="email">
+    <h1 id="title">Logowanie</h1>
+    <div class="nix">
+        <form @submit.prevent="authorization" class="form">
+            <div>
+                <label for="email" >E-mail</label>
+                <input type="email" name="email" id="email" v-model.trim="email">
             </div>
 
             <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" v-model.trim="password">
-        </div>
+                <label for="password">Hasło</label>
+                <input type="password" name="password" v-model.trim="password">
+            </div>
 
-                <button>Zatwierdź</button>
-
-    </form>
-    <div>
-        
+                    <button class="button">Zatwierdź</button>
+        </form>
     </div>
-    <div>
-        <router-link to="/">Wyjście</router-link>
-    
-        <router-link to="/forgot">Zapomniane hasło...</router-link>
+    <div class="buttons">
+        <div class="btn" id="btn-1">
+            <button class="button-1"><router-link to="/">Cofnij</router-link></button>   
+        </div>
+        
+        <div class="btn" id="btn-2">
+            <button class="button-1"><router-link to="/forgot">Zapomniane hasło...</router-link></button>
+        </div> 
     </div>
     
 
@@ -105,3 +106,70 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+#title {
+    margin-top: 70px;
+    text-align: center;
+    color: gray;
+    }
+.form {
+    margin-top: 100px;
+    padding-left: 40%;
+    }
+label {
+    display: block;
+    font-size: 16px;
+    font-style: italic;
+    }
+input {
+    width: 40%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.button {
+background-color: #ffae00; /* Green */
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+width: 100px;
+height: 40px;
+    border-radius: 20px;
+}
+.buttons {
+    width: 100%;
+    padding-left: 25%;
+    padding-top: 5%;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+    border-radius: 20px;
+}
+.btn {
+    width: 20%;
+    text-align: center;
+    float: left;
+    padding: 20px;
+    
+}
+
+a {
+    color: white;
+}
+
+
+
+</style>

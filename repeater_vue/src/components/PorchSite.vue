@@ -1,41 +1,45 @@
 <template>
-    <div v-if="isLoggedIn">
-        <h1>Strona wejściowa </h1>
-        <h3> </h3>
-        <div v-if="isRepeating">
-            <router-link :to="'/repeating/' + courseId">
-                <button @click="getBatchForRepeat">Krótkie powtórki</button>
-            </router-link>
-            <div>
-                <fast-repeating
-                    v-for="course in repeatsForCourses"
-                        :key="course.course_id"
-                        :courseId="course.course_id"
-                        :name="course.name"
-                        :repAmount="course.repeats">
-                </fast-repeating>
-            </div>
-            <div >
+<div class="container">
+    <div v-if="isLoggedIn" class="list">
+            <div v-if="isRepeating">
+                <div class="btn"> 
+                    <router-link :to="'/repeating/' + courseId">
+                    <button @click="getBatchForRepeat" class="button">Krótkie powtórki</button>
+                    </router-link>
+                </div>
+                
 
-            </div>
-        </div>
 
-        <div>
-            <div>
-                <button>Zadania na dzisiaj</button>
+
+                    <div v-if="listka">
+                        <fast-repeating
+                            v-for="course in repeatsForCourses"
+                                :key="course.course_id"
+                                :courseId="course.course_id"
+                                :name="course.name"
+                                :repAmount="course.repeats">
+                        </fast-repeating>
+                    </div>
             </div>
+
             <div>
-                <router-link to="/mainscreen"><button>Przejdź do programu</button></router-link>
+                <div class="btn">
+                    <button class="button-1">Zadania na dzisiaj</button>
+                </div>
+                <div class="btn">
+                    <router-link to="/mainscreen"><button class="button">Przejdź do programu</button></router-link>
+                    
+                </div>
             </div>
+            
         </div>
-        
-    </div>
-    <div v-else>
-        <p>No i sie zmyło...</p>
-    </div>
+        <div v-else>
+            <p>No i sie zmyło...</p>
+        </div>
+</div>
+    
     
 </template>
-
 
 <script>
 import http from '../plugins/axios.js'
@@ -55,7 +59,8 @@ export default {
             lastname: 'Górski',
             isRepeating :   false,
             repeatsForCourses   :   null,
-            prawda: 'działa'
+            prawda: 'działa',
+            listka: false
         };
     },
     computed:{
@@ -159,4 +164,68 @@ export default {
 
 <style scoped>
 
+#title {
+    margin-top: 70px;
+    text-align: center;
+    color: gray;
+    }
+.container {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    margin-top: 180px;
+    margin-left: 25%;
+    margin-right: auto;
+    }
+.list {
+    padding-top: 40px;
+    }
+.button {
+    background-color: #ffae00; /* Green */
+    position: relative;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    height: 40px;
+    border-radius: 20px;
+    width: 50%;
+    margin-right: 5%;
+
+
+}
+.button-1 {
+    background-color: #718bff; /* Green */
+    position: relative;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    height: 40px;
+    border-radius: 20px;
+    width: 50%;
+    margin-right: 5%;
+}
+.buttons {
+    width: 100%;
+    padding-left: 25%;
+    padding-top: 5%;
+}
+.btn {
+    width: 100%;
+    text-align: center;
+    float: left;
+    padding: 20px;
+}
+
+a {
+    color: white;
+}
 </style>

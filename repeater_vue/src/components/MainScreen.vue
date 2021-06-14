@@ -1,36 +1,41 @@
 <template>
+    <div class="container">
+        <div class="title">
+            <p>Twoje kursy:</p>
+        </div>
+        <div class="btn">
+            <router-link to="/newcourse"><button class="button-1">Dodaj kurs</button></router-link>
+        </div>
+        <div class="btn">
+            <router-link to="/settings"><button class="button">Opcje główne</button></router-link>
+        </div>
+    </div>
+    <div>
+        <div>Ekran główny</div>
+
+        <div>Oczekujące testy</div>
+
+        <div>Powtórki na dziś</div>
+    </div>
     
-    <div>
-        <router-link to="/newcourse"><button>Dodaj kurs</button></router-link>
-        <router-link to="/settings"><button>Opcje główne</button></router-link>
-    </div>
-    <div>Ekran główny</div>
-
-    <div>Oczekujące testy</div>
-
-    <div>Powtórki na dziś</div>
-
-    <div>
-        <p>Twoje kursy:</p>
-    </div>
-    <div v-if="!courses">
-        <p>Nie stworzyłeś jeszcze żadnego kursu...<router-link to="/newcourse">Dodaj jakiś kurs</router-link></p>
-    </div>
-    <div v-else>
+    <div class="list-container">
         
-        <ul>
-            <user-course 
-                v-for="course in courses" 
-                    :key="course.course_id"
-                    :courseId="course.course_id"
-                    :name="course.name" 
-                    :description="course.description">
-            </user-course>
-            <hr>
-        </ul>
+            <div v-if="!courses">
+                <p>Nie stworzyłeś jeszcze żadnego kursu...<router-link to="/newcourse">Dodaj jakiś kurs</router-link></p>
+            </div>
+            <div v-else> 
+                <ul>
+                    <user-course 
+                        v-for="course in courses" 
+                            :key="course.course_id"
+                            :courseId="course.course_id"
+                            :name="course.name" 
+                            :description="course.description">
+                    </user-course>
+                    <hr>
+                </ul>
+            </div>
     </div>
-
-
 </template>
 
 <script>
@@ -75,5 +80,86 @@ export default {
 </script>
 
 <style scoped>
-
+.container {
+    position: absolute;
+    width: 80%;
+    height: 60px;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 2px 2px 2px 2px grey;
+    margin-top: 80px;
+    margin-left: 10%;
+    margin-right: auto;
+    padding-bottom: 5px;
+    padding-top: auto;
+}
+.list-container {
+    position: absolute;
+    width: 80%;
+    border-radius: 12px;
+    margin-top: 110px;
+    margin-left: 10%;
+    margin-right: 100px;
+}
+.title {
+    margin-top: 0px;
+    position: relative;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    float: left;
+    margin-top: 20px;
+    }
+.form {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40%;
+    }
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+position: relative;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+margin-top: 12px;
+float: left;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+position: relative;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 100px;
+margin-left: 30%;
+margin-right: 30%;
+margin-top: 12px;
+float: left;
+}
+#btn {
+    width: 100%;
+    float: left;
+    padding: 10px;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+    color: white;
+}
 </style>

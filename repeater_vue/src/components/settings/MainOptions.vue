@@ -2,46 +2,63 @@
 
         <div>
             <h3>Opcje główne</h3>
-            <p>imie: {{imie}}</p>
+            <!-- <p>imie: {{imie}}</p> -->
         </div>
-        
-        <form @submit.prevent="addChanges">
-            <div>
-                <label for="learningBatchLimit">Limit słów do nauki w jednej serii</label>
-                <select name="learningBatchLimit" v-model="learningBatchLimit" id="learningBatchLimit">
-                        <option v-for="limit in learningAmountBatch"
-                            :key="limit.id" 
-                            :learningLimit="limit.value">{{limit}}
-                        </option>
-                </select>
+        <div class="container">
+            <div class="title">
+                <h3>Opcje główne</h3>
+                <!-- <p>imie: {{imie}}</p> -->
             </div>
-            <div>
-                <label for="learningLimit">Limit słów do nauki dziennej</label>
-                <select name="learningLimit" v-model="learningLimit" id="learningLimit">
+            <form @submit.prevent="addChanges" class="form">
+                <div class="label">
+                    <label for="learningBatchLimit">Limit słów do nauki w jednej serii</label>
+                    <select name="learningBatchLimit" v-model="learningBatchLimit" id="learningBatchLimit">
+                            <option v-for="limit in learningAmountBatch"
+                                :key="limit.id" 
+                                :learningLimit="limit.value">{{limit}}
+                            </option>
+                    </select>
+                </div>
+
+                <div class="label">
+                    <label for="learningLimit">Limit słów do nauki dziennej</label>
+                    <select name="learningLimit" v-model="learningLimit" id="learningLimit">
                         <option v-for="limit in learningLimitsTable"
                             :key="limit.id" 
                             :learningLimit="limit.value">{{limit}}
                         </option>
-                </select>
-            </div>  
-            <div>
-                <label for="repeatLimit">Limit powtórek do przeprowadzenia dziennie</label>
-                <select name="repeatLimit" v-model="repeatLimit" id="repeatLimit">
-                        <option v-for="limit in repeatLimitsTable"
-                            :key="limit.id" 
-                            :learningLimit="limit.value">{{limit}}
-                        </option>
-                </select>
+                    </select>
+                </div>  
+
+                <div class="label">
+                    <label for="repeatLimit">Limit powtórek do przeprowadzenia dziennie</label>
+                    <select name="repeatLimit" v-model="repeatLimit" id="repeatLimit" class="input">
+                            <option v-for="limit in repeatLimitsTable"
+                                :key="limit.id" 
+                                :learningLimit="limit.value">{{limit}}
+                            </option>
+                    </select>
+                </div>
+                <div class="label">
+                    <label for="overlearning" >Przeuczenie w fazie nauki</label>
+                    <input type="checkbox" v-model="overlearning" id="overlearning" name="overlearning">
+                </div>
+
+                <div class="label">
+                    <label for="overlearning" >Odpytywanie odwrotne</label>
+                    <input type="checkbox" id="overlearning" >
+                </div>
+
+                <div class="btn">
+                    <button class="button">Zatwierdź zmiany</button>
+                </div>
+                      
+            </form>
+            <div class="btn">
+                <button @click="backToPrevious" class="button-1">Anuluj</button>
             </div>
-            <div>
-                <label for="overlearning" >Przeuczenie w fazie nauki</label>
-                <input type="checkbox" v-model="overlearning" id="overlearning" name="overlearning">
-            </div>
-            <button>Zatwierdź zmiany</button>      
-        </form>
-    <div>
-        <button @click="backToPrevious">Powrót bez zatwierdzania zmian</button>
-    </div>
+        </div>
+        
 </template>
 
 <script>
@@ -111,8 +128,113 @@ export default {
 }
 </script>
 
-
-
 <style scoped>
+    .container {
+    position: absolute;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 80%;
+    margin-top: 95px;
+    margin-left: 10%;
+    margin-right: 100px;
+}
+.button-container {
+    position: relative;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 80%;
+    margin-top: 110px;
+    margin-left: 10%;
+    margin-right: 100px;
+}
+.title {
+    margin-top: 0px;
+    position: relative;
+    text-align: center;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 20px;
+    }
+.form {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 25%;
+    padding-right: 30%;
+    }
+label {
+    display: block;
+    font-size: 16px;
+    font-style: italic;
+    padding-top: 7px;
+    }
+.label {
+    display: flex;
+    justify-content:space-between;
+    height: 30px;
+}
+.select {
+    width: 10%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+textarea {
+    width: 50%;
+    padding: 12px 20px;
+    border-width: 2px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+#genre {
+    width: 30%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
 
+  border-width: 2px;
+}
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+width: 30%;
+height: 40px;
+border-radius: 20px;
+margin-left: 40%;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+margin-left: 100px;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 80px;
+margin-left: 46%;
+
+}
+.btn {
+    width: 100%;
+    float: left;
+    padding: 20px;
+}
+
+a {
+    color: white;
+}
 </style>

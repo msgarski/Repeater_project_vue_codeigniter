@@ -1,39 +1,41 @@
 <template>
-    <h1>Rejestracja</h1>
+    <h1 id="title">Rejestracja</h1>
 
-<form @submit.prevent="register">
-<div>
-    <label for="name">Imię</label>
-    <input type="text" name="name" id="name" v-model.trim="name">
+
+<div class="container">
+    <form @submit.prevent="register" class="form">
+        <div>
+            <label for="name">Imię</label>
+            <input type="text" name="name" id="name" v-model.trim="name">
+        </div>
+
+        <div>
+            <label for="email">Adres e-mail</label>
+            <input type="email" name="email" id="email" v-model.trim="email">
+        </div>
+
+        <div>
+            <label for="password">Hasło</label>
+            <input type="password" name="password" id="password" v-model.trim="password">
+        </div>
+
+        <div>
+            <label for="password_confirmation">Potwierdź hasło</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" v-model.trim="passwordConfirmation">
+        </div>
+
+        <button class="button"> Stwórz konto</button>
+    </form>
 </div>
 
-<div>
-    <label for="email">Adres e-mail</label>
-    <input type="email" name="email" id="email" v-model.trim="email">
-</div>
-
-<div>
-    <label for="password">Hasło</label>
-    <input type="password" name="password" id="password" v-model.trim="password">
-</div>
-
-<div>
-    <label for="password_confirmation">potwierdź hasło</label>
-    <input type="password" name="password_confirmation" id="password_confirmation" v-model.trim="passwordConfirmation">
-</div>
-
-<button>Stwórz konto</button>
 
 
-</form>
-
-<div>
-        <router-link to="/">Wyjście</router-link>
+<div id="btn">
+    <button class="button-1"><router-link to="/">Cofnij</router-link></button>
+        
     
 </div>
 </template>
-
-
 
 <script>
 
@@ -113,5 +115,75 @@ export default {
 </script>
 
 <style scoped>
+.container {
+    border: 1px solid grey(39, 39, 39);
+  border-radius: 12px;
+  box-shadow: 5px 5px 5px 5px grey;
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+#title {
+    margin-top: 70px;
+    text-align: center;
+    color: gray;
+    }
+.form {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40%;
+    }
+label {
+    display: block;
+    font-size: 16px;
+    font-style: italic;
+    }
+input {
+    width: 40%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
 
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+}
+.buttons {
+    width: 100%;
+    padding-left: 25%;
+    padding-top: 5%;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+margin-left: 100px;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 80px;
+}
+#btn {
+    width: 100%;
+    float: left;
+    padding: 20px;
+}
+
+a {
+    color: white;
+}
 </style>
