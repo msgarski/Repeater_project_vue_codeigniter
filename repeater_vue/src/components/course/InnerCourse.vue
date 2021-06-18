@@ -13,7 +13,7 @@
         </div>
         <div v-else>
             <div class="title">
-                <p>Twoje lekcje w kursie: angielski</p>
+                <p>Twoje lekcje w kursie: hiszpański</p>
             </div>
             <div class="button-tab">
                 <div class="btn">

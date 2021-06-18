@@ -1,7 +1,7 @@
 <template>
 <div class="contain">
     <div v-if="isLoggedIn">
-                <div>Użytkownik jast zalogowany? {{ isLoggedIn }}</div>
+                <!-- <div>Użytkownik jast zalogowany? {{ isLoggedIn }}</div> -->
                 <div>
                     <h3 class="title">Tworzenie nowego kursu</h3>
                 </div>
@@ -118,7 +118,7 @@ export default {
     border-radius: 12px;
     box-shadow: 5px 5px 5px 5px grey;
     width: 80%;
-    margin-top: 110px;
+    margin-top: 80px;
     margin-left: 10%;
     margin-right: 10%;
 }
@@ -143,7 +143,6 @@ export default {
     margin-top: 20px;
     }
 form {
-    border: solid black;
     padding-top: 40px;
     padding-bottom: 40px;
     padding-left: 35%;
@@ -202,7 +201,7 @@ font-size: 14px;
 height: 40px;
 border-radius: 20px;
 width: 80px;
-margin-left: 17%;
+margin-left: 46%;
 }
 #btn {
     width: 100%;

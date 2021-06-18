@@ -1,5 +1,5 @@
 <template>
-    <div>Tabela słów w lekcji</div>
+    
     <div>
         <div>
             <label for="search">Wyszukaj</label>
@@ -20,17 +20,19 @@
                     <td>{{ card.question }}</td>
                     <td>{{ card.answer }}</td>
                     <td>{{ card.next_repeat }}</td>
-                    <td>
-                        <button @click="deleteCard(card.card_id)">Usuń</button>
-                        <button @click="editCard(card.card_id)">Edytuj</button>
+                    <td class="small-button">
+                        <button @click="deleteCard(card.card_id)" class="s-button">Usuń</button>
+
+                        <button @click="editCard(card.card_id)" class="s-button-1">Edytuj</button>
 
                     </td>
                 </tr>
             </tbody>
         </table>
+
         <div>
-            <button @click="prevPage">Poprzednia</button>
-            <button @click="nextPage">Następna</button>
+            <button @click="prevPage" class="button-t">Poprzednia</button>
+            <button @click="nextPage" class="button-t">Następna</button>
         </div>
     </div>
 
@@ -148,19 +150,60 @@ export default {
 <style scoped>
     table {
     border: 2px solid #42b983;
-    border-radius: 3px;
+    border-radius: 12px;
     background-color: #fff;
     }
 
     th {
     background-color: #42b983;
-    color: rgba(255, 255, 255, 0.66);
+    color: white;
+    font-weight: bold;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -user-select: none;
     }
-
+    .button-t {
+        background-color: #42b983; /* Green */
+        font-weight: bold;
+        position: relative;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        height: 30px;
+        border-radius: 15px;
+        margin-top: 10px;
+    }
+    .s-button {
+        background-color: #ffae00; /* Green */
+        font-weight: bold;
+        position: relative;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        height: 20px;
+        border-radius: 10px;
+    }
+    .s-button-1 {
+        background-color: #718bff; /* Green */
+        font-weight: bold;
+        position: relative;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        height: 20px;
+        border-radius: 10px;
+        width: 200px;
+    }
     td {
     background-color: #f9f9f9;
     }
@@ -178,4 +221,108 @@ export default {
     td, th {
         padding: 5px;
     }
+    .container {
+    position: absolute;
+    width: 95%;
+    height: 60px;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 2px 2px 2px 2px grey;
+    margin-top: 80px;
+    margin-left: 2%;
+    margin-right: auto;
+    padding-bottom: 5px;
+    padding-top: auto;
+}
+.table-container {
+    position: absolute;
+    width: 95%;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 2px 2px 2px 2px grey;
+    margin-top: 160px;
+    margin-left: 2%;
+    margin-right: 100px;
+}
+.title {
+    margin-top: 0px;
+    position: relative;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    float: left;
+    margin-top: 20px;
+    }
+.button-tab {
+    display: flex;
+    justify-content:space-between;
+    padding-right: 2%;
+    padding-left: 30%;
+    padding-top: 0px;
+}
+.form {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 40%;
+    }
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+}
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+position: relative;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+margin-top: 4px;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+position: relative;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 200px;
+margin-top: 4px;
+}
+input {
+    width: 20%;
+    padding: 5px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+.btn {
+    width: 100%;
+    padding: 10px;
+}
+.btn-1 {
+    width: 15%;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    margin-left: 80%;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+    color: white;
+}
 </style>

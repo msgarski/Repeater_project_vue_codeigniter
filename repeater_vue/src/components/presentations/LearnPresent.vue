@@ -1,30 +1,61 @@
 <template>
-<div>
-    <h3>Słów do nauki dzisiaj: {{ listLength }}</h3>
-</div>
-<div>
-    <h3></h3>
-</div>
+<div class="container">
+
+    <div>
+        <!-- <h3>Słów do nauki dzisiaj: {{ listLength }}</h3> -->
+        <!-- <h3 class="title">Słów do nauki dzisiaj: {{ listLength }}</h3> -->
+    </div>
+    <div class="btn">
+            <button @click="deleteCard(card.card_id)" class="button" id="btn-del">Usuń</button>
+    </div>
+
+    <div class="test">
+    <div class="question">
+            <!-- <h2>{{index}}</h2> -->
+            <h1>{{ question }}</h1>
+        </div>
+
+        <div v-show="confirmation" class="answer">
+            <h1>{{ answer }}</h1>
+
+            <div class="wymowa">
+            <p></p>
+        </div>
+
+        <div class="zdanie">
+            <p></p>
+        </div>
+        </div>
+
+        
+
+        <div v-if="!confirmation" class="btn-show">
+            <button @click.prevent="confirm" class="button-1">Pokaż</button>
+        </div>
+        <div class="scale">
+            <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
+        </div>
+    </div>
     
-    <div>
-        <h2>{{index}}</h2>
-        <h1>{{ question }}</h1>
+    <div> 
+        
+        
+        <div class="btn">
+            <button @click="editCard(card.card_id)" class="button-1" id="btn-edit">Edytuj</button>
+        </div>
     </div>
-    <div v-show="confirmation">
-        <h1>{{ answer }}</h1>
-    </div>
-    <div v-if="!confirmation">
-        <button @click.prevent="confirm">Pokaż</button>
-    </div>
-    <div >
-        <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
-    </div>
-    <div>
-        <button @click="editCard(card.card_id)">Edytuj</button>
-    </div>
-    <div>
-        <button @click="deleteCard(card.card_id)">Usuń</button>
-    </div>
+    
+
+
+
+
+
+
+</div>
+
+
+    
+    
 </template>
 
 <script>
@@ -324,3 +355,141 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.wymowa {
+    display: block;
+    font-size: 24px;
+    font-style: italic;
+    margin-top: 30px;
+}
+.zdanie {
+    display: block;
+    font-size: 24px;
+    font-style: italic;
+    margin-top: 20px;
+}
+    .container {
+    position: absolute;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 80%;
+    margin-top: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+    height: 560px;
+    overflow: hidden;
+}
+.test {
+    width: 90%;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 25px;
+}
+.question {
+    
+    height: 30vh;
+}
+.scale {
+    margin-top: 10px;
+}
+.answer {
+    height: 30vh;
+}
+
+.button-container {
+    position: relative;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 80%;
+    margin-top: 110px;
+    margin-left: 10%;
+    margin-right: 100px;
+}
+.side-btn {
+    border: solid black;
+    width: 20%;
+    display: flex;
+    min-height: 70vh;
+    flex-direction: column;
+    float: right;
+}
+.title {
+    margin-top: 0px;
+    position: relative;
+    text-align: center;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 5px;
+    }
+
+label {
+    display: block;
+    font-size: 16px;
+    font-style: italic;
+    padding-top: 15px;
+    }
+.label {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+
+}
+
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+width: 120px;
+height: 40px;
+border-radius: 20px;
+margin-left: 40%;
+}
+#btn-del {
+    background-color: rgb(153, 153, 153);
+    float: right;
+}
+#btn-edit {
+    float: right;
+    background-color: rgb(153, 153, 153);
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+margin-left: 100px;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 120px;
+margin-left: 47%;
+}
+.btn {
+    width: 95%;
+    padding: 10px;
+}
+.btn-show {
+    width: 70%;
+    padding: 10px;
+    position: absolute;
+    bottom: 30px;
+
+}
+a {
+    color: white;
+}
+</style>

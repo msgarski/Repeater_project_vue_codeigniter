@@ -102,7 +102,7 @@ export default {
     border-radius: 12px;
     box-shadow: 5px 5px 5px 5px grey;
     width: 80%;
-    margin-top: 200px;
+    margin-top: 100px;
     margin-left: 10%;
     margin-right: 100px;
 }
@@ -126,7 +126,7 @@ export default {
     margin-left: 10px;
     margin-top: 20px;
     }
-.forma {
+form {
     padding-top: 40px;
     padding-bottom: 40px;
     padding-left: 35%;

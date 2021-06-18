@@ -1,32 +1,39 @@
 <template>
-    <p>Wprowadź listę słów:</p>
-    <div>numer lekcji: {{lessonId}}</div>
-<form @submit.prevent="addCards">
-    <div>
-        <div>
-            <label for="cardpriority">Nauka priorytetowa</label>
-            <input type="checkbox" v-model="cardsPriority" id="cardpriority" name="cardpriority">
+
+    <div class="container">
+        <p class="title">Wprowadź listę słów:</p>
+            <!-- <div>numer lekcji: {{lessonId}}</div> -->
+        <form @submit.prevent="addCards">
+            <div>
+                <div class="label">
+                    <label for="cardpriority">Nauka priorytetowa</label>
+                    <input type="checkbox" v-model="cardsPriority" id="cardpriority" name="cardpriority">
+                </div>
+            </div>
+            <div>
+                <label for="cardsInput"></label>
+                <textarea rows="16" cols="300" name="cardsInput" v-model="cardsImport" id="cardsInput" 
+                placeholder="pytanie odpowiedź [wymowa] [zdanie przykładowe]"></textarea>
+            </div>
+
+            <div class="label">
+                <label for="reckon">wykrywaj znaki rozdzielające</label>
+                <input type="checkbox" name="reckon" id="reckon" checked>
+            </div>
+
+            <div>
+                <input type="hidden" name="lesson_id" id="lesson_id">
+            </div>
+            <div class="btn">
+                <button class="button">Zapisz</button>
+            </div>
+            
+        </form>
+        <div class="btn"> 
+            <button @click="backToPrevious" class="button-1">Anuluj</button>
         </div>
     </div>
-    <div>
-        <label for="cardsInput"></label>
-        <textarea rows="10" cols="100" name="cardsInput" v-model="cardsImport" id="cardsInput" 
-        placeholder="pytanie odpowiedź [wymowa] [zdanie przykładowe]"></textarea>
-    </div>
-
-    <div>
-        <label for="reckon">wykrywaj znaki rozdzielające</label>
-        <input type="checkbox" name="reckon" id="reckon" checked>
-    </div>
-
-    <div>
-        <input type="hidden" name="lesson_id" id="lesson_id">
-    </div>
-    <button>Zapisz</button>
-</form>
-<div>
-    <button @click="backToPrevious">Anuluj</button>
-</div>
+    
 </template>
 
 <script>
@@ -77,37 +84,115 @@ export default {
 </script>
 
 <style scoped>
-    form {
-  margin: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  padding: 1rem;
+    .container {
+    position: absolute;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 90%;
+    margin-top: 80px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
-
-.form-control {
-  margin: 0.5rem 0;
+.button-container {
+    position: relative;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 80%;
+    margin-top: 110px;
+    margin-left: 10%;
+    margin-right: 100px;
 }
-
-label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: block;
-}
-
-input,
+.title {
+    margin-top: 0px;
+    position: relative;
+    text-align: center;
+    color: gray;
+    font-weight: bold;
+    font-size: 25px;
+    margin-left: 10px;
+    margin-top: 20px;
+    }
+form {
+    width: 100%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-left: 0%;
+    padding-right: 0%;  
+    margin-left: 25%;  }
 textarea {
-  display: block;
-  width: 100%;
-  font: inherit;
-  border: 1px solid #ccc;
-  padding: 0.15rem;
+    width: 90%;
+    }
+label {
+    display: block;
+    font-size: 16px;
+    font-style: italic;
+    }
+.label {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50%;
+    margin-left: 10%;
 }
-
-input:focus,
-textarea:focus {
-  border-color: #3d008d;
-  background-color: #faf6ff;
-  outline: none;
+input {
+    width: 50%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
 }
+textarea {
+    width: 50%;
+    padding: 12px 20px;
+    border-width: 2px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+#genre {
+    width: 30%;
+    padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
 
+  border-width: 2px;
+}
+.button {
+background-color: #ffae00; /* Green */
+font-weight: bold;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+width: 30%;
+height: 40px;
+border-radius: 20px;
+margin-left: 10%;
+}
+.button-1 {
+background-color: #718bff; /* Green */
+font-weight: bold;
+margin-left: 100px;
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+height: 40px;
+border-radius: 20px;
+width: 80px;
+margin-left: 48%;
+margin-bottom: 10px;
+}
+#btn {
+    width: 100%;
+    float: left;
+    padding: 5px;
+}
+a {
+    color: white;
+}
 </style>
