@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\RestApi;
 
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
-use App\Controllers\BaseController;
 use App\Models\ProductModel;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use function PHPUnit\Framework\isJson;
@@ -15,8 +14,6 @@ class Signup extends ResourceController
 
     public function create()
     {
-        // var_dump('w tworzeniu usera');
-        // exit;
         /*
         *   Method is ready for succesfully creating new user
         *
@@ -29,57 +26,49 @@ class Signup extends ResourceController
                     'password' => $http->password,
                     'password_confirmation' => $http->password_confirmation
                 ];
+        //return $this->respond($http->email, 200);
+            
+        //return $this->respond($data, 222);
 
         
-
+        
         $user = new \App\Entities\UserEntity($data);
         
         $model = service('userModel');
-        
-        if($model->getUserByEmail($data['email']))
-        {
-            return $this->respond("exists", 200);
-        }
-
 
         $user->activationByCode();
 
         if ($model->insert($user)) {
 
             $this->sendActivationEmail($user);
-            
-            $user = $model->getUserByEmail($http->email);
-
-            return $this->respond($user->user_id, 200);
-        }
+        
+            //return redirect()->to("/signup/success");
+            return $this->respond('udalo sieeeee', 200);
+        } 
         else 
         {
+            // return redirect()->back()
+            //                  ->with('errors', $model->errors())
+            //                  ->with('warning', 'Nieprawidłowe dane')
+            //                  ->withInput();
             return $this->respond("ERRORRRRRRR tworzenia usera", 400);
         }
     }
 
-    public function activate($token)
+    public function success()
     {
-        
-        $model = service('userModel');
-
-        
-
-        $result = $model->activateByToken($token);
-
-        if($result)
-        {
-            return $this->respond('udana aktywacja', 200);
-        }
-        else
-        {
-            return $this->respond('nie udało sie aktywować', 404);
-        }
-        
+        //todo ta funkcja niepotrzebna w vue...
+		return view('Signup/success_view');
     }
 
+    public function activate($token)
+    {
+        $model = service('userModel');
 
+        $model->activateByToken($token);
 
+        return view('Signup/account_activated_view');
+    }
 
     public function sendActivationEmail($user)
     {
@@ -99,16 +88,4 @@ class Signup extends ResourceController
 
 		$email->send();
     }
-
-
-
-
-
-
-
-    // public function success()
-    // {
-    //     //todo ta funkcja niepotrzebna w vue...
-	// 	return view('Signup/success_view');
-    // }
 }

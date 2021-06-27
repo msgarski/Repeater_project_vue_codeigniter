@@ -18,20 +18,39 @@ class Login extends ResourceController
     public function entering()
     {
 
+        // var_dump('user data entering');
+        // exit;
+
         helper('jwt_helper');
 
         $http = $this->request->getJSON();
 
         $email = $http->email;
 
+       
+
         $password = $http->password;
         
         
         $authentic = service('authentication');
-
+        
         $userData = $authentic->loginAuthentication($email, $password);
 
+        switch($userData)
+        {
+            case null:
+                return $this->respond('user not found', 404);
+                break;
+            case -1:
+                return $this->respond('user is not active', 403);
+                break;
+            case -2:
+                return $this->respond('authorization failed', 401);
+                break;
+        }
+
         $userId = $userData[0];
+
         $userEmail = $userData[1];
         
         

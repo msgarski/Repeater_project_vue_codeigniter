@@ -1,7 +1,7 @@
 <template>
     <h1 id="title">Logowanie</h1>
-    <div class="nix">
-        <form @submit.prevent="authorization" class="form">
+    <div class="container">
+        <form v-if="errorCode == 200" @submit.prevent="authorization" class="form">
             <div>
                 <label for="email" >E-mail</label>
                 <input type="email" name="email" id="email" v-model.trim="email">
@@ -14,6 +14,15 @@
 
                     <button class="button">Zatwierdź</button>
         </form>
+        <div v-else-if="errorCode == 404">
+            <p>Nie ma usera</p>
+        </div>
+        <div v-else-if="errorCode == 401">
+            <p>Błąd logowania</p>
+        </div>
+        <div v-else-if="errorCode == 403">
+            <p>Konto nieaktywne</p>
+        </div>
     </div>
     <div class="buttons">
         <div class="btn" id="btn-1">
@@ -35,11 +44,12 @@ export default {
     name: 'SignIn',
     data(){
         return {
-            'email': '',
-            'password': '',
-            'expires_in': '',
-            'token': '',
-            'newDate':''
+            email: '',
+            password: '',
+            expires_in: '',
+            token: '',
+            newDate:'',
+            errorCode:   200
 
         };
     },
@@ -57,8 +67,8 @@ export default {
             //console.log('pack:', pack)
             http.post("/login/entering", pack)
             .then(response => {
-               // console.log('Pierwsze wywołanie: ',  this.$store.getters.logInState)
-                this.email = "garski@wp.pl"
+               console.log('Pierwsze wywołanie: ',  response.data)
+                //this.email = "garski@wp.pl"
                 this.password = ""
                 this.token = response.data.token
                 //this.expires_in = response.data.expires_in * 1000
@@ -67,8 +77,8 @@ export default {
                 localStorage.setItem('token', this.token)
                 this.$store.dispatch('setUserId', response.data.userId);
                 this.$store.dispatch('login');
-                //console.log('drugie wywołanie: ', this.$store.getters.logInState)
-                //console.log('userId: ', this.$store.getters.getUserId)
+                console.log('drugie wywołanie: ', this.$store.getters.logInState)
+                console.log('userId: ', this.$store.getters.getUserId)
                 this.$store.dispatch('setTodayDate');
                 
             })
@@ -79,8 +89,21 @@ export default {
                 this.$router.push('/porch')
             })
             .catch(error => {
-                this.errorMessage = error.message;
-                console.error("coś poszło nie tak w authorization...", error);
+                switch (error.response.status) {
+                    case 403:
+                        this.errorCode = 403;   // not getting here
+                        break;
+                    case 404:
+                        this.errorCode = 404;  // or here
+                        break;
+                    case 401:
+                        this.errorCode = 401;  // or here
+                        break;
+                    
+                    default:
+                        console.log('some other error');  // end up here all the time
+                        break;
+                    }
             });
         },
         getNumOfRepeatCards(){
@@ -108,6 +131,15 @@ export default {
 </script>
 
 <style scoped>
+.container {
+    border: 1px solid grey(39, 39, 39);
+  border-radius: 12px;
+  box-shadow: 5px 5px 5px 5px grey;
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-right: 100px;
+  height: 400px;
+}
 #title {
     margin-top: 70px;
     text-align: center;

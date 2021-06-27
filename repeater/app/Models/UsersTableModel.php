@@ -8,6 +8,8 @@ class UsersTableModel extends \CodeIgniter\Model
 {
     protected $table = 'user';
 
+    protected $primaryKey = 'user_id';
+
     protected $allowedFields = ['name',
                                 'email',
                                 'password',
@@ -85,8 +87,6 @@ class UsersTableModel extends \CodeIgniter\Model
 
         $token_hash = $token->getHashValue();
 
-        
-
         $user = $this->where('reset_hash', $token_hash)
                     ->first();
                     // var_dump('moj hash tokena: ', $user->user_id);
@@ -94,20 +94,32 @@ class UsersTableModel extends \CodeIgniter\Model
         return $user;
     }
 
+
     public function activateByToken($token)
     {
         // todo: poniższa konsolidacja do sprawdzenia:
         $user = $this->findUserByToken($token);
-        var_dump($user);
-        exit;
+        // var_dump($user);
+        // exit;
         if($user !== null)
         {
             $user->activateUser();
-
+        
             $this->protect(false) // chwilowe usunięcie ograniczenia allowedFields
                     ->save($user);
         }
 
+        $check = $this->getUserByEmail($user->email);
+
+        if($check->is_active)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 
     public function checkTokenForResetPass($token)

@@ -3,7 +3,7 @@
 
 
 <div class="container">
-    <form @submit.prevent="register" class="form">
+    <form v-if="!userId" @submit.prevent="register" class="form">
         <div>
             <label for="name">Imię</label>
             <input type="text" name="name" id="name" v-model.trim="name">
@@ -26,12 +26,20 @@
 
         <button class="button"> Stwórz konto</button>
     </form>
+    <div v-else-if="userId=='exists'">
+        <p>Użytkownik o podanym adresie e-mail, istnieje już w systemie</p>
+        <p>Popraw adres poczty elektronicznej</p>
+        <p>Skorzystaj z opcji odzyskiwania hasła</p>
+    </div>
+    <div v-else>
+        <p>Na podany podczas rejestracji adres e-mail, wysłaliśmy wiadomość z linkiem do aktywacji konta</p>
+    </div>
 </div>
 
 
 
 <div id="btn">
-    <button class="button-1"><router-link to="/">Cofnij</router-link></button>
+    <button class="button-1"><router-link to="/">{{buttonText}}</router-link></button>
         
     
 </div>
@@ -53,14 +61,30 @@ export default {
             formIsValid: true,
             message: null,
             classAlert: null,
+            buttonText: 'Cofnij',
             errors: []
         };
         
     },
     watch: {
-        userId(){
-                    this.fillOptionsTable();
-        }
+        userId(){// fill options table for new user
+            /*
+            *   if new user is created successfuly, 
+            *   get his id and fill his options table 
+            *   with default values from store
+            */
+           if(this.userId == 'exists')
+           {
+               //! uruchom modal z info o istnieniu usera!!!
+           }
+           else
+           {
+               this.fillOptionsTable();
+               this.buttonText = 'Wyjdź'
+           }
+                    
+        },
+
     },
     created(){
     
@@ -79,7 +103,7 @@ export default {
                 .then(response => { console.log(response.data );
                     this.userId = response.data;
                     console.log('nowy user ma id: ', this.userId);
-                    console.log('cała odpowiedź ', response.data)
+                    console.log('cała odpowiedź ', response.data);
                     })
                 .catch(error => {
                     this.errorMessage = error.message;
@@ -89,8 +113,9 @@ export default {
         fillOptionsTable(){
             /*
             *   Method for filling table of user main options
-            *   with default data
+            *   with default values
             */
+
             // Object with data for filling options table in db:
             const pack2 = {
                 learningBatch   :   this.$store.getters['option/getLearningBatchLimit'],
@@ -100,7 +125,7 @@ export default {
                 userId          :   this.userId
             };
 
-            // Http request to options table in db:
+            // Http request to fill user options table in db:
             http.post('/options/insertOptions', pack2)
                 .then(response=>{
                     console.log('odpowiedź serwera na żądanie nr 2: ', response);
@@ -122,6 +147,7 @@ export default {
   margin-top: 20px;
   margin-left: 100px;
   margin-right: 100px;
+  height: 400px;
 }
 #title {
     margin-top: 70px;

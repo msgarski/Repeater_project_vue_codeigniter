@@ -1,52 +1,43 @@
 <template>
-    <form @submit.prevent="wyslij">
-
-<p>Wprowadź nowe hasło:</p>
-
-<div>
-    <label for="password">Podaj hasło</label>
-    <input type="password" name="password" v-model="password">
-</div>
-
-<div>
-    <label for="password_confirmation">Powtórz hasło</label>
-    <input type="password" name="password_confirmation" v-model="password_confirmation">
-</div>
-
-<button>Wyślij</button>
-
-</form>
+    <div>Aktywacja konta</div>
+    <div v-if="activated">
+        <p>Twoje konto jest już aktywne</p>
+        <p>Możesz się zalogować</p>
+        <div>
+            <router-link to="/signin"><p>Logowanie</p></router-link>
+        </div>
+    </div>
 </template>
 
 <script>
-export default {
-    data(){
-        return{
-            password: '',
-            password_confirmation: ''
+import http from '../../plugins/axios.js'
 
+export default {
+    data() {
+        return {
+            token: this.$route.params.token,
+            activated: false,
         };
     },
-    setup() {
-        
+    created() {
+        this.activateAccount();
     },
-    methods:{
-        wyslij(){
-            const pack = {
-                password: this.password,
-                password_confirmation: this.password_confirmation
-            }
-            console.log('pack:', pack)
-            http.post("/password/newPassword", pack)
-            .then(response => {
-                console.log(response.data)
-                //this.$router.push('/signin')
-            })
-                .catch(error => {
-                    this.errorMessage = error.message;
-                    console.error("coś poszło nie tak...", error);
-                });
+    methods: {
+        activateAccount(){
+            let url = "/signup/activate/" + this.token;
 
+            http.post(url)
+            .then(response => {
+                console.log(response.data);
+                this.activated = true;
+            })
+            .catch(error => {
+                // ! rozpatrzyć kilka opcji: -przeterminowany token -nieprawidłowy token
+
+
+                this.errorMessage = error.message;
+                console.error("coś poszło nie tak...", error);
+            });
         }
     }
 }
