@@ -5,15 +5,9 @@
             <!-- <h1>Wnętrze kursu nr: {{ courseId }}</h1> -->
             <!-- <h1>Nazwa kursu: angielski</h1> -->
         </div>
-        <div v-if="!lessons||lessons.length == 0">
-            <p>Nie stworzyłeś jeszcze lekcji... na razie do nowego kursu...
-                <router-link :to="'/newlesson/' + courseId" >
-                    Dodaj jakąś lekcję
-                </router-link></p>
-        </div>
-        <div v-else>
+        <div>
             <div class="title">
-                <p>Twoje lekcje w kursie: hiszpański</p>
+                <p>Twoje lekcje w kursie:</p>
             </div>
             <div class="button-tab">
                 <div class="btn">
@@ -26,9 +20,16 @@
                 </div>
             </div>
         </div>
+        <div v-if="!lessons||lessons.length == 0">
+            <p>Nie stworzyłeś jeszcze lekcji do nowego kursu...
+                <router-link :to="'/newlesson/' + courseId" >
+                    <button>Dodaj lekcję</button>
+                </router-link></p>
+        </div>
+        
     </div>
     <div class="list-container">
-            <ul>
+            <ul v-if="lessons">
                 <course-lesson
                     v-for="lesson in lessons" 
                         :key="lesson.lesson_id"
@@ -60,9 +61,9 @@ export default {
     provide() {
         return {courseId: this.courseId}
     },
-    created(){
-        this.insideCourse();
+    mounted(){
         this.getLessonsFullInfo();
+        this.insideCourse();
     },
     setup() {
         

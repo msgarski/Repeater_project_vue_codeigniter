@@ -24,7 +24,7 @@
                 <p>Nie stworzyłeś jeszcze żadnego kursu...<router-link to="/newcourse">Dodaj jakiś kurs</router-link></p>
             </div>
             <div v-else> 
-                <ul>
+                <ul v-if="isLoaded">
                     <user-course 
                         v-for="course in courses" 
                             :key="course.course_id"
@@ -52,10 +52,14 @@ export default {
             courses     : null,
             coursesInfo : null,
             userId      : this.$store.getters.getUserId,
-            toCourse    : null
+            toCourse    : null,
+            isLoaded    :   false
         };
     },
     created(){
+        this.getCoursesFullInfo();
+    },
+    mounted(){
         
         const url = "/course/getallcoursesforuser/" + this.userId;
 
@@ -65,6 +69,7 @@ export default {
             console.log('dane po odebraniu w mainscreenie: ', response.data)
         })
         .then(()=>{
+            this.isLoaded = true;
 
         })
         .catch(error => {
@@ -74,6 +79,25 @@ export default {
         
     },
     methods: {
+        getCoursesFullInfo(){
+            const url = "/courseQueries/getFullInfoOfUserCourses/" + this.userId;
+
+            http.get(url)
+            .then(response => {
+                this.$store.dispatch('course/setAllCourses', response.data);
+                console.log('dane z requesta:', response.data)
+                let sto = this.$store.getters['course/getCourseInfoById']
+
+                console.log('ze stora na koniec wypeniania pasków kursów:', sto.find(el=>el.course_id == 1))
+            })
+            .then(()=>{
+                //this.getLessonsFullInfo();
+            })
+            .catch(error => {
+                this.errorMessage = error.message;
+                console.error("coś poszło nie tak...", error);
+            });
+        },
         
     }
 }

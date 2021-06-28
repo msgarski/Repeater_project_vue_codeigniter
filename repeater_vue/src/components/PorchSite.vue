@@ -98,31 +98,12 @@ export default {
 
                 })
                 .then(()=>{
-                    this.getCoursesFullInfo();
+                    //this.getCoursesFullInfo();
                 })
                 .catch((error) => {
                     this.errorMessage = error.message;
                         console.error("coś poszło nie tak...", error);
                 });
-        },
-       getCoursesFullInfo(){
-            const url = "/courseQueries/getFullInfoOfUserCourses/" + this.userId;
-
-            http.get(url)
-            .then(response => {
-                this.$store.dispatch('course/setAllCourses', response.data);
-                console.log('dane z requesta:', response.data)
-                let sto = this.$store.getters['course/getCourseInfoById']
-
-                console.log('ze sklepu na koniec:', sto.find(el=>el.course_id == 1))
-            })
-            .then(()=>{
-                //this.getLessonsFullInfo();
-            })
-            .catch(error => {
-                this.errorMessage = error.message;
-                console.error("coś poszło nie tak...", error);
-            });
         },
         getBatchForRepeat(){
             let limit = this.$store.getters['repeat/getRepeatingBatchLimit'];

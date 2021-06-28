@@ -20,13 +20,13 @@
     <div class="stats">
         <div class="stat">
             <div><label for="tryouts">Do nauki:</label></div>
-            <div><p>15</p></div>
+            <div><p>{{ lessonInfo.for_learning }}</p></div>
             <div><button class="button">Ucz się</button></div>
         </div>
 
         <div class="stat">
             <label for="repetitions">Do powtórki:</label>
-            <p>7</p>
+            <p>{{ lessonInfo.for_repeating }}</p>
             <button class="button-1">Powtarzaj</button>
         </div>
     </div>
@@ -55,13 +55,22 @@ export default {
     data(){
         return{
             lessonId: this.$route.params.lessonId,
+            lessonInfo: null,
             cards   :   null,
         };
     },
+    computed: {
+
+    },
     created() {
+        this.fillLessonInfo();
         //his.getCardsForLesson();
     },
     methods: {
+        fillLessonInfo(){
+            let sto = this.$store.getters['lesson/getLessonInfoById']
+            this.lessonInfo = sto.find(el=>el.lesson_id == this.lessonId)
+        },
         backToPrevious: function(event){
             this.$router.go(-1);
            // alert('nic się nie stało')

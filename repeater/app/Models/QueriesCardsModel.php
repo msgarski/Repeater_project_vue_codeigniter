@@ -50,16 +50,17 @@ class QueriesCardsModel
     public function getFullInfoOfUserCourses($user_id)
     {
         $query = $this->db->query("
-        select c.user_id, c.course_id, count(l.lesson_id) as lesson_amount, 
-            (SELECT COUNT(*) FROM card WHERE card.lesson_id = l.lesson_id) as card_amount,
-            (SELECT COUNT(*) FROM card WHERE card.lesson_id = l.lesson_id AND card.awkward = 1) as awkward_amount,
-            (SELECT COUNT(*) FROM card WHERE card.lesson_id = l.lesson_id AND card.learned_at IS NULL) as for_learning,
-            (SELECT COUNT(*) FROM card WHERE card.lesson_id = l.lesson_id AND card.next_repeat < NOW()) as for_repeating
-                    from course as c
-                    left join lesson as l
-                    on c.course_id = l.course_id
-                    WHERE c.user_id = " .$this->db->escape($user_id)."
-                    group by c.course_id
+        SELECT course.user_id, course.course_id, (SELECT COUNT(*) FROM lesson WHERE lesson.course_id = course.course_id) as lesson_amount, count(card.card_id) as card_amount,
+        COUNT(card.card_id) - (SUM(CASE WHEN card.learned_at IS NOT NULL THEN 1 ELSE 0 END)) AS for_learning,
+        SUM(CASE WHEN card.awkward = 1 THEN 1 ELSE 0 END) AS awkward_amount,
+        SUM(CASE WHEN card.next_repeat < NOW() THEN 1 ELSE 0 END) AS for_repeating
+            FROM card
+            RIGHT JOIN lesson
+            ON lesson.lesson_id = card.lesson_id
+            RIGHT JOIN course
+            ON lesson.course_id = course.course_id
+            WHERE course.user_id = " .$this->db->escape($user_id)."
+            GROUP BY course.course_id
             ;"
         );
 

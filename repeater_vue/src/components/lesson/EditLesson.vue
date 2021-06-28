@@ -1,62 +1,52 @@
 <template>
-<div class="container">
-    <div>
-        <h3 class="title">Tworzenie nowej lekcji do kursu nr:</h3>
+    <div class="container">
+        <div>
+            <h3 class="title">Edycja lekcji</h3>
+        </div>
+
+        <form @submit.prevent="changeLesson" class="form">
+                <div>
+                    <label for="name">Zmień temat lekcji</label>
+                    <input type="text" name="name" v-model.trim="name" id="name">
+                </div>
+
+                <div>
+                    <label for="description">Zmień opis lekcji</label>
+                    <textarea 
+                        rows="5" 
+                        cols="50" 
+                        v-model.trim="description" 
+                        id="description" 
+                        name="description" 
+                        placeholder="Tematyka lekcji...">
+                    </textarea>
+                </div>
+                <!-- <button>Dodaj lekcję</button>    -->
+                <div class="button-contaainer">
+                <div id="btn">
+                    <button class="button">Zatwierdź zmiany</button>
+                </div>
+                <div id="btn">
+                    <button @click="goBack" class="button-1">Anuluj</button>
+                </div>
+            </div> 
+        </form>
     </div>
-
-    <form @submit.prevent="addLesson" class="form">
-            <div>
-                <label for="name">Temat lekcji</label>
-                <input type="text" name="name" v-model.trim="name" id="name">
-            </div>
-
-            <div>
-                <label for="description">Opis lekcji</label>
-                <textarea 
-                    rows="5" 
-                    cols="50" 
-                    v-model.trim="description" 
-                    id="description" 
-                    name="description" 
-                    placeholder="Tematyka lekcji...">
-                </textarea>
-            </div>
-            <!-- <button>Dodaj lekcję</button>    -->
-            <div class="button-contaainer">
-            <div id="btn">
-                <button class="button">Dodaj lekcję</button>
-            </div>
-            <div id="btn">
-                <button @click.prevent="goBack()" class="button-1">Anuluj</button>
-            </div>
-        </div> 
-    </form>
-
-
-
-
-</div>
-    
-
-              
-        
-    
 </template>
 
 <script>
 import http from '../../plugins/axios.js'
 
 export default {
-    name: 'NewLesson',
+    name: 'EditLesson',
     data(){
         return {
             name: '',
             description: '',
-            courseId: this.$route.params.courseId,
+            lessonId: this.$route.params.lessonId,
         };
     },
     mounted(){
-        console.log('lekcja jest do kursu: ', this.courseId)
     },
     computed: {
         
@@ -69,7 +59,7 @@ export default {
             console.log('lekcja jest do: ')
             return this.$store.getters.logInState;
         },
-        addLesson(){
+        changeLesson(){
                 const pack = {
                     name: this.name,
                     description: this.description,

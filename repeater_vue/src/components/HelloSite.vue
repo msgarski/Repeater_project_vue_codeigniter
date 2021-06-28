@@ -1,18 +1,17 @@
 <template>
 <header>
     <div class="nic">
-    <div v-if="isLoggedIn">
-    <div class="header">
-        <div class="btn">
-            <button @click="logout" class="button">Wyloguj</button>
+        <div v-if="isLoggedIn">
+            <div class="header">
+                <div class="btn">
+                    <button @click="logout" class="button">Wyloguj</button>
+                </div> 
+            </div>
         </div>
-        
+        <div v-else>
+            <router-link to="/"></router-link>
+        </div>
     </div>
-    </div>
-    <div v-else>
-        <router-link to="/"></router-link>
-    </div>
-</div>
 </header>
 
 
@@ -43,6 +42,7 @@ export default {
         height: 60px;
         position: fixed;
         width: 100%;
+        z-index: 100;
     }
     .button {
 background-color: #ffae00; /* Green */

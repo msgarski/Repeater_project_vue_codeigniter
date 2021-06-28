@@ -1,5 +1,5 @@
 <template>
-    <li>
+    <li v-if="courseInfo">
         <router-link :to="'/innercourse/' + courseId">
 
             <div>
@@ -77,11 +77,18 @@ export default {
         //this.courseInfo = this.$store.getters['course/getCourseInfoById'];
         //console.log('info o kursie z gettersa: ', this.courseInfo);
         //this.courseInfo = this.fillCourseInfo();
+        
 
     },
     methods: {
+        providingName(){
+            this.courseName = this.name;
+        },
         fillCourseInfo(){
             let sto = this.$store.getters['course/getCourseInfoById']
+
+            //console.log('czy jest info o kursie w storze? :', sto)
+
             return sto.find(el=>el.course_id == this.courseId)
             
         },

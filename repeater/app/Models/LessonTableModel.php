@@ -6,6 +6,8 @@ class LessonTableModel extends \CodeIgniter\Model
 {
     protected $table = 'lesson';
 
+    protected $primaryKey = 'lesson_id';
+
     protected $allowedFields = [
                             'name',
                             'description',

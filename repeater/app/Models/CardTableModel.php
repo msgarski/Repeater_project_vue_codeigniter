@@ -9,6 +9,8 @@ class CardTableModel extends \CodeIgniter\Model
 {
     protected $table = 'card';
 
+    protected $primaryKey = 'card_id';
+
     protected $allowedFields = ['question',
                                 'answer',
                                 'pronounciation',

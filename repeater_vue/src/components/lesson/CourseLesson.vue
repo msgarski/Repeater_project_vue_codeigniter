@@ -19,10 +19,10 @@
 
                         <div class="number">{{ lessonInfo.for_learning }}</div>
 
-                        <div v-show="lessonInfo.for_learning > 10" id="btn">
-                        <!-- <router-link :to="'/learning/' + courseId"><button @click="getBatchLearningOfCourse">Nauka słów w kursie</button></router-link> -->
-                        <button @click="getBatchLearningOfCourse" class="button">Ucz się</button>
-                    </div>
+                        <div v-show="lessonInfo.for_learning >= 10" id="btn">
+                            <!-- <router-link :to="'/learning/' + courseId"><button @click="getBatchLearningOfCourse">Nauka słów w kursie</button></router-link> -->
+                            <button @click="getBatchLearningOfCourse" class="button">Ucz się</button>
+                        </div>
                     </div>
                     
                     <div class="repeating">
@@ -31,15 +31,23 @@
                         <div class="number">{{ lessonInfo.for_repeating }} </div>
 
                         <div v-show="lessonInfo.for_repeating > 5" id="btn">
-                        <!-- <router-link :to="'/learning/' + courseId"><button @click="getBatchLearningOfCourse">Nauka słów w kursie</button></router-link> -->
-                        <button @click="getBatchLearningOfCourse" class="button">Powtarzaj</button>
+                            <!-- <router-link :to="'/learning/' + courseId"><button @click="getBatchLearningOfCourse">Nauka słów w kursie</button></router-link> -->
+                            <button @click="getBatchLearningOfCourse" class="button">Powtarzaj</button>
+                        </div>
                     </div>
-                    </div>
-                    
-
                 </div>
                 
-                
+                <div>
+                    <router-link :to="'/editlesson/' + lessonId"><button class="button">Edytuj</button></router-link>
+                </div>
+                <div class="button-tab">
+                    <div class="btn">
+                        <router-link :to="'/massimport/' + lessonId"><button class="button-1">Dodaj wiele kart</button></router-link>
+                    </div>
+                    <div class="btn">
+                        <router-link :to="'/singleimport/' + lessonId"><button class="button">Dodaj karty pojedynczo</button></router-link>
+                    </div>
+                </div>
 
             </div>   
         </router-link>

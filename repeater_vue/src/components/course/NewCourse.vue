@@ -50,7 +50,8 @@
 
 
         <div id="btn">
-            <button class="button-1">Anuluj</button>
+            <router-link to="/mainscreen"><button class="button-1">Anuluj</button></router-link>
+            
         </div>
     </div>
 </div>
@@ -98,7 +99,10 @@ export default {
                     console.log('odpowiedź serwera: ', response);
                 })
                 .then(()=>{
-                    this.$router.push('/mainscreen')
+                    this.$router.push('/mainscreen');
+                    //! a może lepiej przejść do tego kursu nowego?
+                    //!wtedy trzeba w odpowiedzi dostać id tego kursu
+                    //this.$router.go(-1);
     
                 })
                 .catch(error => {

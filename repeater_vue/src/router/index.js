@@ -18,6 +18,7 @@ import LearningNew from '../components/presentations/LearningNew'
 import RepeatPhase from '../components/presentations/RepeatPhase'
 import EditCard from '../components/cards/EditCard'
 import AccountActivation from '../components/newUser/AccountActivation'
+import EditLesson from '../components/lesson/EditLesson'
 
 
 const routes = [
@@ -38,7 +39,8 @@ const routes = [
   { path: '/learning/:courseId', component: LearningNew },
   { path: '/repeating/:courseId', component: RepeatPhase },
   { path: '/editcard/:cardId', component: EditCard },
-  { path: '/accountactivation/:token', component: AccountActivation }
+  { path: '/accountactivation/:token', component: AccountActivation },
+  { path: '/editlesson/:lessonId', component: EditLesson }
   
 
 
