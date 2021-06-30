@@ -2,7 +2,7 @@ import moment from 'moment'
 
 export default {
     demandFormatDate(){
-        const format = 'YYYY-MM-DD hh:mm:ss';
+        const format = 'YYYY-MM-DD HH:mm:ss';
         return format;
     },
     getToday(){

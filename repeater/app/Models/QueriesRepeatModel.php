@@ -13,6 +13,7 @@ class QueriesRepeatModel
         
         $this->db = &$db;
     }
+
     public function getRepeatsNumsForCourses($user_id)
     {
         $query = $this->db->query("
@@ -30,12 +31,16 @@ class QueriesRepeatModel
         return $query->getResult();
     }
 
-
-
     public function getRepeatBatchForCourse($course_id, $batch_limit)
     {
+        /*
+        *   Query for creating batch for repeating phase;
+        *   Selection is based on periond between learning time and repeat date
+        */
+
         $query = $this->db->query("
-            SELECT *, timestampdiff(minute,card.learned_at, card.next_repeat) AS period 
+            SELECT *, timestampdiff(minute,card.learned_at, card.next_repeat) AS period,
+            timestampdiff(minute, card.next_repeat, now()) as overlook, now() as now
             FROM card
             JOIN lesson
             ON lesson.lesson_id = card.lesson_id
@@ -68,11 +73,6 @@ class QueriesRepeatModel
         return $query->getResult();
         
     }
-
-
-
-
-
 
     public function updateCard($card_id)
     {

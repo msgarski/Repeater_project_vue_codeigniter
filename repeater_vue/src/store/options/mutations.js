@@ -13,6 +13,9 @@ export default {
     },
     setRepeatDayLimit(state, limit){
         state.repeatDayLimit = limit;
+    },
+    setFastRepeatBatch(state, limit){
+        state.fastRepeatBatch = limit;
     }
 };
 

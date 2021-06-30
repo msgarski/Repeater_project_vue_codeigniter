@@ -54,6 +54,7 @@ class Options extends BaseController
             return $this->respond('zapis opcji nieudany', 401);
         }
     }
+
     public function updateOptions()
     {
         $db = \Config\Database::connect();
@@ -66,7 +67,8 @@ class Options extends BaseController
             'day_learning_limit'    =>  $http->learningLim,
             'batch_learning_limit'  =>  $http->learningBatch,
             'day_repeat_limit'      =>  $http->repeatLim,
-            'overlearning'          =>  $http->overlearn
+            'overlearning'          =>  $http->overlearn,
+            'fast_repeat_batch'     =>  $http->fastRepeatBatch
         ];
         
         if ($db && $user_id) 
@@ -86,6 +88,7 @@ class Options extends BaseController
             return $this->respond('update opcji nieudany', 401);
         }
     }
+
     public function getOptionsForUser($user_id)
     {
         //$db = \Config\Database::connect();

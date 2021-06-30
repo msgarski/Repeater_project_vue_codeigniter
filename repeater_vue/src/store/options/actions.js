@@ -13,5 +13,8 @@ export default {
     },
     setRepeatDayLimit({commit}, limit){
         commit('setRepeatDayLimit', limit);
+    },
+    setFastRepeatBatch({commit}, limit){
+        commit('setFastRepeatBatch', limit);
     }
 };

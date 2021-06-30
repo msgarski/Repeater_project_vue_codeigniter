@@ -1,61 +1,44 @@
 <template>
-<div class="container">
-
-    <div>
-        <!-- <h3>Słów do nauki dzisiaj: {{ listLength }}</h3> -->
-        <!-- <h3 class="title">Słów do nauki dzisiaj: {{ listLength }}</h3> -->
-    </div>
-    <div class="btn">
-            <button @click="deleteCard(card.card_id)" class="button" id="btn-del">Usuń</button>
-    </div>
-
-    <div class="test">
-    <div class="question">
-            <!-- <h2>{{index}}</h2> -->
-            <h1>{{ question }}</h1>
+    <div class="container">
+        <div>
+            <!-- <h3>Słów do nauki dzisiaj: {{ listLength }}</h3> -->
+            <!-- <h3 class="title">Słów do nauki dzisiaj: {{ listLength }}</h3> -->
         </div>
 
-        <div v-show="confirmation" class="answer">
-            <h1>{{ answer }}</h1>
-
-            <div class="wymowa">
-            <p></p>
-        </div>
-
-        <div class="zdanie">
-            <p></p>
-        </div>
-        </div>
-
-        
-
-        <div v-if="!confirmation" class="btn-show">
-            <button @click.prevent="confirm" class="button-1">Pokaż</button>
-        </div>
-        <div class="scale">
-            <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
-        </div>
-    </div>
-    
-    <div> 
-        
-        
         <div class="btn">
-            <button @click="editCard(card.card_id)" class="button-1" id="btn-edit">Edytuj</button>
+                <button @click="deleteCard(card.card_id)" class="button" id="btn-del">Usuń</button>
+        </div>
+
+        <div class="test">
+            <div class="question">
+                <!-- <h2>{{index}}</h2> -->
+                <h1>{{ question }}</h1>
+            </div>
+
+            <div v-show="confirmation" class="answer">
+                <h1>{{ answer }}</h1>
+                <div class="wymowa"></div>
+                <div class="zdanie">
+                    <p></p>
+                </div>
+            </div>
+
+            <div v-if="!confirmation" class="btn-show">
+                <button @click.prevent="confirm" class="button-1">Pokaż</button>
+            </div>
+            
+            <div class="scale">
+                <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
+            </div>
+        </div>
+        
+
+        <div> 
+            <div class="btn">
+                <button @click="editCard(card.card_id)" class="button-1" id="btn-edit">Edytuj</button>
+            </div>
         </div>
     </div>
-    
-
-
-
-
-
-
-</div>
-
-
-    
-    
 </template>
 
 <script>

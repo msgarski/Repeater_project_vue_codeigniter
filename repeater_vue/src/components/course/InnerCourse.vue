@@ -20,25 +20,31 @@
                 </div>
             </div>
         </div>
-        <div v-if="!lessons||lessons.length == 0">
-            <p>Nie stworzyłeś jeszcze lekcji do nowego kursu...
+    </div>
+
+
+    <div class="list-container" v-if="lessons">
+        <ul v-if="(lessons.length != 0) && lessonsInfoIsLoaded">
+            <course-lesson
+                v-for="lesson in lessons" 
+                    :key="lesson.lesson_id"
+                    :lessonId="lesson.lesson_id"
+                    :name="lesson.name" 
+                    :description="lesson.description">
+            </course-lesson>
+        </ul>
+        <div v-else-if="!lessonsInfoIsLoaded"><h1>Loading ...</h1></div>
+        <div v-if="lessons.length == 0">
+            <p>Nie stworzyłeś jeszcze lekcji do tego kursu...
                 <router-link :to="'/newlesson/' + courseId" >
                     <button>Dodaj lekcję</button>
-                </router-link></p>
+                </router-link>
+            </p>
         </div>
-        
     </div>
-    <div class="list-container">
-            <ul v-if="lessons">
-                <course-lesson
-                    v-for="lesson in lessons" 
-                        :key="lesson.lesson_id"
-                        :lessonId="lesson.lesson_id"
-                        :name="lesson.name" 
-                        :description="lesson.description">
-                </course-lesson>
-            </ul>
-        </div>
+    <div v-else><h1>Loading ...</h1></div>
+
+
 </template>
 
 <script>
@@ -54,6 +60,7 @@ export default {
         return{
             courseId: this.$route.params.courseId,
             lessons: null,
+            lessonsInfoIsLoaded   :   false,
             userId      :   this.$store.getters.getUserId
 
         };
@@ -79,11 +86,11 @@ export default {
 
                 console.log('dane z requesta lessonInfo:', response.data)
                 //let sto = this.$store.getters['lesson/getLessonInfoById']
-
                 //console.log('ze sklepu na koniec szukania lekcji:', sto.find(el=>el.lesson_id == 2))
             })
             .then(()=>{
                 //this.fillLessonInfo();
+                this.lessonsInfoIsLoaded = true;
             })
             .catch(error => {
                 this.errorMessage = error.message;

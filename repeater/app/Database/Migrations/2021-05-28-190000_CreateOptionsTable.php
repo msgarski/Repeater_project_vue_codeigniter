@@ -45,6 +45,13 @@ class CreateOptionsTable extends Migration
                                 'null'          =>  false,
                                 'unsigned'      =>  true,
                                 'default'       =>  0
+                        ],
+                        'fast_repeat_batch'     =>      [
+                                'type'          =>  'INT',
+                                'constraint'    =>  3,
+                                'null'          =>  false,
+                                'unsigned'      =>  true,
+                                'default'       =>  0
                         ]
 	        ];
 

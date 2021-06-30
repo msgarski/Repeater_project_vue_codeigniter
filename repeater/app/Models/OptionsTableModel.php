@@ -11,7 +11,8 @@ class OptionsTableModel extends \CodeIgniter\Model
                         'overlearning',
                         'batch_learning_limit',
                         'day_learning_limit',
-                        'day_repeat_limit'
+                        'day_repeat_limit',
+                        'fast_repeat_batch'
                             ];
 
     // tutaj okreslam klasę odpowiedzialną za tworzenie obiektu user:

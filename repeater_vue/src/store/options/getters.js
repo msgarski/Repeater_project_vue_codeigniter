@@ -13,5 +13,8 @@ export default {
     },
     getRepeatDayLimit(state){
         return state.repeatDayLimit;
+    },
+    getFastRepeatBatch(state){
+        return state.fastRepeatBatch;
     }
 };

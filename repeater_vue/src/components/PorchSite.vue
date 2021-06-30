@@ -1,25 +1,13 @@
 <template>
 <div class="container">
     <div v-if="isLoggedIn" class="list">
+        <div v-if="!chooseCourse">
             <div v-if="isRepeating">
                 <div class="btn"> 
-                    <router-link :to="'/repeating/' + courseId">
-                    <button @click="getBatchForRepeat" class="button">Krótkie powtórki</button>
-                    </router-link>
+                    <!-- <router-link :to="'/repeating/' + courseId"> -->
+                    <button @click="setChooseCourse" class="button">Krótkie powtórki</button>
+                    <!-- </router-link> -->
                 </div>
-                
-
-
-
-                    <div v-if="listka">
-                        <fast-repeating
-                            v-for="course in repeatsForCourses"
-                                :key="course.course_id"
-                                :courseId="course.course_id"
-                                :name="course.name"
-                                :repAmount="course.repeats">
-                        </fast-repeating>
-                    </div>
             </div>
 
             <div>
@@ -27,15 +15,30 @@
                     <button class="button-1">Zadania na dzisiaj</button>
                 </div>
                 <div class="btn">
-                    <router-link to="/mainscreen"><button class="button">Przejdź do programu</button></router-link>
-                    
+                    <router-link to="/mainscreen"><button class="button">Przejdź do programu</button></router-link> 
                 </div>
+            </div>
+        </div>
+        <div v-else class="list-container">
+            <ul>
+                <fast-repeating
+                    v-for="course in repeatsForCourses"
+                        :key="course.course_id"
+                        :courseId="course.course_id"
+                        :name="course.name"
+                        :repAmount="course.repeats">
+                </fast-repeating>
+            </ul>
+            <div>
+                <button @click.prevent="goBack()">Wstecz</button>
             </div>
             
         </div>
-        <div v-else>
-            <p>No i sie zmyło...</p>
-        </div>
+            
+    </div>
+    <div v-else>
+        <p>No i sie zmyło...</p>
+    </div>
 </div>
     
     
@@ -43,6 +46,7 @@
 
 <script>
 import http from '../plugins/axios.js'
+import date from '../functions/time/dates.js'
 import FastRepeating from './presentations/FastRepeating.vue'
 
 export default {
@@ -58,9 +62,9 @@ export default {
             firstname: 'Robert',
             lastname: 'Górski',
             isRepeating :   false,
-            repeatsForCourses   :   null,
+            repeatsForCourses   :   null, // array of courses with repeats
             prawda: 'działa',
-            listka: false
+            chooseCourse: false
         };
     },
     computed:{
@@ -86,8 +90,15 @@ export default {
         //this.setIsRepeating();
     },
     methods: {
+        goBack(){
+            console.log('czas bieżący: ', date.getDatePlusMinutes(0))
+            this.chooseCourse = false;
+        },
+        setChooseCourse(){
+            this.chooseCourse = true;
+            //this.getBatchForRepeat();
+        },
         setLimitsToStore(){
-            //console.log('tylko userId: ', this.userId)
             http.get('options/getOptionsForUser/' + this.userId)
                 .then((result) => {
                     if(result.data.batch_learning_limit){this.$store.dispatch('option/setLearningBatchLimit', result.data.batch_learning_limit);}
@@ -105,27 +116,24 @@ export default {
                         console.error("coś poszło nie tak...", error);
                 });
         },
-        getBatchForRepeat(){
-            let limit = this.$store.getters['repeat/getRepeatingBatchLimit'];
-            console.log('limit powtórek ze stora : ', limit)
-            const url = "/repeatQueries/getRepeatBatchForCourse/" + this.courseId + "/" + limit;
+        // getBatchForRepeat(){
+        //     let limit = this.$store.getters['repeat/getRepeatingBatchLimit'];
+        //     //console.log('limit powtórek ze stora : ', limit)
+        //     const url = "/repeatQueries/getRepeatBatchForCourse/" + this.courseId + "/" + limit;
 
-            http.get(url)
-            .then(response => {
-                this.$store.dispatch('repeat/setBatchForRepeating', response.data);
-                console.log('dane z requesta pobrania powtórek dla kursu:', response.data)
-
-                // let sto = this.$store.getters['course/getCourseInfoById']
-                // console.log('ze sklepu na koniec:', sto.find(el=>el.course_id == 1))
-            })
-            .then(()=>{
-                //this.getLessonsFullInfo();
-            })
-            .catch(error => {
-                this.errorMessage = error.message;
-                console.error("coś poszło nie tak...", error);
-            });
-        },
+        //     http.get(url)
+        //     .then(response => {
+        //         this.$store.dispatch('repeat/setBatchForRepeating', response.data);
+        //         console.log('dane z requesta pobrania powtórek dla kursu:', response.data)
+        //     })
+        //     .then(()=>{
+        //         //this.getLessonsFullInfo();
+        //     })
+        //     .catch(error => {
+        //         this.errorMessage = error.message;
+        //         console.error("coś poszło nie tak...", error);
+        //     });
+        // },
         setIsRepeating(){
             this.repeatsForCourses = this.$store.getters['repeat/getRepeatsForCourses'];
                         console.log('uruchomienie setIsRepeating')
@@ -164,6 +172,14 @@ export default {
 .list {
     padding-top: 40px;
     }
+.list-container {
+    position: absolute;
+    width: 80%;
+    text-align: center;
+    margin-top: 110px;
+    margin-left: 10%;
+    margin-right: 100px;
+}
 .button {
     background-color: #ffae00; /* Green */
     position: relative;

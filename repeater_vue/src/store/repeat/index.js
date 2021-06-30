@@ -15,6 +15,7 @@ export default {
             endRepeating            :   false
         };
     },
+    
     mutations   :   repeatingMutations,
     actions     :   repeatingActions,
     getters     :   repeatingGetters

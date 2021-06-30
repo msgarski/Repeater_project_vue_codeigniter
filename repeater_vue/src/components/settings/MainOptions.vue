@@ -31,9 +31,18 @@
                 </div>  
 
                 <div class="label">
-                    <label for="repeatLimit">Limit powtórek do przeprowadzenia dziennie</label>
+                    <label for="repeatLimit">Limit dzienny powtórek</label>
                     <select name="repeatLimit" v-model="repeatLimit" id="repeatLimit" class="input">
                             <option v-for="limit in repeatLimitsTable"
+                                :key="limit.id" 
+                                :learningLimit="limit.value">{{limit}}
+                            </option>
+                    </select>
+                </div>
+                <div class="label">
+                    <label for="fastRepeatBatch">Rozmiar partii szybkich powtórek</label>
+                    <select name="fastRepeatBatch" v-model="fastRepeatBatch" id="fastRepeatBatch" class="input">
+                            <option v-for="limit in learningLimitsTable"
                                 :key="limit.id" 
                                 :learningLimit="limit.value">{{limit}}
                             </option>
@@ -75,6 +84,7 @@ export default {
             learningLimit       :   '',
             learningBatchLimit  :   '',
             repeatLimit         :   '',
+            fastRepeatBatch     :   '',
             overlearning        :   true,
             imie: '' // to na próbę
         };
@@ -87,6 +97,7 @@ export default {
             this.learningBatchLimit = this.$store.getters['option/getLearningBatchLimit'];
             this.repeatLimit = this.$store.getters['option/getRepeatDayLimit'];
             this.overlearning = this.$store.getters['option/getOverlearning'];
+            this.fastRepeatBatch = this.$store.getters['option/getFastRepeatBatch'];
 
             this.imie = this.$store.getters['option/getUserName'];
     },
@@ -99,6 +110,7 @@ export default {
                 learningBatch   :   this.learningBatchLimit,
                 learningLim     :   this.learningLimit,
                 repeatLim       :   this.repeatLimit, 
+                fastRepeatBatch :   this.fastRepeatBatch,
                 overlearn       :   this.overlearning,
                 expires_in      :   null,
                 userId         :   this.$store.getters.getUserId,
@@ -115,6 +127,8 @@ export default {
                     this.$store.dispatch('option/setLearningDayLimit', pack.learningLim);
                     this.$store.dispatch('option/setOverlearning', pack.overlearn);
                     this.$store.dispatch('option/setRepeatDayLimit', pack.repeatLim);
+                    this.$store.dispatch('option/setFastRepeatBatch', pack.fastRepeatBatch);
+
                     //console.log('sklepik: ', this.$store);
                     this.$router.push('/mainscreen');
                 })

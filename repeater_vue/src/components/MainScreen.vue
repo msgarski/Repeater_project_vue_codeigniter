@@ -19,12 +19,8 @@
     </div>
     
     <div class="list-container">
-        
-            <div v-if="!courses">
-                <p>Nie stworzyłeś jeszcze żadnego kursu...<router-link to="/newcourse">Dodaj jakiś kurs</router-link></p>
-            </div>
-            <div v-else> 
-                <ul v-if="isLoaded">
+            <div v-if="coursesAreLoaded"> 
+                <ul v-if="coursesInfoAreLoaded">
                     <user-course 
                         v-for="course in courses" 
                             :key="course.course_id"
@@ -32,8 +28,12 @@
                             :name="course.name" 
                             :description="course.description">
                     </user-course>
-                    <hr>
                 </ul>
+                <div v-else-if="!coursesInfoAreLoaded"><h1>Loading ...</h1></div>
+                <div v-else-if="courses.length == 0">Nie masz żadnych kursów, <router-link to="/newcourse">Dodaj jakiś kurs</router-link></div>
+            </div>
+            <div v-else-if="!coursesAreLoaded">
+                    <h1>Loading...</h1>
             </div>
     </div>
 </template>
@@ -53,7 +53,8 @@ export default {
             coursesInfo : null,
             userId      : this.$store.getters.getUserId,
             toCourse    : null,
-            isLoaded    :   false
+            coursesAreLoaded    :   false,
+            coursesInfoAreLoaded    :   false
         };
     },
     created(){
@@ -69,7 +70,7 @@ export default {
             console.log('dane po odebraniu w mainscreenie: ', response.data)
         })
         .then(()=>{
-            this.isLoaded = true;
+            this.coursesAreLoaded = true;
 
         })
         .catch(error => {
@@ -89,9 +90,11 @@ export default {
                 let sto = this.$store.getters['course/getCourseInfoById']
 
                 console.log('ze stora na koniec wypeniania pasków kursów:', sto.find(el=>el.course_id == 1))
+
             })
             .then(()=>{
                 //this.getLessonsFullInfo();
+                this.coursesInfoAreLoaded = true;
             })
             .catch(error => {
                 this.errorMessage = error.message;
