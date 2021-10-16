@@ -1,11 +1,12 @@
 <template>
 <li>
     <router-link :to="'/repeating/' + courseId">
-        <div>powtórki z kursu</div>
-        <div>
-            <p>{{ name }} - {{repAmount}}</p>
+        <div class="pasek">
+            <div class="name-col">powtórki z kursu:</div><div class="name">{{ name }}</div>
         </div>
-        <hr>
+        <div class="pasek">
+            <div class="name-col">liczba powtórek: </div><div class="name">{{repAmount}}</div>
+        </div>
     </router-link>
     
 </li>
@@ -55,5 +56,31 @@ export default {
 </script>
 
 <style scoped>
-
+    li {
+    margin: 1rem 0;
+    border: 1px solid #424242;
+    box-shadow: 3px 3px 3px 3px grey;
+    border-radius: 12px;
+    height: 65px;
+}
+.name {
+    font-style: inherit;
+    color: #3a0061;
+    font-weight: bold;
+    font-size: 20px;
+    display: inline;
+}
+.name-col {
+    font-style: inherit;
+    display: inline;
+    color: #3a0061;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px;
+    float: left;
+    margin-left: 10%;
+}
+.pasek {
+    padding: 5px;
+}
 </style>

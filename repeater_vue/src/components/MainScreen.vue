@@ -35,6 +35,10 @@
             <div v-else-if="!coursesAreLoaded">
                     <h1>Loading...</h1>
             </div>
+            <div class="btn-1">
+        <!-- <a href="">Powrót do kursu</a> -->
+        <button @click="backToPrevious" class="button">Powrót</button>
+    </div>
     </div>
 </template>
 
@@ -80,6 +84,10 @@ export default {
         
     },
     methods: {
+        backToPrevious: function(event){
+            this.$router.push('/porch');
+           // alert('nic się nie stało')
+        },
         getCoursesFullInfo(){
             const url = "/courseQueries/getFullInfoOfUserCourses/" + this.userId;
 

@@ -21,7 +21,7 @@
                     <td>{{ card.answer }}</td>
                     <td>{{ card.next_repeat }}</td>
                     <td class="small-button">
-                        <button @click="deleteCard(card.card_id)" class="s-button">Usuń</button>
+                        <!-- <button @click="deleteCard(card.card_id)" class="s-button">Usuń</button> -->
 
                         <button @click="editCard(card.card_id)" class="s-button-1">Edytuj</button>
 

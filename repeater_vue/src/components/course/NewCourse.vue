@@ -30,13 +30,13 @@
 
 
 
-            <div>
+            <!-- <div>
                 <label for="genre" >Rodzaj</label>
                 <select name="genre" v-model="genre" id="genre">
                     <option selected value="private">Prywatny</option>
                     <option value="public">Publiczny</option>
                 </select>
-            </div>
+            </div> -->
 
             <div class="button-contaainer">
                 <div id="btn">

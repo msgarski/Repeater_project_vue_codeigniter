@@ -1,38 +1,48 @@
 <template>
 
     <div class="container">
-        <p class="title">Wprowadź listę słów:</p>
-            <!-- <div>numer lekcji: {{lessonId}}</div> -->
-        <form @submit.prevent="addCards">
-            <div>
-                <div class="label">
-                    <label for="cardpriority">Nauka priorytetowa</label>
-                    <input type="checkbox" v-model="cardsPriority" id="cardpriority" name="cardpriority">
+        <div v-if="!changePhase">
+            <p class="title">Wprowadź listę słów:</p>
+                <!-- <div>numer lekcji: {{lessonId}}</div> -->
+            <form @submit.prevent="addCards">
+                <div>
+                    <div class="label">
+                        <label for="cardpriority">Nauka priorytetowa</label>
+                        <input type="checkbox" v-model="cardsPriority" id="cardpriority" name="cardpriority">
+                    </div>
                 </div>
-            </div>
-            <div>
-                <label for="cardsInput"></label>
-                <textarea rows="16" cols="300" name="cardsInput" v-model="cardsImport" id="cardsInput" 
-                placeholder="pytanie odpowiedź [wymowa] [zdanie przykładowe]"></textarea>
-            </div>
+                <div>
+                    <label for="cardsInput"></label>
+                    <textarea rows="16" cols="300" name="cardsInput" v-model="cardsImport" id="cardsInput" 
+                    placeholder="pytanie odpowiedź [wymowa] [zdanie przykładowe]"></textarea>
+                </div>
 
-            <div class="label">
-                <label for="reckon">wykrywaj znaki rozdzielające</label>
-                <input type="checkbox" name="reckon" id="reckon" checked>
-            </div>
+                <div class="label">
+                    <!-- <label for="reckon">wykrywaj znaki rozdzielające</label>
+                    <input type="checkbox" name="reckon" id="reckon" checked> -->
+                </div>
 
-            <div>
-                <input type="hidden" name="lesson_id" id="lesson_id">
+                <div>
+                    <input type="hidden" name="lesson_id" id="lesson_id">
+                </div>
+                <div class="btn">
+                    <button class="button">Zapisz</button>
+                </div>
+                
+            </form>
+            <div class="btn"> 
+                <button @click="backToPrevious" class="button-1">Anuluj</button>
             </div>
-            <div class="btn">
-                <button class="button">Zapisz</button>
+        </div>    
+        <div class="title" v-else-if="changePhase">
+            <div class="success-text">
+                Import kart zakończony sukcesem
             </div>
-            
-        </form>
-        <div class="btn"> 
-            <button @click="backToPrevious" class="button-1">Anuluj</button>
         </div>
+
+
     </div>
+        
     
 </template>
 
@@ -40,11 +50,13 @@
 import http from '../../plugins/axios.js'
 
 export default {
+    name: 'mass-import',
     data(){
         return{
             lessonId: this.$route.params.lessonId,
             cardsImport: '',
-            cardsPriority: false
+            cardsPriority: false,
+            changePhase :   false
         };
     },
     setup() {
@@ -70,7 +82,13 @@ export default {
                 })
                 .then(()=>{
                     //this.$router.push('/mainscreen')
-                    alert('zapis udany!');
+                    //alert('zapis udany!');
+                    this.changePhase = true;
+                    //console.log('changePhase po zmianie: ', this.changePhase)
+                    setTimeout(()=>{
+                    this.changePhase = !this.changePhase
+                    this.$router.go(-1);
+                    }, 2000);
     
                 })
                 .catch(error => {
@@ -84,6 +102,17 @@ export default {
 </script>
 
 <style scoped>
+.success {
+    z-index: 100;
+    position: absolute;
+    border: 1px solid grey(39, 39, 39);
+    border-radius: 12px;
+    box-shadow: 5px 5px 5px 5px grey;
+    width: 50%;
+    margin-top: 200px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
     .container {
     position: absolute;
     border: 1px solid grey(39, 39, 39);

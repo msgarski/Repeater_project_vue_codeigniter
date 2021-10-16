@@ -1,42 +1,47 @@
 <template>
     <div class="container">
-        <div>
-            <!-- <h3>Słów do nauki dzisiaj: {{ listLength }}</h3> -->
-            <!-- <h3 class="title">Słów do nauki dzisiaj: {{ listLength }}</h3> -->
-        </div>
-
-        <div class="btn">
-                <button @click="deleteCard(card.card_id)" class="button" id="btn-del">Usuń</button>
-        </div>
-
-        <div class="test">
-            <div class="question">
-                <!-- <h2>{{index}}</h2> -->
-                <h1>{{ question }}</h1>
+        <div v-show="!changePhase">
+            <div>
+                <!-- <h3>Słów do nauki dzisiaj: {{ listLength }}</h3> -->
+                <!-- <h3 class="title">Słów do nauki dzisiaj: {{ listLength }}</h3> -->
             </div>
 
-            <div v-show="confirmation" class="answer">
-                <h1>{{ answer }}</h1>
-                <div class="wymowa"></div>
-                <div class="zdanie">
-                    <p></p>
+            <div class="btn">
+                    <button @click="deleteCard(card.card_id)" class="button" id="btn-del">Usuń</button>
+            </div>
+
+            <div class="test">
+                <div class="question">
+                    <!-- <h2>{{index}}</h2> -->
+                    <h1>{{ question }}</h1>
+                </div>
+
+                <div v-show="confirmation" class="answer">
+                    <h1>{{ answer }}</h1>
+                    <div class="wymowa"></div>
+                    <div class="zdanie">
+                        <p></p>
+                    </div>
+                </div>
+
+                <div v-if="!confirmation" class="btn-show">
+                    <button @click.prevent="confirm" class="button-1">Pokaż</button>
+                </div>
+                
+                <div class="btn-show">
+                    <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
                 </div>
             </div>
-
-            <div v-if="!confirmation" class="btn-show">
-                <button @click.prevent="confirm" class="button-1">Pokaż</button>
-            </div>
             
-            <div class="scale">
-                <normal-scale v-if="confirmation" @note-level="whatNote"></normal-scale>
+
+            <div> 
+                <div class="btn">
+                    <button @click="editCard(wordIdInDataBase)" class="button-1" id="btn-edit">Edytuj</button>
+                </div>
             </div>
         </div>
-        
-
-        <div> 
-            <div class="btn">
-                <button @click="editCard(card.card_id)" class="button-1" id="btn-edit">Edytuj</button>
-            </div>
+        <div v-show="changePhase">
+            <div class="summary"> Podsumowanie nauki</div>
         </div>
     </div>
 </template>
@@ -69,7 +74,8 @@ export default {
             endLearning         :   false,
             confirmation        :   false,
             summaryPhaseReadiness    :   false,
-            bottomLine          :   false  // gives info about entirety of recent learning phase
+            bottomLine          :   false,  // gives info about entirety of recent learning phase
+            changePhase         :   false
         };
     },
     watch: {
@@ -111,17 +117,24 @@ export default {
         // this.answer = this.$store.getters['learning/getBatchForLearning'][this.index]['answer']
     },
     methods: {
+        changingPhase(){
+            console.log('zmiana fazy!!!')
+            this.changePhase = true;
+            setTimeout(()=>{this.changePhase = !this.changePhase}, 1000);
+        },
         deleteCard(){
             console.log('usuń kartę', this.wordIdInDataBase)
            this.eraseCardFromDatabase(this.wordIdInDataBase)
 
         },
-        editCard(){
+        editCard(cardId){
+            console.log('edycja karty!!!')
             // let currCard = this.cards.find(card=>card.card_id==cardId)
             // //console.log('bieżąca karta', currCard)
             // this.$store.dispatch('card/setCurrCard', currCard)
             // console.log('bież karta  ze stora: ', this.$store.getters['card/getCurrCard'])
             // this.$router.push('/editcard/' + cardId)
+            this.changingPhase();
 
         },
         eraseCardFromDatabase(cardId){
@@ -286,20 +299,27 @@ export default {
                 {
                     //todo przejście do fazy podsumowania
                     console.log('wygląd stora po nauce: ', this.$store)
-                    this.endLearning = true;
-                    this.$store.dispatch('learning/setEndLearning', true);
-                    this.$store.dispatch('learning/setIndex', 0);
-
-                    alert('przechodź do podsumowania');
+                    
+                    //this.changingPhase();
+                    console.log('zmiana fazy!!!')
+                    this.changePhase = true;
+                    console.log('changePhase po zmianie: ', this.changePhase)
+                    setTimeout(()=>{
+                        this.changePhase = !this.changePhase
+                        this.endLearning = true;
+                        this.$store.dispatch('learning/setEndLearning', true);
+                        this.$store.dispatch('learning/setIndex', 0);
+                        return true;
+                        }, 1000);
+                    //alert('przechodź do podsumowania');
                     //this.$router.push('')
                     // todo mixowanie tablicy
                     
-                    return true;
                 }
                 else
                 {
                     //todo mieszanie pozostałej listy - ale jakiej pozostałej?
-                    alert('mixowanie tablicy i od nowa')
+                    //alert('mixowanie tablicy i od nowa')
                     this.index = 0;
                     // todo czy na storze też się uaktualnia?
                 }
@@ -370,12 +390,19 @@ export default {
     text-align: center;
     font-size: 25px;
 }
+.summary {
+    margin-top: 20%;
+    text-align: center;
+    font-size: 35px;
+    height: 30vh;
+    font-weight: bold;
+}
 .question {
     
     height: 30vh;
 }
 .scale {
-    margin-top: 10px;
+    bottom: 60px;
 }
 .answer {
     height: 30vh;

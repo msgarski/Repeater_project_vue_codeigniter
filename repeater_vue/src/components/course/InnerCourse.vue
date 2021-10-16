@@ -35,12 +35,15 @@
         </ul>
         <div v-else-if="!lessonsInfoIsLoaded"><h1>Loading ...</h1></div>
         <div v-if="lessons.length == 0">
-            <p>Nie stworzyłeś jeszcze lekcji do tego kursu...
+            <h2 class="title">Nie stworzyłeś jeszcze lekcji do tego kursu...</h2>
                 <router-link :to="'/newlesson/' + courseId" >
-                    <button>Dodaj lekcję</button>
+                    <button class="button">Dodaj lekcję</button>
                 </router-link>
-            </p>
         </div>
+        <div class="btn-1">
+        <!-- <a href="">Powrót do kursu</a> -->
+        <button @click="backToPrevious" class="button">Powrót do widoku głównego</button>
+    </div>
     </div>
     <div v-else><h1>Loading ...</h1></div>
 
@@ -76,6 +79,10 @@ export default {
         
     },
     methods:{
+        backToPrevious: function(event){
+            this.$router.go(-1);
+           // alert('nic się nie stało')
+        },
         getLessonsFullInfo(){
             let userId = this.$store.getters.getUserId;
             const url = "/courseQueries/getFullInfoOfUserLessons/" + userId;

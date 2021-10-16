@@ -5,7 +5,7 @@
     </div>
     <div class="del-btn">
         <div class="btn">
-            <button class="button" id="btn-del">Usuń kartę</button>
+            <button @click="deleteCard(cardId)" class="button" id="btn-del">Usuń kartę</button>
         </div>
     </div>
     <form @submit.prevent="updateCard">
@@ -77,6 +77,49 @@ export default {
         this.fillEditForm()
     },
     methods: {
+        getLessonsFullInfo(){
+            let userId = this.$store.getters.getUserId;
+            const url = "/courseQueries/getFullInfoOfUserLessons/" + userId;
+
+            http.get(url)
+            .then(response => {
+                this.$store.dispatch('lesson/setAllLessons', response.data);
+
+                console.log('dane z requesta lessonInfo:', response.data)
+                //let sto = this.$store.getters['lesson/getLessonInfoById']
+                //console.log('ze sklepu na koniec szukania lekcji:', sto.find(el=>el.lesson_id == 2))
+            })
+            .then(()=>{
+                //this.fillLessonInfo();
+                //this.lessonsInfoIsLoaded = true;
+                this.backToPrevious()
+            })
+            .catch(error => {
+                this.errorMessage = error.message;
+                console.error("coś poszło nie tak...", error);
+            });
+        },
+        deleteCard(cardId){
+            console.log('usuń kartę', cardId)
+           this.eraseCardFromDatabase(cardId)
+           this.getLessonsFullInfo();
+
+        },
+        eraseCardFromDatabase(cardId){
+            http.get('cards/deleteCard/' + cardId)
+            .then((result) => {
+    
+                console.log('widok słów do lekcji z http: ', result.data);
+            })
+            .then(()=>{
+                //this.backToPrevious()
+                //this.getCardsForLesson()
+            })
+            .catch((error) => {
+                this.errorMessage = error.message;
+                    console.error("coś poszło nie tak...", error);
+            });
+        },
         backToPrevious: function(event){
             this.$router.go(-1);
         },

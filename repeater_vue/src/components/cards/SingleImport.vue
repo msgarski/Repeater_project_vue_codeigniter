@@ -6,7 +6,7 @@
     <div>
             <p class="title">Nowa fiszka</p>
         </div>
-    <form @submit.prevent="addCard">
+    <form ref="anyName"  @submit.prevent="addCard">
         <div>
                         
                         <div class="label">
@@ -95,19 +95,24 @@ export default {
                 token       :   localStorage.getItem('token')
             }
             console.log('lesson id:', pack.lessonId)
-
+            this.$refs.anyName.reset();
             http.post('/cards/createCard', pack)
                 .then(response=>{
                     console.log('odpowiedź serwera: ', response);
                 })
                 .then(()=>{
-                    //this.$router.push('/mainscreen')
-                    alert('zapis udany!');
+                    //this.$router.push('/singleimport')
+                    //alert('zapis udany!');
+
     
                 })
                 .catch(error => {
                     this.errorMessage = error.message;
                     console.error("nie udało się zapisać karty...", error);
+                    this.question = '';
+                    this.answer = '';
+                    this.pronounciation = '';
+                    this.sentence = '';
                 });
 
         }

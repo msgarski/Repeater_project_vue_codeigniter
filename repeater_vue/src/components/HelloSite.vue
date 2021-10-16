@@ -58,6 +58,9 @@ width: 80px;
 margin-right: 20%;
 margin-top: 10px;
 }
+.button {
+    cursor: pointer;
+}
 .btn {
     width: 20%;
     text-align: center;

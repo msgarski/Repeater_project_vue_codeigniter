@@ -1,6 +1,6 @@
 <template>
     <h1 id="title">Logowanie</h1>
-    <div class="container">
+    <div>
         <form v-if="errorCode == 200" @submit.prevent="authorization" class="form">
             <div>
                 <label for="email" >E-mail</label>
@@ -30,7 +30,7 @@
         </div>
         
         <div class="btn" id="btn-2">
-            <button class="button-1"><router-link to="/forgot">Zapomniane hasło...</router-link></button>
+            <button class="button-1"><router-link to="/forgot">Zapomniałem hasła...</router-link></button>
         </div> 
     </div>
     
@@ -83,7 +83,7 @@ export default {
                 
             })
             .then(()=>{
-                this.getNumOfRepeatCards()
+                //this.getNumOfRepeatCards()
             })
             .then(()=>{
                 this.$router.push('/porch')
@@ -106,26 +106,7 @@ export default {
                     }
             });
         },
-        getNumOfRepeatCards(){
-            let userId = this.$store.getters.getUserId
-            const url = "/repeatQueries/getRepeatsNumsForCourses/" + userId;
-            //console.log('url z pytania', url)
-            http.get(url)
-            .then((response) => {
-                //console.log('dane z requesta pobrania powtórek dla kursu:', response.data)
-
-                this.$store.dispatch('repeat/setRepeatsForCourses', response.data);
-
-                console.log('ze stora po pytaniu o liczbe powtórek: ', this.$store.getters['repeat/getRepeatsForCourses'])
-            })
-            .then(()=>{
-                //this.getCoursesFullInfo();
-            })
-            .catch((error) => {
-                this.errorMessage = error.message;
-                    console.error("coś poszło nie tak w getNumOfRepeatCards...", error);
-            });
-        }
+        
     }
 }
 </script>

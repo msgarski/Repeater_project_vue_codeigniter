@@ -37,15 +37,16 @@
                     </div>
                 </div>
                 
-                <div>
+                <div class="btn-edit">
                     <router-link :to="'/editlesson/' + lessonId"><button class="button">Edytuj</button></router-link>
                 </div>
+
                 <div class="button-tab">
                     <div class="btn">
-                        <router-link :to="'/massimport/' + lessonId"><button class="button-1">Dodaj wiele kart</button></router-link>
+                        <router-link :to="'/massimport/' + lessonId"><button class="button-2">Dodaj wiele kart</button></router-link>
                     </div>
                     <div class="btn">
-                        <router-link :to="'/singleimport/' + lessonId"><button class="button">Dodaj karty pojedynczo</button></router-link>
+                        <router-link :to="'/singleimport/' + lessonId"><button class="button-2">Dodaj karty pojedynczo</button></router-link>
                     </div>
                 </div>
 
@@ -93,6 +94,14 @@ export default {
     border-radius: 12px;
     padding: 1rem;
     height: 60px;
+}
+.btn-edit {
+    float: right;
+    margin-right: 5%;
+}
+.btn {
+    padding: 7px;
+    margin-left: 65%;
 }
 .lesson-info {
     display: inline-block;
@@ -157,9 +166,19 @@ font-size: 14px;
 height: 20px;
 border-radius: 10px;
 }
+.button-2 {
+background-color: #718bff; /* Green */
+border: none;
+color: white;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+height: 20px;
+border-radius: 10px;
+}
 #btn {
     width: 100%;
-    padding-top: 5px;
+    padding: 5px;
 }
 .actions {
   display: flex;

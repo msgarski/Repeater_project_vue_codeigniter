@@ -2,17 +2,17 @@
 <div class="container">
     <div v-if="isLoggedIn" class="list">
         <div v-if="!chooseCourse">
-            <div v-if="isRepeating">
+            <div  >
                 <div class="btn"> 
                     <!-- <router-link :to="'/repeating/' + courseId"> -->
-                    <button @click="setChooseCourse" class="button">Krótkie powtórki</button>
+                    <button :disabled="isDisabled"  @click="setChooseCourse" class="button">Krótkie powtórki</button>
                     <!-- </router-link> -->
                 </div>
             </div>
 
             <div>
                 <div class="btn">
-                    <button class="button-1">Zadania na dzisiaj</button>
+                    <button :disabled="isDisabled2" class="button-1">Zadania na dzisiaj</button>
                 </div>
                 <div class="btn">
                     <router-link to="/mainscreen"><button class="button">Przejdź do programu</button></router-link> 
@@ -29,10 +29,9 @@
                         :repAmount="course.repeats">
                 </fast-repeating>
             </ul>
-            <div>
-                <button @click.prevent="goBack()">Wstecz</button>
+            <div class="btn-show">
+                <button @click.prevent="goBack()" class="button-1">Wstecz</button>
             </div>
-            
         </div>
             
     </div>
@@ -75,21 +74,52 @@ export default {
         isLoggedIn(){
             return this.$store.getters.logInState;
         },
+        isDisabled(){
+            return !this.isRepeating;
+        },
+        isDisabled2(){
+            return true;
+        }
         
     },
     watch: {
         repeating(newRepeating, oldRepeating){
             console.log('We have fruits now, yay!', newRepeating )
             this.repeatsForCourses = newRepeating;
-            this.isRepeating = true;
+            if(this.repeatsForCourses.length > 0){
+                this.isRepeating = true;
+            }
+            
         }
 
     },
     created(){
         this.setLimitsToStore();
+        this.getNumOfRepeatCards();
         //this.setIsRepeating();
     },
     methods: {
+        getNumOfRepeatCards(){
+            let userId = this.$store.getters.getUserId
+            const url = "/repeatQueries/getRepeatsNumsForCourses/" + userId;
+            //console.log('url z pytania', url)
+            http.get(url)
+            .then((response) => {
+                //console.log('dane z requesta pobrania powtórek dla kursu:', response.data)
+
+                this.$store.dispatch('repeat/setRepeatsForCourses', response.data);
+
+                console.log('ze stora po pytaniu o liczbe powtórek: ', this.$store.getters['repeat/getRepeatsForCourses'])
+            })
+            .then(()=>{
+
+                //this.getCoursesFullInfo();
+            })
+            .catch((error) => {
+                this.errorMessage = error.message;
+                    console.error("coś poszło nie tak w getNumOfRepeatCards...", error);
+            });
+        },
         goBack(){
             console.log('czas bieżący: ', date.getDatePlusMinutes(0))
             this.chooseCourse = false;
@@ -176,7 +206,7 @@ export default {
     position: absolute;
     width: 80%;
     text-align: center;
-    margin-top: 110px;
+    margin-top: 40px;
     margin-left: 10%;
     margin-right: 100px;
 }
@@ -193,8 +223,16 @@ export default {
     border-radius: 20px;
     width: 50%;
     margin-right: 5%;
-
-
+}
+.button:hover {
+    cursor: pointer;
+}
+button:disabled,
+button[disabled]{
+  border: 1px solid #e9e7e7;
+  background-color: #e9e7e7;
+  color: #c7c7c7;
+  cursor: default;
 }
 .button-1 {
     background-color: #718bff; /* Green */
@@ -210,6 +248,9 @@ export default {
     width: 50%;
     margin-right: 5%;
 }
+.button-1 {
+    cursor: pointer;
+}
 .buttons {
     width: 100%;
     padding-left: 25%;
@@ -220,6 +261,11 @@ export default {
     text-align: center;
     float: left;
     padding: 20px;
+}
+.btn-show {
+    
+    bottom: 0px;
+
 }
 
 a {
