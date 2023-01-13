@@ -9,7 +9,7 @@ class Email extends BaseConfig
 	/**
 	 * @var string
 	 */
-	public $fromEmail = 'noreply@msgarski.com';
+	public $fromEmail = 'msgarski@gmail.com';
 
 	/**
 	 * @var string
@@ -47,7 +47,7 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPHost;
+	public $SMTPHost = 'ssl://ssmtp.gmail.com';
 
 	/**
 	 * SMTP Username
@@ -68,14 +68,15 @@ class Email extends BaseConfig
 	 *
 	 * @var integer
 	 */
-	public $SMTPPort = 25;
+	// public $SMTPPort = 25;
+	public $SMTPPort = 465;
 
 	/**
 	 * SMTP Timeout (in seconds)
 	 *
 	 * @var integer
 	 */
-	public $SMTPTimeout = 5;
+	public $SMTPTimeout = 10;
 
 	/**
 	 * Enable persistent SMTP connections

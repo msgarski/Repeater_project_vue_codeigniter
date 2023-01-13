@@ -18,7 +18,7 @@ class Login extends ResourceController
     public function entering()
     {
 
-        // var_dump('user data entering');
+        var_dump('user data entering udane... - logowanie do strony');
         // exit;
 
         helper('jwt_helper');

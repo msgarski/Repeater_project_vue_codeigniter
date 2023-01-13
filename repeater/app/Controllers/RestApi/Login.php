@@ -27,7 +27,7 @@ class Login extends ResourceController
         
         if($authentic->loginAuthentication($email, $password))
         {
-            return $this->respond('Logowanie udane', 200);
+            return $this->respond('Logowanie nadzwyczaj udane', 200);
         }
         else
         {

@@ -36,7 +36,7 @@ class Password extends ResourceController
 
     public function checking()
     {
-        // var_dump('wszystko oki');
+        // var_dump('wszystko oki - jestem w kontrolerze...');
         // exit;
         $http = $this->request->getJSON();
 
@@ -51,18 +51,18 @@ class Password extends ResourceController
 
             if($user&&($user->is_active == true))
             {
+                
                 $user->resetPassword();
 
                 $userModel->save($user);
 
                 $this->sendEmailWithResetToken($user);
-                var_dump(' dotąd oki: ', $http->email);
-                exit;
+                
             }
             else
             {
-                //var_dump(' brak usera : ', $http->email);
-                //exit;
+                // var_dump(' brak usera : ', $http->email);
+                // exit;
                 return $this->respond('brak', 404);                
             }
         }
@@ -81,11 +81,12 @@ class Password extends ResourceController
 
     public function sendEmailWithResetToken($user)
     {
+        
         $email = service('email');
 
 		$email->setTo($user->email);
 
-		$email->setFrom('garski@wp.pl');
+		$email->setFrom('msgarski@gmail.com');
 
 		$email->setSubject('Odnowienie hasła');
 
@@ -96,6 +97,8 @@ class Password extends ResourceController
 		$email->setMessage($message);
 
 		$email->send();
+        var_dump(' dotąd oki: po wysylaniu', $message);
+                exit;
     }
 
     public function reseting($token)
@@ -134,8 +137,8 @@ class Password extends ResourceController
             
             if($model->save($user))
             {
-                var_dump(' hasło zapisane: ', $token);
-                exit;
+                // var_dump(' hasło zapisane: ', $token);
+                // exit;
                 $response = 'Możesz się zalogować teraz nowym hasłem';
                 return $this->respond($response, 200);
             }
