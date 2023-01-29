@@ -1,13 +1,11 @@
 //import * as Vue from 'vue'
-import axios from 'axios'
+import axios from "axios";
 
 const http = axios.create({
-    baseURL: "http://localhost:8080",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-Requested-With": "XMLHttpRequest"
-    }
-})
-//Vue.prototype.$http = http
+  baseURL: "http://localhost:8080",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "X-Requested-With": "XMLHttpRequest",
+  },
+});
 export default http;
-

@@ -54,7 +54,7 @@ export default {
         .then((response) => {
           console.log("sprawdzenie wyslania emaila: ", response.data);
           if (response.status === 200) {
-            // console.log("wyslanie udane: ", response);
+            console.log("wyslanie udane: ", response);
             this.emailSent = true;
           }
           //this.$router.push('/signin');
