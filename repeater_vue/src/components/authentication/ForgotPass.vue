@@ -31,7 +31,6 @@
 </template>
 
 <script>
-//import forgottenPass from '../functions/requests/forgottenPass.js'
 import http from "../../plugins/axios.js";
 
 export default {
@@ -57,7 +56,6 @@ export default {
             console.log("wyslanie udane: ", response);
             this.emailSent = true;
           }
-          //this.$router.push('/signin');
         })
         .catch((error) => {
           this.errorMessage = error.message;
@@ -68,7 +66,6 @@ export default {
   },
   created() {
     console.log("ścieżka w funkcji created: ", this.$route);
-    //alert(this.$route.params.resetToken)
   },
 };
 </script>

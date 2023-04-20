@@ -61,28 +61,21 @@ export default {
         token: null,
         expires_in: null,
       };
-      //console.log('pack:', pack)
       http
         .post("/login/entering", pack)
         .then((response) => {
           console.log("Pierwsze wywołanie: ", response.data);
           console.dir(response);
           console.log("pierwsze wywołanie ale bez response...");
-          //this.email = "garski@wp.pl"
           this.password = "";
           this.token = response.data.token;
-          //this.expires_in = response.data.expires_in * 1000
-          //const now = new Date()
-          //const expireDate = new Date(now.getTime() + this.expires_in)
+
           localStorage.setItem("token", this.token);
           this.$store.dispatch("setUserId", response.data.userId);
           this.$store.dispatch("login");
           console.log("drugie wywołanie: ", this.$store.getters.logInState);
           console.log("userId: ", this.$store.getters.getUserId);
           this.$store.dispatch("setTodayDate");
-        })
-        .then(() => {
-          //this.getNumOfRepeatCards()
         })
         .then(() => {
           this.$router.push("/porch");
@@ -100,7 +93,7 @@ export default {
               break;
 
             default:
-              console.log("some other error"); // end up here all the time
+              console.log("some other error");
               break;
           }
         });

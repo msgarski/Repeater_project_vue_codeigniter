@@ -39,12 +39,7 @@ export default {
   text-align: center;
   color: gray;
 }
-/* img {
-    display: block;
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    } */
+
 .container {
   height: 200px;
   position: relative;
@@ -64,7 +59,7 @@ export default {
   left: 60%;
 }
 .button {
-  background-color: #ffae00; /* Green */
+  background-color: #ffae00;
   border: none;
   color: white;
   text-align: center;
